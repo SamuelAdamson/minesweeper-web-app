@@ -16,6 +16,12 @@
     font-size: 1.3rem;
     text-align: start;
 }
+.navLinkEnd {
+    font-size: 1.3rem;
+    padding-right: 0!important;
+    text-decoration: underline;
+}
+
 
 .toggle {
     margin-top: 0.5rem;

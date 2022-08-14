@@ -7,7 +7,8 @@ import {
   LinkedIn as LinkedInIcon,
   Youtube as YoutubeIcon,
   Instagram as InstagramIcon,
-  Outlook as OutlookIcon
+  Outlook as OutlookIcon,
+  Portfolio as PortfolioIcon,
 } from '../img'
 
 
@@ -19,36 +20,38 @@ export const Layout = ({ children }: Props) => {
   return (
     <div className={styles.layout}>
       <Container>
-      <Navbar expand="sm" className={styles.navBar}>
-          <Navbar.Toggle 
-            className={styles.toggle}
-            data-bs-toggle="collapse" 
-            data-bs-target=".navbar-collapse" 
-            aria-controls="navbarSupportedContent" 
-            aria-expanded="false"
-          > 
-            <ToggleIcon />
-          </Navbar.Toggle>
-          <Navbar.Collapse className="d-sm-inline-flex">
-            <Nav as="ul" className="flex-grow-1">
-              <Nav.Item as="li" className={styles.navItem}>
-                <Nav.Link className={styles.navLink} href="/">play</Nav.Link>
-              </Nav.Item>
-              <Nav.Item as="li">
-                <Nav.Link className={styles.navLink} href="/about">about</Nav.Link>
-              </Nav.Item>
-              <Nav.Item as="li">
-                <Nav.Link className={styles.navLink} href="/performance">performance</Nav.Link>
-              </Nav.Item>
-              <Nav.Item as="li">
-                <Nav.Link className={styles.navLink} href="https://samueladamson.github.io/">portfolio</Nav.Link>
-              </Nav.Item>
-            </Nav>
-          </Navbar.Collapse>
-      </Navbar>
-      <Container>
-        <main>{children}</main>
-      </Container>
+        <Navbar expand="sm" className={styles.navBar}>
+            <Navbar.Toggle 
+              className={styles.toggle}
+              data-bs-toggle="collapse" 
+              data-bs-target=".navbar-collapse" 
+              aria-controls="navbarSupportedContent" 
+              aria-expanded="false"
+            > 
+              <ToggleIcon />
+            </Navbar.Toggle>
+            <Navbar.Collapse >
+              <Nav as="ul" className="mr-auto">
+                <Nav.Item as="li">
+                  <Nav.Link className={styles.navLink} href="/">play</Nav.Link>
+                </Nav.Item>
+                <Nav.Item as="li">
+                  <Nav.Link className={styles.navLink} href="/about">about</Nav.Link>
+                </Nav.Item>
+                <Nav.Item as="li">
+                  <Nav.Link className={styles.navLink} href="/performance">performance</Nav.Link>
+                </Nav.Item>
+              </Nav>
+              <Nav>
+                <Nav.Item>
+                  <Nav.Link className={styles.navLinkEnd} href="https://samueladamson.github.io">portfolio</Nav.Link>
+                </Nav.Item>
+              </Nav>
+            </Navbar.Collapse>
+        </Navbar>
+        <Container>
+          <main>{children}</main>
+        </Container>
       </Container>
       <footer className={styles.footer}>
         <Container className="p-3 pb-0">
@@ -71,8 +74,7 @@ export const Layout = ({ children }: Props) => {
           </section>
           <div className={styles.footTag}>Samuel Adamson &#8226; Colorado</div>
         </Container>
-      </footer>
-      
+      </footer>     
     </div>
   )
 }
