@@ -3,7 +3,6 @@ export const Instagram = require('./socials/instagram.png').default.src
 export const LinkedIn = require('./socials/linkedin.png').default.src
 export const Youtube = require('./socials/youtube.png').default.src
 export const Outlook = require('./socials/outlook.png').default.src
-export const Portfolio = require('./socials/portfolio.png').default.src
 
 export const BFS = require('./algo/bfs.gif').default.src
 export const DFS = require('./algo/dfs.gif').default.src

@@ -1,14 +1,16 @@
 import { ReactNode } from 'react'
 import { Navbar, Nav, Container, Button } from 'react-bootstrap'
 import styles from './Layout.module.css'
-import { Grid as ToggleIcon } from 'react-bootstrap-icons'
+import { 
+  Grid as ToggleIcon ,
+  ArrowUpRight as ArrowIcon,
+} from 'react-bootstrap-icons'
 import {
   GitHub as GitHubIcon,
   LinkedIn as LinkedInIcon,
   Youtube as YoutubeIcon,
   Instagram as InstagramIcon,
   Outlook as OutlookIcon,
-  Portfolio as PortfolioIcon,
 } from '../img'
 
 
@@ -43,8 +45,11 @@ export const Layout = ({ children }: Props) => {
                 </Nav.Item>
               </Nav>
               <Nav>
-                <Nav.Item>
-                  <Nav.Link className={styles.navLinkEnd} href="https://samueladamson.github.io">portfolio</Nav.Link>
+                <Nav.Item className={styles.navItemExt}>
+                  <Nav.Link className={styles.navLinkExt} href="https://samueladamson.github.io">
+                    portfolio                  
+                    <ArrowIcon className="pl-1" />
+                  </Nav.Link>
                 </Nav.Item>
               </Nav>
             </Navbar.Collapse>

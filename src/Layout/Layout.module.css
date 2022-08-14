@@ -16,10 +16,23 @@
     font-size: 1.3rem;
     text-align: start;
 }
-.navLinkEnd {
-    font-size: 1.3rem;
-    padding-right: 0!important;
-    text-decoration: underline;
+.navLinkExt {
+    font-size: 1.1rem;
+    padding: 0.5rem!important;
+    color: inherit!important;
+}
+.navItemExt {
+    width: fit-content;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border: 1px solid rgba(0,0,0,0.5);
+    color: rgba(0,0,0,0.5);
+    transition: all ease 0.3s;
+}
+.navItemExt:hover {
+    background-color: rgba(0,0,0,0.5);
+    color: white;
 }
 
 
