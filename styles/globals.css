@@ -31,12 +31,7 @@ body {
 
 
 /* About Page */
-.about {
-    max-width: 1024px;
-    margin-left: auto; 
-    margin-right: auto;
-}
-.about img {
+.aboutImg {
     width: 70%;
     max-width: 496px;
     margin-left: auto;

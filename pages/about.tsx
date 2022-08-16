@@ -1,0 +1,86 @@
+import type { NextPage } from 'next'
+import { AboutSection } from '../src/AboutSection' 
+import { BFS, DFS, Layer1, Layer2 } from '../img'
+
+
+const About: NextPage = () => {
+  return (
+    <>
+      <AboutSection heading="the game">
+        <p> 
+          Minesweeper involves a grid of cells where some cells have hidden mines and others do not. The player's objective
+          is to uncover all cells that are not hiding a mine. If the player uncovers a cell that is hiding a mine, the player loses. 
+          To assist the player in discovering the mineless cells, each uncovered cell shows the number of adjacent cells that are hiding 
+          mines. It will never be the case that the first cell a player selects is hiding a mine.
+        </p>
+        <p>
+          The player is able to flag cells that they believe to be hiding a mine. In this version of minesweeper, the user can double click 
+          a previously uncovered cell to uncover all adjacent cells that are not flagged as mines. However, if that cell is adjacent to more
+          flags than it is mines, this functionality will not work in order to protect the player from misclicks.
+        </p>
+      </AboutSection>
+      <AboutSection heading="the algorithm">
+        <p>
+          If the player uncovers a cell which is not adjacent to any mines, all nearby cells will also be automatically uncovered. 
+          Let's define <i>nearby</i> in this statement. 
+        </p>
+        <p>
+          For the purposes of this description, we will refer to the originally selected cell as the <strong>source</strong>. All mines that are directly adjacent
+          to the source, are considered to be <i>nearby</i> and will be uncovered. 
+        </p>
+        <img src={Layer1} alt="layer1" className="aboutImg" />
+        <p>
+            Now our definition of <i>nearby</i> cells does not stop here. Let's consider the case that one of these newly uncovered cells is similar to the source in that 
+            all of its directly adjacent neighbors are not mines. In this case, we can consider this cell to be a <strong>new source</strong> cell. All of the cells 
+            directly adjacent to the new source cell are considered to be <i>nearby</i> and will be uncovered.
+        </p>
+        
+        <p>
+            From this point forward, our search for <i>nearby</i> cells becomes rather repetitive. Each new cell that is uncovered becomes a new source if it satisfies
+            the condition that none of its directly adjacent neighbors are mines.
+        </p>
+        <p>
+            So, let's recap. In the framing of a divide-and-conquer algorithm, we need to break our problem down into smaller tasks. The small task in this case is to check 
+            that a cell is not adjacent to any mines. If this condition is met, we need to traverse each of its directly adjacent neighbors and perform the same check for each 
+            of those cells. We can choose between two methods to perform this traversal.
+        </p>
+      </AboutSection>
+      <AboutSection heading="bfs">
+        <p>
+            <strong>Breadth-first search</strong> (BFS) is a traversal where we start at a source node and search all connected nodes in <strong>layers</strong>. 
+            The first layer is the set of nodes that are directly connected to the source, the second layer is the set of nodes that are directly connected to the first layer, 
+            and so on until we are out of connected nodes. In the context of minesweeper, cells are connected by adjacency. Using BFS, we first visit the cells that are 
+            directly adjacent to the source - the <strong>first layer</strong>. The <strong>second layer</strong> would be all cells directly adjacent to the
+            first layer, the <strong>third layer</strong> would be all cells directly adjacent to the second layer, etc.
+        </p>
+        <img src={BFS} alt="bfs" className="aboutImg" />
+      </AboutSection>
+      <AboutSection heading="dfs">
+        <p>
+            Our second option is <strong>depth-first search</strong> (DFS). In DFS, we start at a source node and search as far down a single 'path' as 
+            possible before backtracking. The first path is typically chosen based on how the structure is organized. In minesweeper, we may label all adjacent 
+            cells with indices and give preference to the lowest index. 
+        </p>
+        <img src={DFS} alt="dfs" className="aboutImg" />
+        <p>
+            So, which method is used in this implementation of minesweeper? It turns out that the performance of both algorithms in this situation are fairly similar. 
+            At first glance, the performance seems even identical. When analyzing the algorithms, both approaches yield 
+            a <strong>linear time complexity</strong> as each cell which will be uncovered must only be visited once. However, there is more to the story here. 
+        </p>
+        <p>
+            To better understand the performance of <strong>BFS</strong> and <strong>DFS</strong> in the context of minesweeper, I conducted empirical analysis on 
+            the two implementations. See the findings of the analysis <a href="/performance">here</a> .
+        </p>
+      </AboutSection>
+      <AboutSection heading="the developer">
+        <p> 
+          My name is Samuel Adamson. I am a undergraduate Computer Science student at the University of Colorado with a focus in AI. For the most part, my professional experience 
+          has centered around full stack engineering and data engineering/analysis. As my career progresses, I hope to shift my focus towards machine learning engineering.
+          In my freetime, I enjoy building web apps like this one. Feel free to check out my <a href="https://samueladamson.github.io/">portfolio</a>.
+        </p>
+      </AboutSection>
+    </>
+  )
+}
+  
+export default About

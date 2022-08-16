@@ -26,16 +26,14 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    border: 1px solid rgba(0,0,0,0.5);
-    color: rgba(0,0,0,0.5);
+    border: 1px solid #212529;
+    color: #212529;
     transition: all ease 0.3s;
 }
 .navItemExt:hover {
-    background-color: rgba(0,0,0,0.5);
+    background-color: #212529;
     color: white;
 }
-
-
 .toggle {
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;
@@ -52,6 +50,9 @@
     justify-content: center;
     margin-bottom: 1rem;
     padding-top: 1rem;
+}
+.footLink {
+    padding: 0.5rem 0.2rem;
 }
 .footTag {
     margin-top: 1.5rem;
