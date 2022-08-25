@@ -1,12 +1,13 @@
 import type { NextPage } from 'next'
+import { 
+  Game 
+} from '../src'
 
 const Home: NextPage = () => {
   return (
-    <div>
-      <h1>
-        placeholder
-      </h1>
-    </div>
+    <>
+      <Game />
+    </>
   )
 }
 

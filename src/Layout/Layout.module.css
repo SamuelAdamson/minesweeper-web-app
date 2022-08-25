@@ -27,6 +27,7 @@
     flex-direction: row;
     align-items: center;
     border: 1px solid #212529;
+    border-radius: 0.3rem;
     color: #212529;
     transition: all ease 0.3s;
 }
