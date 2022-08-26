@@ -1,9 +1,9 @@
-import { Cell } from "./components/Cell"
+import { Cell } from './components/Cell'
 
 export const Game = () => {
   return (
     <>
-      <Cell mode="easy" adjacentNum={1} />
+      <Cell mode="easy" mine={false} adjacentNum={1} />
     </>
   )
 }
