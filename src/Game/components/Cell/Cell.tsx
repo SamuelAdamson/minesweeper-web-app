@@ -1,4 +1,4 @@
-import { CSSProperties, useState } from 'react'
+import { CSSProperties, useState, MouseEvent } from 'react'
 import { getAdjacentStr } from './helper'
 import styles from './Cell.module.css'
 import cx from 'classnames'
@@ -18,6 +18,14 @@ export const Cell = ( { mode, adjacentNum, content }: Props ) => {
   const [covered, setCovered] = useState<Boolean>(true)
   const [adjacent, setAdjacent] = useState<AdjacentStr>(getAdjacentStr(adjacentNum))
 
+  const handleClick = (e: MouseEvent<HTMLElement>) => {
+
+  }
+
+  const handleRightClick = (e: MouseEvent<HTMLElement>) => {
+    e.preventDefault() // suppress context menu
+  }
+
   return (
     <div 
       className={ 
@@ -25,7 +33,8 @@ export const Cell = ( { mode, adjacentNum, content }: Props ) => {
         : cx(styles.cell, styles.uncovered, adjacent) 
       } 
       style={ cellMode } 
-      onContextMenu={(e)=> e.preventDefault()}  
+      onClick={ handleClick }
+      onContextMenu={ handleRightClick }
     >
       <h3>{ content }</h3>
     </div>
