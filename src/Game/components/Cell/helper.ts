@@ -1,14 +1,16 @@
-import { AdjacentStr } from "../type";
+import { AdjacentStr } from '../type';
 
 export function getAdjacentStr(adjacentNum: Number): AdjacentStr {
   switch (adjacentNum) {
+    case 0:
+      return 'zero';
     case 1:
-      return "one";
+      return 'one';
     case 2:
-      return "two";
+      return 'two';
     case 3:
-      return "three";
+      return 'three';
     default:
-      return "fourplus";
+      return 'fourplus';
   }
 }

@@ -1,6 +1,6 @@
-import type { NextPage } from "next";
-import { AboutSection } from "../src/AboutSection";
-import { BFS, DFS, Layer1, Layer2 } from "../img";
+import type { NextPage } from 'next';
+import { AboutSection } from '../src/AboutSection';
+import { BFS, DFS, Layer1, Layer2 } from '../img';
 
 const About: NextPage = () => {
   return (
@@ -27,13 +27,13 @@ const About: NextPage = () => {
       <AboutSection heading="the algorithm">
         <p>
           If the player uncovers a cell which is not adjacent to any mines, all
-          nearby cells will also be automatically uncovered. Let's define{" "}
+          nearby cells will also be automatically uncovered. Let's define{' '}
           <i>nearby</i> in this statement.
         </p>
         <p>
           For the purposes of this description, we will refer to the originally
           selected cell as the <strong>source</strong>. All mines that are
-          directly adjacent to the source, are considered to be <i>nearby</i>{" "}
+          directly adjacent to the source, are considered to be <i>nearby</i>{' '}
           and will be uncovered.
         </p>
         <img src={Layer1} alt="layer1" className="aboutImg" />
@@ -41,7 +41,7 @@ const About: NextPage = () => {
           Now our definition of <i>nearby</i> cells does not stop here. Let's
           consider the case that one of these newly uncovered cells is similar
           to the source in that all of its directly adjacent neighbors are not
-          mines. In this case, we can consider this cell to be a{" "}
+          mines. In this case, we can consider this cell to be a{' '}
           <strong>new source</strong> cell. All of the cells directly adjacent
           to the new source cell are considered to be <i>nearby</i> and will be
           uncovered.
@@ -65,7 +65,7 @@ const About: NextPage = () => {
       <AboutSection heading="bfs">
         <p>
           <strong>Breadth-first search</strong> (BFS) is a traversal where we
-          start at a source node and search all connected nodes in{" "}
+          start at a source node and search all connected nodes in{' '}
           <strong>layers</strong>. The first layer is the set of nodes that are
           directly connected to the source, the second layer is the set of nodes
           that are directly connected to the first layer, and so on until we are
@@ -92,13 +92,13 @@ const About: NextPage = () => {
           So, which method is used in this implementation of minesweeper? It
           turns out that the performance of both algorithms in this situation
           are fairly similar. At first glance, the performance seems even
-          identical. When analyzing the algorithms, both approaches yield a{" "}
+          identical. When analyzing the algorithms, both approaches yield a{' '}
           <strong>linear time complexity</strong> as each cell which will be
           uncovered must only be visited once. However, there is more to the
           story here.
         </p>
         <p>
-          To better understand the performance of <strong>BFS</strong> and{" "}
+          To better understand the performance of <strong>BFS</strong> and{' '}
           <strong>DFS</strong> in the context of minesweeper, I conducted
           empirical analysis on the two implementations. See the findings of the
           analysis <a href="/performance">here</a> .

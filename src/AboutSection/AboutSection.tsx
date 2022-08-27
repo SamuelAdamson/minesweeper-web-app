@@ -1,6 +1,6 @@
-import { ReactNode } from "react";
-import { Container, Row, Col } from "react-bootstrap";
-import styles from "./AboutSection.module.css";
+import { ReactNode } from 'react';
+import { Container, Row, Col } from 'react-bootstrap';
+import styles from './AboutSection.module.css';
 
 type Props = {
   heading: string;

@@ -1,0 +1,30 @@
+.gridWrapper {
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+}
+.grid {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.cellRow {
+  display: flex;
+  justify-content: center;
+  flex-wrap: nowrap;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Responsiveness */
+@media (max-width: 460px) {
+  .gridWrapper {
+    writing-mode: vertical-rl;
+    white-space: nowrap;
+    transform: rotate(180deg);
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+}

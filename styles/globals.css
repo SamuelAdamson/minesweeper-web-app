@@ -1,7 +1,7 @@
 /* Poppings Font */
 @font-face {
-  font-family: "Poppins";
-  src: url(fonts/Poppins/Poppins-Medium.ttf) format("truetype");
+  font-family: 'Poppins';
+  src: url(fonts/Poppins/Poppins-Medium.ttf) format('truetype');
   font-weight: normal;
   font-style: normal;
 }
@@ -17,7 +17,7 @@ html {
   min-height: 100%;
 }
 body {
-  font-family: "Poppins" !important;
+  font-family: 'Poppins' !important;
 }
 
 /* Remove focus box shadow/outline (bootstrap) */

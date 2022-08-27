@@ -21,7 +21,8 @@
 .cell.covered:hover {
   filter: brightness(40%);
 }
-.cell.uncovered {
+.cell.uncovered,
+.cell.uncovered.zero {
   background-color: rgba(137, 148, 153, 0.45);
   cursor: default;
 }
@@ -65,6 +66,7 @@
     /* Different cell options for height/width */
     --easy: 4vmax;
     --medium: 3vmax;
+    --hard: 4.5vmin;
     margin: 0.22vmax;
   }
 }

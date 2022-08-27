@@ -1,5 +1,5 @@
-export type Mode = "easy" | "medium" | "hard";
-export type AdjacentStr = "one" | "two" | "three" | "fourplus";
+export type Mode = 'easy' | 'medium' | 'hard';
+export type AdjacentStr = 'zero' | 'one' | 'two' | 'three' | 'fourplus';
 
 export type CellObj = {
   mode: Mode;

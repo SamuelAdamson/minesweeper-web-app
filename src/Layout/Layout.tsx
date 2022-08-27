@@ -1,17 +1,17 @@
-import { ReactNode } from "react";
-import { Navbar, Nav, Container, Row } from "react-bootstrap";
-import styles from "./Layout.module.css";
+import { ReactNode } from 'react';
+import { Navbar, Nav, Container, Row } from 'react-bootstrap';
+import styles from './Layout.module.css';
 import {
   Grid as ToggleIcon,
   ArrowUpRight as ArrowIcon,
-} from "react-bootstrap-icons";
+} from 'react-bootstrap-icons';
 import {
   GitHub as GitHubIcon,
   LinkedIn as LinkedInIcon,
   Youtube as YoutubeIcon,
   Instagram as InstagramIcon,
   Outlook as OutlookIcon,
-} from "../../img";
+} from '../../img';
 
 type Props = {
   children: ReactNode;
@@ -62,9 +62,7 @@ export const Layout = ({ children }: Props) => {
             </Nav>
           </Navbar.Collapse>
         </Navbar>
-        <Container className={styles.mainContainer}>
-          <main>{children}</main>
-        </Container>
+        <Container className={styles.mainContainer}>{children}</Container>
       </Container>
       <footer className={styles.footer}>
         <Container className="p-3 pb-0">
