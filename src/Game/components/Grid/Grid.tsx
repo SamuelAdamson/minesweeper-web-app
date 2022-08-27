@@ -1,38 +1,31 @@
-import { useState } from 'react'
-import { Cell } from '..'
-
+import { useEffect, useState } from "react";
+import { Container, Row, Col } from "react-bootstrap";
+import { Cell } from "..";
+import { Mode, CellGrid } from "../type";
 
 type Props = {
-  mode: 'easy' | 'medium' | 'hard'
-}
+  mode: Mode;
+};
 
-type dimension = [number, number]
+type Dimension = [number, number];
 
-type gridSizes = {
-  easy: dimension
-  medium: dimension
-  hard: dimension
-}
+type GridSizes = {
+  easy: Dimension;
+  medium: Dimension;
+  hard: Dimension;
+};
 
+const gridSize: GridSizes = {
+  easy: [8, 12],
+  medium: [12, 16],
+  hard: [16, 20],
+};
 
+export const Grid = ({ mode }: Props) => {
+  const [dimensions, setDimensions] = useState<Dimension>(gridSize[mode]);
+  const [grid, setGrid] = useState<CellGrid>([[]]);
 
+  useEffect(() => {}, []);
 
-const gridSize: gridSizes = {
-  easy : [8, 12],
-  medium : [12, 16],
-  hard : [16, 20]
-}
-
-export const Grid = ( { mode } : Props ) => {
-	const [dimensions, setDimensions] = useState<dimension>(gridSize[mode])
-  const [numRows, setNumRows] = useState<number>(dimensions[0])
-  const [numCols, setNumCols] = useState<number>(dimensions[1])
-
-  
-
-  return (
-    <>
-
-    </>
-  )
-}
+  return <Container fluid>{}</Container>;
+};

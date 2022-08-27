@@ -1,72 +1,71 @@
-
 .layout {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 .navBar {
-    margin-top: 1rem;
-    margin-bottom: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 .navLink {
-    margin-right: 0.8rem;
-    padding-right: 0.2rem;
-    padding-left: 0!important;
-    font-size: 1.3rem;
-    text-align: start;
+  margin-right: 0.8rem;
+  padding-right: 0.2rem;
+  padding-left: 0 !important;
+  font-size: 1.3rem;
+  text-align: start;
 }
 .navLinkExt {
-    font-size: 1.1rem;
-    padding: 0.5rem!important;
-    color: inherit!important;
+  font-size: 1.1rem;
+  padding: 0.5rem !important;
+  color: inherit !important;
 }
 .navItemExt {
-    width: fit-content;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    border: 1px solid #212529;
-    border-radius: 0.2rem;
-    color: #212529;
-    transition: all ease 0.3s;
+  width: fit-content;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border: 1px solid #212529;
+  border-radius: 0.2rem;
+  color: #212529;
+  transition: all ease 0.3s;
 }
 .navItemExt:hover {
-    background-color: #212529;
-    color: white;
+  background-color: #212529;
+  color: white;
 }
 .toggle {
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .footer {
-    margin-top: auto;
-    position: relative;
-    background-color: #212529;
+  margin-top: auto;
+  position: relative;
+  background-color: #212529;
 }
 .footSection {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-bottom: 1rem;
-    padding-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 1rem;
+  padding-top: 1rem;
 }
 .footLink {
-    padding: 0.5rem 0.2rem;
+  padding: 0.5rem 0.2rem;
 }
 .footTag {
-    margin-top: 1.5rem;
-    text-align: center;
-    color: rgba(255,255,255,0.5);
+  margin-top: 1.5rem;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.5);
 }
 
-.grow{
-    margin-left: 1rem;
-    margin-right: 1rem;
-    transform: scale(1);
-    transition: all ease 0.3s;
+.grow {
+  margin-left: 1rem;
+  margin-right: 1rem;
+  transform: scale(1);
+  transition: all ease 0.3s;
 }
 .grow:hover {
-    transform: scale(1.05);
+  transform: scale(1.05);
 }

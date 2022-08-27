@@ -1,56 +1,51 @@
 /* Poppings Font */
 @font-face {
-    font-family: 'Poppins';
-    src: url(fonts/Poppins/Poppins-Medium.ttf) format('truetype');
-    font-weight: normal;
-    font-style: normal;
+  font-family: "Poppins";
+  src: url(fonts/Poppins/Poppins-Medium.ttf) format("truetype");
+  font-weight: normal;
+  font-style: normal;
 }
 
-
 @media (min-width: 768px) {
-    html {
-        font-size: 16px;
-    }
+  html {
+    font-size: 16px;
+  }
 }
 
 html {
-    position: relative;
-    min-height: 100%;
+  position: relative;
+  min-height: 100%;
 }
 body {
-    font-family: 'Poppins'!important;
+  font-family: "Poppins" !important;
 }
-
 
 /* Remove focus box shadow/outline (bootstrap) */
 .btn:focus {
-    outline: none;
-    box-shadow: none;
+  outline: none;
+  box-shadow: none;
 }
-
-
 
 /* About Page */
 .aboutImg {
-    width: 70%;
-    max-width: 496px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 1vw;
-    margin-bottom: calc(1rem + 1vw);
+  width: 70%;
+  max-width: 496px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 1vw;
+  margin-bottom: calc(1rem + 1vw);
 }
 .about a {
-    color: rgba(0,0,0,0.7);
+  color: rgba(0, 0, 0, 0.7);
 }
-
 
 /* Minesweeper / play page*/
 .minesweeper {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding-top: 2rem;
-    padding-bottom: 4rem;
-    margin-left: auto;
-    margin-right: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 2rem;
+  padding-bottom: 4rem;
+  margin-left: auto;
+  margin-right: auto;
 }

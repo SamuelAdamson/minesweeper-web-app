@@ -1,9 +1,11 @@
-import { Cell } from './components/Cell'
+import { Container } from "react-bootstrap";
+import { Grid } from "./components";
+import styles from "./Game.module.css";
 
 export const Game = () => {
   return (
-    <>
-      <Cell mode="easy" mine={false} adjacentNum={1} />
-    </>
-  )
-}
+    <Container fluid className={styles.game}>
+      <Grid mode="easy" />
+    </Container>
+  );
+};
