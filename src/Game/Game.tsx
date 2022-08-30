@@ -1,11 +1,12 @@
 import { Container } from 'react-bootstrap';
-import { Grid } from './components';
+import { Grid, ModeSelect } from './components';
 import styles from './Game.module.css';
 
 export const Game = () => {
   return (
     <Container fluid className={styles.game}>
-      <Grid mode="hard" />
+      <ModeSelect mode="medium" />
+      <Grid mode="medium" />
     </Container>
   );
 };

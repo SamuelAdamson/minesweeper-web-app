@@ -1,0 +1,38 @@
+.ModeSelect {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+.ModeGroup {
+  justify-content: center;
+  width: 100%;
+}
+.ModeButton {
+  background-color: transparent;
+  margin-left: 0.3rem;
+  margin-right: 0.3rem;
+  border-color: transparent;
+  border-radius: 0.2rem !important;
+  color: rgba(0,0,0,0.5);
+  transition: all ease 0.3s;
+}
+.ModeButton:hover {
+  background-color: transparent;
+  border-color: transparent;
+  color: rgba(0,0,0,1);
+}
+.ModeButton:focus,
+.ModeButton:active {
+  outline: none !important;
+  box-shadow: none !important;
+  background-color: transparent !important;
+}
+.ModeButton:active {
+  color: rgba(0,0,0,1) !important;
+  border-color: transparent !important;
+}
+.ModeButton.Selected,
+.ModeButton.Selected:focus {
+  color: rgba(255,255,255,1) !important;
+  background-color: rgba(0,0,0,0.75) !important;
+}
