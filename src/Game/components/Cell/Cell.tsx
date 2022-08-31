@@ -29,7 +29,7 @@ export const Cell = ({ row, col, mode, mine, adjacentNum }: Props) => {
   const handleClick = (e: MouseEvent<HTMLElement>) => {
     setCovered(false);
   };
-  
+
   const handleRightClick = (e: MouseEvent<HTMLElement>) => {
     e.preventDefault(); // suppress context menu
     setFlagged(true);

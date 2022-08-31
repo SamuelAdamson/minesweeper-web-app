@@ -11,17 +11,17 @@
   background-color: transparent;
   margin-left: 0.3rem;
   margin-right: 0.3rem;
-  padding-top: 0.25rem!important;
-  padding-bottom: 0.25rem!important;
+  padding-top: 0.25rem !important;
+  padding-bottom: 0.25rem !important;
   border-color: transparent;
   border-radius: 0.2rem !important;
-  color: rgba(0,0,0,0.5);
+  color: rgba(0, 0, 0, 0.5);
   transition: all ease 0.3s;
 }
 .ModeButton:hover {
   background-color: transparent;
   border-color: transparent;
-  color: rgba(0,0,0,1);
+  color: rgba(0, 0, 0, 1);
 }
 .ModeButton:focus,
 .ModeButton:active {
@@ -30,11 +30,11 @@
   background-color: transparent !important;
 }
 .ModeButton:active {
-  color: rgba(0,0,0,1) !important;
+  color: rgba(0, 0, 0, 1) !important;
   border-color: transparent !important;
 }
 .ModeButton.Selected,
 .ModeButton.Selected:focus {
-  color: rgba(255,255,255,1) !important;
-  background-color: rgba(0,0,0,0.75) !important;
+  color: rgba(255, 255, 255, 1) !important;
+  background-color: rgba(0, 0, 0, 0.75) !important;
 }
