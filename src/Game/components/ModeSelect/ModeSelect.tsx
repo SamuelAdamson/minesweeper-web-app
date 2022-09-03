@@ -1,5 +1,10 @@
 import { useState } from 'react';
-import { Container, ToggleButton, ToggleButtonGroup } from 'react-bootstrap';
+import {
+  Container,
+  ToggleButton,
+  ToggleButtonGroup,
+  ButtonGroup,
+} from 'react-bootstrap';
 import { Mode } from '../type';
 import styles from './ModeSelect.module.css';
 
@@ -11,23 +16,30 @@ type Props = {
 const modes: Array<Mode> = ['easy', 'medium', 'hard'];
 
 export const ModeSelect = ({ mode, onModeChange }: Props) => {
+  const [radioValue, setRadioValue] = useState<Mode>(mode);
   const onNewMode = (newMode: Mode) => {
+    setRadioValue(newMode);
     onModeChange(newMode);
   };
 
   return (
     <Container fluid className={styles.ModeSelect}>
-      <ToggleButtonGroup type="radio" name="options" defaultValue={0}>
-        {modes.map((m: Mode, idx: number) => (
+      <ButtonGroup>
+        {modes.map((m: Mode, idx: Number) => (
           <ToggleButton
-            key={`button__${m}`}
-            value={idx}
-            onClick={() => onNewMode(m)}
+            className={styles.ModeButton}
+            key={`mode-${idx}`}
+            id={`radio-${idx}`}
+            type="radio"
+            name="radio"
+            value={m}
+            checked={m == radioValue}
+            onClick={(e) => onNewMode(m)}
           >
             {m}
           </ToggleButton>
         ))}
-      </ToggleButtonGroup>
+      </ButtonGroup>
     </Container>
   );
 };

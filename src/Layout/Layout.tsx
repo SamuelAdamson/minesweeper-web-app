@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { Navbar, Nav, Container, Row } from 'react-bootstrap';
+import { Navbar, Nav, Container, Row, Col } from 'react-bootstrap';
 import styles from './Layout.module.css';
 import {
   Grid as ToggleIcon,
@@ -32,7 +32,7 @@ export const Layout = ({ children }: Props) => {
             <ToggleIcon />
           </Navbar.Toggle>
           <Navbar.Collapse>
-            <Nav as="ul" className="mr-auto">
+            <Nav as="ul" className="me-auto">
               <Nav.Item as="li">
                 <Nav.Link className={styles.navLink} href="/">
                   play
@@ -65,66 +65,67 @@ export const Layout = ({ children }: Props) => {
         <Container className={styles.mainContainer}>{children}</Container>
       </Container>
       <footer className={styles.footer}>
-        <Container className="p-3 pb-0">
-          <Row className={styles.footSection}>
-            <a
-              href="https://www.linkedin.com/in/samuel-adamson-cs"
-              className={styles.footLink}
-            >
-              <img
-                className={styles.grow}
-                src={LinkedInIcon}
-                height={40}
-                width={40}
-                alt="li"
-              />
-            </a>
-            <a
-              href="https://github.com/SamuelAdamson"
-              className={styles.footLink}
-            >
-              <img
-                className={styles.grow}
-                src={GitHubIcon}
-                height={40}
-                width={40}
-                alt="gh"
-              />
-            </a>
-            <a
-              href="https://www.youtube.com/channel/UC4nZnhi_pEXX9mt1G2cZyVA"
-              className={styles.footLink}
-            >
-              <img
-                className={styles.grow}
-                src={YoutubeIcon}
-                height={40}
-                width={40}
-                alt="yt"
-              />
-            </a>
-            <a
-              href="https://www.instagram.com/giibb4"
-              className={styles.footLink}
-            >
-              <img
-                className={styles.grow}
-                src={InstagramIcon}
-                height={40}
-                width={40}
-                alt="ig"
-              />
-            </a>
-            <a href="mailto:sadamson@uccs.edu" className={styles.footLink}>
-              <img
-                className={styles.grow}
-                src={OutlookIcon}
-                height={40}
-                width={40}
-                alt="mt"
-              />
-            </a>
-          </Row>
+        <Container className={styles.footSection}>
+          <a
+            href="https://www.linkedin.com/in/samuel-adamson-cs"
+            className={styles.footLink}
+          >
+            <img
+              className={styles.grow}
+              src={LinkedInIcon}
+              height={40}
+              width={40}
+              alt="li"
+            />
+          </a>
+          <a
+            href="https://github.com/SamuelAdamson"
+            className={styles.footLink}
+          >
+            <img
+              className={styles.grow}
+              src={GitHubIcon}
+              height={40}
+              width={40}
+              alt="gh"
+            />
+          </a>
+          <a
+            href="https://www.youtube.com/channel/UC4nZnhi_pEXX9mt1G2cZyVA"
+            className={styles.footLink}
+          >
+            <img
+              className={styles.grow}
+              src={YoutubeIcon}
+              height={40}
+              width={40}
+              alt="yt"
+            />
+          </a>
+
+          <a
+            href="https://www.instagram.com/giibb4"
+            className={styles.footLink}
+          >
+            <img
+              className={styles.grow}
+              src={InstagramIcon}
+              height={40}
+              width={40}
+              alt="ig"
+            />
+          </a>
+          <a href="mailto:sadamson@uccs.edu" className={styles.footLink}>
+            <img
+              className={styles.grow}
+              src={OutlookIcon}
+              height={40}
+              width={40}
+              alt="mt"
+            />
+          </a>
+        </Container>
+        <Container className={styles.footSection}>
           <div className={styles.footTag}>Samuel Adamson &#8226; Colorado</div>
         </Container>
       </footer>

@@ -26,10 +26,15 @@ body {
   box-shadow: none;
 }
 
+/* Do not display radio input circle */
+[type='radio'] {
+  display: none;
+}
+
 /* About Page */
 .aboutImg {
-  width: 70%;
-  max-width: 496px;
+  width: 70% !important;
+  max-width: 496px !important;
   margin-left: auto;
   margin-right: auto;
   margin-top: 1vw;
