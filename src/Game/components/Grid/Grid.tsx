@@ -43,7 +43,6 @@ export const Grid = ({ mode }: Props) => {
   const isMounted = useRef(false);
 
   useEffect(() => {
-    console.log(isMounted);
     if(isMounted.current) {
       setLoading(true);
     }

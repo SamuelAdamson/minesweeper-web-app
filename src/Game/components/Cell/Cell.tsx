@@ -1,7 +1,7 @@
-import { CSSProperties, useState, MouseEvent, useEffect } from 'react';
+import { useState, CSSProperties, MouseEvent, useEffect } from 'react';
 import { BookmarkFill as FlagIcon } from 'react-bootstrap-icons';
 import { getAdjacentStr } from './helper';
-import { AdjacentStr, Mode } from '../type';
+import { Mode } from '../type';
 import styles from './Cell.module.css';
 import cx from 'classnames';
 
@@ -11,7 +11,7 @@ type Props = {
   adjacentNum: Number;
 };
 
-function getStyle(covered: Boolean, mine: Boolean, adjacentNum: Number) {
+function getStyle(covered: Boolean, mine: Boolean, adjacentNum: Number): string {
   let style = covered
     ? cx(styles.cell, styles.covered)
     : mine
@@ -29,7 +29,7 @@ export const Cell = ({ mode, mine, adjacentNum }: Props) => {
   const [covered, setCovered] = useState<Boolean>(true);
   const [flagged, setFlagged] = useState<Boolean>(false);
   const [content, setContent] = useState<String>('');
-  const [style, setStyle] = useState<string>();
+  const [style, setStyle] = useState<string>(getStyle(covered, mine, adjacentNum));
 
   const handleClick = (e: MouseEvent<HTMLElement>) => {
     setCovered(false);
@@ -40,10 +40,6 @@ export const Cell = ({ mode, mine, adjacentNum }: Props) => {
     e.preventDefault(); // suppress context menu
     setFlagged(true);
   };
-
-  useEffect(() => {
-    setStyle(getStyle(true, mine, adjacentNum));
-  }, [mode]);
 
   return (
     <div
