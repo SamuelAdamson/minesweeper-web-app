@@ -1,4 +1,5 @@
-import { Mode, CellObj, CellGrid } from '../type';
+import { Mode, CellGrid } from '../type';
+
 
 export function createGrid(rows: Number, cols: Number, mode: Mode): CellGrid {
   let cellGrid: CellGrid = [];

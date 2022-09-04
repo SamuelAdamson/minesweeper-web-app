@@ -54,16 +54,18 @@
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
-  padding-top: 0.5rem;
+  padding-top: 0.7rem;
 }
 .footSection + .footSection {
-  margin-bottom: 0.7rem;
+  margin-bottom: 1rem;
 }
 .footLink {
-  padding: 0.5rem 0.2rem;
+  margin-top: 0.7rem;
+  padding-right: 0.2rem;
+  padding-left: 0.2rem;
 }
 .footTag {
-  margin-top: 1rem;
+  margin: 0.2rem;
   text-align: center;
   color: rgba(255, 255, 255, 0.5);
 }

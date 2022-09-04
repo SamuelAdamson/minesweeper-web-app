@@ -13,13 +13,25 @@ type Props = {
   adjacentNum: Number;
 };
 
-export const Cell = ({ row, col, mode, mine, adjacentNum }: Props) => {
+function getStyle(covered: Boolean, mine: Boolean, adjacent: AdjacentStr): string {
+  let style = covered
+    ? cx(styles.cell, styles.covered)
+    : mine
+      ? cx(styles.cell, styles.mine)
+      : cx(styles.cell, styles.uncovered, styles[adjacent]);
+
+  console.log("getstyle");
+  return style;
+}
+
+export const Cell = ({ mode, mine, adjacentNum }: Props) => {
   const cellMode: CSSProperties = {
     '--mode': `var(--${mode})`,
   } as CSSProperties;
 
   const [covered, setCovered] = useState<Boolean>(true);
   const [flagged, setFlagged] = useState<Boolean>(false);
+  const [style, setStyle] = useState<string>(cx(styles.cell, styles.covered));
   const [content, setContent] = useState<String>('');
 
   const [adjacent, setAdjacent] = useState<AdjacentStr>(
@@ -28,6 +40,7 @@ export const Cell = ({ row, col, mode, mine, adjacentNum }: Props) => {
 
   const handleClick = (e: MouseEvent<HTMLElement>) => {
     setCovered(false);
+    setStyle(getStyle(false, mine, adjacent));
   };
 
   const handleRightClick = (e: MouseEvent<HTMLElement>) => {
@@ -35,15 +48,17 @@ export const Cell = ({ row, col, mode, mine, adjacentNum }: Props) => {
     setFlagged(true);
   };
 
+  useEffect(() => {
+    let newAdjacent = getAdjacentStr(adjacentNum)
+    
+    setAdjacent(newAdjacent);
+    setCovered(true);
+    setStyle(getStyle(true, mine, newAdjacent));
+  }, [mode]);
+
   return (
     <div
-      className={
-        covered
-          ? cx(styles.cell, styles.covered)
-          : mine
-          ? cx(styles.cell, styles.mine)
-          : cx(styles.cell, styles.uncovered, styles[adjacent])
-      }
+      className={style}
       style={cellMode}
       onClick={handleClick}
       onContextMenu={handleRightClick}

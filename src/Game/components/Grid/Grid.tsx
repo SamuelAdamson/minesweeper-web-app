@@ -3,6 +3,7 @@ import { Container, Row } from 'react-bootstrap';
 import { Cell } from '..';
 import { Mode, CellGrid, CellObj } from '../type';
 import { createGrid, placeMines } from './helper';
+import { ScaleLoader } from 'react-spinners'
 import styles from './Grid.module.css';
 
 type Props = {
@@ -36,14 +37,14 @@ const mines: MineCounts = {
 };
 
 export const Grid = ({ mode }: Props) => {
-  const [dimensions, setDimensions] = useState<Dimension>(gridSize[mode]);
   const [grid, setGrid] = useState<CellGrid>([[]]);
 
   useEffect(() => {
+    let dimensions: Dimension = gridSize[mode];
     let newGrid = createGrid(dimensions[0], dimensions[1], mode);
     placeMines(dimensions[0], dimensions[1], newGrid, mines[mode]);
     setGrid(newGrid);
-  }, []);
+  }, [mode]);
 
   return (
     <div className={styles.gridWrapper}>
