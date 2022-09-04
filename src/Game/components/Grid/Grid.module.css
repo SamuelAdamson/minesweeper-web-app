@@ -1,14 +1,18 @@
+.grid {
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+}
 .gridWrapper {
   position: relative;
   box-sizing: border-box;
   width: 100%;
-  margin-bottom: 3rem;
 }
-.grid {
+.gridField {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  transition: all ease-in 0.5s;
 }
 .cellRow {
   display: flex;
