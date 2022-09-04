@@ -41,11 +41,10 @@ body {
 }
 
 /* About Page */
-.aboutImg {
-  width: 70% !important;
-  max-width: 496px !important;
-  margin-left: auto;
-  margin-right: auto;
+.aboutImgContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
   margin-top: 1vw;
   margin-bottom: calc(1rem + 1vw);
 }

@@ -60,9 +60,7 @@
   margin-bottom: 1rem;
 }
 .footLink {
-  margin-top: 0.7rem;
-  padding-right: 0.2rem;
-  padding-left: 0.2rem;
+  margin: 0.75rem 0.75rem 0 0.75rem;
 }
 .footTag {
   margin: 0.2rem;
@@ -71,11 +69,8 @@
 }
 
 .grow {
-  margin-left: 1rem;
-  margin-right: 1rem;
-  transform: scale(1);
   transition: all ease 0.3s;
 }
 .grow:hover {
-  transform: scale(1.05);
+  filter: opacity(0.5);
 }

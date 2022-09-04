@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
-import { Navbar, Nav, Container, Row, Col } from 'react-bootstrap';
+import { Navbar, Nav, Container } from 'react-bootstrap';
+import Image from 'next/image';
 import styles from './Layout.module.css';
 import {
   Grid as ToggleIcon,
@@ -70,7 +71,8 @@ export const Layout = ({ children }: Props) => {
             href="https://www.linkedin.com/in/samuel-adamson-cs"
             className={styles.footLink}
           >
-            <img
+            <Image
+              layout="intrinsic"
               className={styles.grow}
               src={LinkedInIcon}
               height={40}
@@ -82,7 +84,7 @@ export const Layout = ({ children }: Props) => {
             href="https://github.com/SamuelAdamson"
             className={styles.footLink}
           >
-            <img
+            <Image
               className={styles.grow}
               src={GitHubIcon}
               height={40}
@@ -94,7 +96,7 @@ export const Layout = ({ children }: Props) => {
             href="https://www.youtube.com/channel/UC4nZnhi_pEXX9mt1G2cZyVA"
             className={styles.footLink}
           >
-            <img
+            <Image
               className={styles.grow}
               src={YoutubeIcon}
               height={40}
@@ -107,7 +109,7 @@ export const Layout = ({ children }: Props) => {
             href="https://www.instagram.com/giibb4"
             className={styles.footLink}
           >
-            <img
+            <Image
               className={styles.grow}
               src={InstagramIcon}
               height={40}
@@ -116,7 +118,7 @@ export const Layout = ({ children }: Props) => {
             />
           </a>
           <a href="mailto:sadamson@uccs.edu" className={styles.footLink}>
-            <img
+            <Image
               className={styles.grow}
               src={OutlookIcon}
               height={40}

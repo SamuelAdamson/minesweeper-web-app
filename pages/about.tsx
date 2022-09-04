@@ -1,4 +1,5 @@
 import type { NextPage } from 'next';
+import Image from 'next/image';
 import { AboutSection } from '../src/AboutSection';
 import { BFS, DFS, Layer1, Layer2 } from '../img';
 
@@ -8,7 +9,7 @@ const About: NextPage = () => {
       <AboutSection heading="the game">
         <p>
           Minesweeper involves a grid of cells where some cells have hidden
-          mines and others do not. The player's objective is to uncover all
+          mines and others do not. The player&apos;s objective is to uncover all
           cells that are not hiding a mine. If the player uncovers a cell that
           is hiding a mine, the player loses. To assist the player in
           discovering the mineless cells, each uncovered cell shows the number
@@ -27,7 +28,7 @@ const About: NextPage = () => {
       <AboutSection heading="the algorithm">
         <p>
           If the player uncovers a cell which is not adjacent to any mines, all
-          nearby cells will also be automatically uncovered. Let's define{' '}
+          nearby cells will also be automatically uncovered. Let&apos;s define{' '}
           <i>nearby</i> in this statement.
         </p>
         <p>
@@ -36,9 +37,11 @@ const About: NextPage = () => {
           directly adjacent to the source, are considered to be <i>nearby</i>{' '}
           and will be uncovered.
         </p>
-        <img src={Layer1} alt="layer1" className="aboutImg" />
+        <div className="aboutImgContainer">
+          <Image src={Layer1} alt="layer1" height={656} width={498} className="aboutImg" />
+        </div>
         <p>
-          Now our definition of <i>nearby</i> cells does not stop here. Let's
+          Now our definition of <i>nearby</i> cells does not stop here. Let&apos;s
           consider the case that one of these newly uncovered cells is similar
           to the source in that all of its directly adjacent neighbors are not
           mines. In this case, we can consider this cell to be a{' '}
@@ -46,7 +49,9 @@ const About: NextPage = () => {
           to the new source cell are considered to be <i>nearby</i> and will be
           uncovered.
         </p>
-
+        <div className="aboutImgContainer">
+          <Image src={Layer2} alt="layer2" height={656} width={498} className="aboutImg" />
+        </div>
         <p>
           From this point forward, our search for <i>nearby</i> cells becomes
           rather repetitive. Each new cell that is uncovered becomes a new
@@ -54,7 +59,7 @@ const About: NextPage = () => {
           adjacent neighbors are mines.
         </p>
         <p>
-          So, let's recap. In the framing of a divide-and-conquer algorithm, we
+          So, let&apos;s recap. In the framing of a divide-and-conquer algorithm, we
           need to break our problem down into smaller tasks. The small task in
           this case is to check that a cell is not adjacent to any mines. If
           this condition is met, we need to traverse each of its directly
@@ -76,18 +81,22 @@ const About: NextPage = () => {
           to the first layer, the <strong>third layer</strong> would be all
           cells directly adjacent to the second layer, etc.
         </p>
-        <img src={BFS} alt="bfs" className="aboutImg" />
+        <div className="aboutImgContainer">
+          <Image src={BFS} alt="bfs" height={632} width={498} className="aboutImg" />
+        </div>
       </AboutSection>
       <AboutSection heading="dfs">
         <p>
           Our second option is <strong>depth-first search</strong> (DFS). In
-          DFS, we start at a source node and search as far down a single 'path'
+          DFS, we start at a source node and search as far down a single &apos;path&apos;
           as possible before backtracking. The first path is typically chosen
           based on how the structure is organized. In minesweeper, we may label
           all adjacent cells with indices and give preference to the lowest
           index.
         </p>
-        <img src={DFS} alt="dfs" className="aboutImg" />
+        <div className="aboutImgContainer">
+        <Image src={DFS} alt="dfs" height={632} width={498} className="aboutImg" />
+        </div>
         <p>
           So, which method is used in this implementation of minesweeper? It
           turns out that the performance of both algorithms in this situation
