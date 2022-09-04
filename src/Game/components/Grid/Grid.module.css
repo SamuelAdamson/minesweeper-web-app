@@ -6,14 +6,21 @@
   position: relative;
   box-sizing: border-box;
   width: 100%;
+  transition: all ease-in 0.5s;
 }
 .gridField {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  transition: all ease-in 0.5s;
 }
+.loading {
+  height: var(--load-height);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .cellRow {
   display: flex;
   justify-content: center;

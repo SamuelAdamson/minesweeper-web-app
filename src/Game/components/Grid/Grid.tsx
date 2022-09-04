@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef, ReactElement } from 'react';
+import { useEffect, useState, useRef, ReactElement, CSSProperties } from 'react';
 import { Container, Row } from 'react-bootstrap';
 import { ScaleLoader } from 'react-spinners'
 import { Cell } from '..';
@@ -37,28 +37,35 @@ const mines: MineCounts = {
 };
 
 export const Grid = ({ mode }: Props) => {
+  const [loadHeight, setLoadHeight] = useState<number>(0);
+  const gridRef = useRef<HTMLDivElement>(null);
+
+  const loadStyle: CSSProperties = {
+    '--load-height': `${loadHeight}px`,
+  } as CSSProperties;
+
   const [grid, setGrid] = useState<CellGrid>([[]]);
-  const [loading, setLoading] = useState<boolean>(false);
   const [display, setDisplay] = useState<ReactElement>();
-  const isMounted = useRef(false);
+
+  const [loading, setLoading] = useState<boolean>(false);
+  const isMounted = useRef<Boolean>(false);
 
   useEffect(() => {
-    if(isMounted.current) {
-      setLoading(true);
-    }
-    else {
-      isMounted.current = true;
-    }
+    if(isMounted.current && gridRef.current /*TODO REMOVE*/) setLoading(true);
+    else isMounted.current = true;
+
+    if(gridRef.current) setLoadHeight(gridRef.current.clientHeight);
 
     let dimensions: Dimension = gridSize[mode];
     let newGrid = createGrid(dimensions[0], dimensions[1], mode);
+    
     placeMines(dimensions[0], dimensions[1], newGrid, mines[mode]);
     setGrid(newGrid);
   }, [mode]);
 
   useEffect(() => {
     setDisplay(
-      <Container fluid className={styles.gridField}>
+      <Container fluid className={styles.gridField} ref={gridRef}>
         {grid.map((row: CellObj[], rowNum: Number) => (
           <Row className={styles.cellRow} key={`${rowNum}`}>
             {row.map((cell: CellObj, colNum: Number) => (
@@ -77,13 +84,22 @@ export const Grid = ({ mode }: Props) => {
     if(isMounted.current) {
       setTimeout(() => {
         setLoading(false);
-      }, 750);
+        setLoadHeight(0);
+      }, 2000);
     }
   }, [grid])
 
   return (
     <Container fluid className={styles.grid}>
-      <ScaleLoader color="black" loading={loading} />
+      <div className={styles.loading} style={loadStyle}>
+        <ScaleLoader 
+          loading={loading}
+          color="black"
+          height={150}
+          width={12}
+          radius={3}
+        />
+      </div>
       <div className={styles.gridWrapper}>
         {!loading ? display : null}
       </div>
