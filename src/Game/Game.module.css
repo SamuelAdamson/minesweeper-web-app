@@ -1,6 +1,16 @@
 .game {
+  width: fit-content;
   margin-left: auto;
   margin-right: auto;
   text-align: center;
+  padding: 0;
   transition: all ease 0.3s;
+}
+
+.temp {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 750px;
+  width: 100%;
 }

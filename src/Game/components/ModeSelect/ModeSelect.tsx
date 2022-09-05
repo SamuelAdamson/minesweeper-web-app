@@ -2,7 +2,6 @@ import { useState } from 'react';
 import {
   Container,
   ToggleButton,
-  ToggleButtonGroup,
   ButtonGroup,
 } from 'react-bootstrap';
 import { Mode } from '../type';

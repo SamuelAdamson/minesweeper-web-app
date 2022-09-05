@@ -1,0 +1,42 @@
+.control {
+  padding: 0;
+}
+
+.controlCol {
+  display: flex;
+  align-items: center;
+}
+.controlCol.left {
+  justify-content: start;
+}
+.controlCol.right {
+  justify-content: end;
+}
+
+.controlBtn,
+.controlBtn:focus {
+  border-radius: 0.2rem;
+  border-color: rgba(0,0,0,0.5);
+  color: rgba(0,0,0,0.5);
+  background-color: transparent;
+  transition: all ease 0.3s;
+}
+.controlBtn:hover {
+  border-color: rgb(0,0,0);
+  background-color: transparent;
+  color: rgb(0,0,0);
+}
+.controlBtn.selected {
+  background-color: rgb(0,0,0);
+  color: rgb(255,255,255);
+}
+
+@media (max-width: 576px) {
+  .controlCol {
+    justify-content: center !important;
+    margin-bottom: 0.5rem;
+  }
+  .pauseBtn {
+    width: 100%;
+  }
+}

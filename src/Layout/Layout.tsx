@@ -56,7 +56,7 @@ export const Layout = ({ children }: Props) => {
                   className={styles.navLinkExt}
                   href="https://samueladamson.github.io"
                 >
-                  portfolio
+                  creator
                   <ArrowIcon className="pl-1" />
                 </Nav.Link>
               </Nav.Item>

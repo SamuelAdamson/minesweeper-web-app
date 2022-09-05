@@ -58,7 +58,8 @@
   width: var(--mode);
   margin: 0.15vmax;
 }
-@media (max-width: 460px) {
+
+@media (max-width: 576px) {
   .cell {
     /*Rotate Grid*/
     transform: rotate(90deg);

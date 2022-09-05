@@ -38,10 +38,12 @@ const mines: MineCounts = {
 
 export const Grid = ({ mode }: Props) => {
   const [loadHeight, setLoadHeight] = useState<number>(0);
+  const [loadWidth, setLoadWidth] = useState<number>(0);
   const gridRef = useRef<HTMLDivElement>(null);
 
   const loadStyle: CSSProperties = {
     '--load-height': `${loadHeight}px`,
+    '--load-width': `${loadWidth}px`
   } as CSSProperties;
 
   const [grid, setGrid] = useState<CellGrid>([[]]);
@@ -54,6 +56,7 @@ export const Grid = ({ mode }: Props) => {
     if(isMounted.current) {
       setLoading(false);
       setLoadHeight(0);
+      setLoadWidth(0);
     }
   }
 
@@ -61,7 +64,10 @@ export const Grid = ({ mode }: Props) => {
     if(isMounted.current && gridRef.current /*TODO REMOVE*/) setLoading(true);
     else isMounted.current = true;
 
-    if(gridRef.current) setLoadHeight(gridRef.current.clientHeight);
+    if(gridRef.current) {
+      setLoadHeight(gridRef.current.clientHeight);
+      setLoadWidth(gridRef.current.clientWidth);
+    }
 
     let dimensions: Dimension = gridSize[mode];
     let newGrid = createGrid(dimensions[0], dimensions[1], mode);

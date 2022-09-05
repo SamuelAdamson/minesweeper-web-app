@@ -1,6 +1,7 @@
 .grid {
   margin-bottom: 1rem;
   margin-top: 1rem;
+  padding: 0;
 }
 .gridWrapper {
   position: relative;
@@ -13,13 +14,15 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  
+  padding: 0;
+
   /* Fade in smoothness */
   animation-name: fadeIn;
   animation-duration: 500ms;
 }
 .loading {
   height: var(--load-height);
+  width: var(--load-width);
   display: flex;
   justify-content: center;
   align-items: center;
