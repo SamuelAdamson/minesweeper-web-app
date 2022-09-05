@@ -7,19 +7,21 @@
   align-items: center;
 }
 .controlCol.left {
-  justify-content: start;
+  justify-content: flex-start;
 }
 .controlCol.right {
-  justify-content: end;
+  justify-content: flex-end;
 }
 
 .controlBtn,
 .controlBtn:focus {
   border-radius: 0.2rem;
+  border-width: 2px;
   border-color: rgba(0,0,0,0.5);
   color: rgba(0,0,0,0.5);
   background-color: transparent;
   transition: all ease 0.3s;
+  margin-left: 0.5rem;
 }
 .controlBtn:hover {
   border-color: rgb(0,0,0);
@@ -31,12 +33,23 @@
   color: rgb(255,255,255);
 }
 
+.controlBtnGroup {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  padding: 0;
+}
+
 @media (max-width: 576px) {
   .controlCol {
     justify-content: center !important;
     margin-bottom: 0.5rem;
+    padding: 0;
   }
-  .pauseBtn {
+  .controlBtn {
     width: 100%;
+    margin-left: 0;
+    margin-bottom: 0.5rem;
   }
 }

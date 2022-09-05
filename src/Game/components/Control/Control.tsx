@@ -6,9 +6,10 @@ import styles from './Control.module.css';
 type Props = {
   onPause: Function;
   onUnpause: Function;
+  onReset: Function;
 }
 
-export const Control = ({ onPause, onUnpause }: Props) => {
+export const Control = ({ onPause, onUnpause, onReset }: Props) => {
   const [paused, setPaused] = useState<Boolean>(false);
   const [time, setTime] = useState<String>('00:00:00');
 
@@ -23,16 +24,21 @@ export const Control = ({ onPause, onUnpause }: Props) => {
           <h3>{time}</h3>
         </Col>
         <Col xs={12} sm={12} md lg xl={6} className={cx(styles.controlCol, styles.right)}>
-          <Button 
-            onClick={pauseClick}
-            className={
-              paused 
-                ? cx(styles.controlBtn, styles.selected)
-                : styles.controlBtn
-            }
-          >
-            {paused ? 'unpause' : 'pause'}
-          </Button>
+          <Container fluid className={styles.controlBtnGroup}>
+            <Button className={styles.controlBtn}>
+              reset
+            </Button>
+            <Button 
+              onClick={pauseClick}
+              className={
+                paused 
+                  ? cx(styles.controlBtn, styles.selected)
+                  : styles.controlBtn
+              }
+            >
+              {paused ? 'unpause' : 'pause'}
+            </Button>
+          </Container>
         </Col>
       </Row>
     </Container>

@@ -21,11 +21,15 @@ export const Game = () => {
     setPause(false);
   }
 
+  const reset = () => {
+    // TODO
+  }
+
   return (
     <Container fluid className={styles.game}>
       <ModeSelect mode={gameMode} onModeChange={modeChange} />
       <Grid mode={gameMode} />
-      <Control onPause={pause} onUnpause={unpause} />
+      <Control onPause={pause} onUnpause={unpause} onReset={reset} />
       <div className={styles.temp}>
         some other content coming soon
       </div>
