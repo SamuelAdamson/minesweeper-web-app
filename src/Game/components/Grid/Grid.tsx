@@ -3,7 +3,7 @@ import { Container, Row } from 'react-bootstrap';
 import { ScaleLoader } from 'react-spinners'
 import { Cell } from '..';
 import { Mode, CellGrid, CellObj } from '../type';
-import { createGrid, placeMines } from './helper';
+import { throttle, createGrid, placeMines } from './helper';
 import styles from './Grid.module.css';
 
 type Props = {
@@ -50,6 +50,13 @@ export const Grid = ({ mode }: Props) => {
   const [loading, setLoading] = useState<boolean>(false);
   const isMounted = useRef<Boolean>(false);
 
+  const loaded = (): void => {
+    if(isMounted.current) {
+      setLoading(false);
+      setLoadHeight(0);
+    }
+  }
+
   useEffect(() => {
     if(isMounted.current && gridRef.current /*TODO REMOVE*/) setLoading(true);
     else isMounted.current = true;
@@ -80,14 +87,12 @@ export const Grid = ({ mode }: Props) => {
         ))}
       </Container>
     );
-
-    if(isMounted.current) {
-      setTimeout(() => {
-        setLoading(false);
-        setLoadHeight(0);
-      }, 2000);
-    }
+    throttle(loaded, 500);
   }, [grid])
+
+  useEffect(() => {
+    throttle(loaded, 0);
+  }, [display]);
 
   return (
     <Container fluid className={styles.grid}>
