@@ -19,7 +19,7 @@ export const Control = ({ onPause, onUnpause, onReset }: Props) => {
 
   return(
     <Container fluid className={styles.control}>
-      <Row>
+      <Row className={styles.controlRow}>
         <Col xs={12} sm={12} md lg xl={6} className={cx(styles.controlCol, styles.left)}>
           <h3>{time}</h3>
         </Col>

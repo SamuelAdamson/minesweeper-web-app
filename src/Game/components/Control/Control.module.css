@@ -2,6 +2,10 @@
   padding: 0;
 }
 
+.controlRow {
+  margin: 0;
+}
+
 .controlCol {
   display: flex;
   align-items: center;
@@ -47,7 +51,8 @@
     margin-bottom: 0.5rem;
     padding: 0;
   }
-  .controlBtn {
+  .controlBtn,
+  .controlBtn:focus {
     width: 100%;
     margin-left: 0;
     margin-bottom: 0.5rem;

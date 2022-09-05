@@ -1,9 +1,9 @@
 import type { NextPage } from 'next';
 
-const Analysis: NextPage = () => {
+const Performance: NextPage = () => {
   return(
     <></>
   )
 }
 
-export default Analysis;
+export default Performance;

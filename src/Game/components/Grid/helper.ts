@@ -36,3 +36,12 @@ export function placeMines(
   grid: CellGrid,
   numMines: Number
 ) {}
+
+
+export function bfs(grid: CellGrid, row: Number, col: Number) {
+
+}
+
+export function dfs(grid: CellGrid, row: Number, col: Number) {
+
+}
