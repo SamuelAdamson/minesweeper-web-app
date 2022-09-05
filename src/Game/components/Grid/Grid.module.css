@@ -13,6 +13,10 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  
+  /* Fade in smoothness */
+  animation-name: fadeIn;
+  animation-duration: 500ms;
 }
 .loading {
   height: var(--load-height);
@@ -39,5 +43,15 @@
     transform: rotate(180deg);
     margin-top: 1rem;
     margin-bottom: 1rem;
+  }
+}
+
+/* Smoothness */
+@keyframes fadeIn {
+  0% {
+    filter: opacity(0);
+  }
+  100% {
+    filter: opacity(1);
   }
 }
