@@ -8,6 +8,7 @@ import styles from './Grid.module.css';
 
 type Props = {
   mode: Mode;
+  paused: Boolean;
 };
 
 type Dimension = [number, number];
@@ -36,37 +37,33 @@ const mines: MineCounts = {
   hard: 80,
 };
 
-export const Grid = ({ mode }: Props) => {
-  const [loadHeight, setLoadHeight] = useState<number>(0);
-  const [loadWidth, setLoadWidth] = useState<number>(0);
+export const Grid = ({ mode, paused }: Props) => {
+  const [overlayHeight, setOverlayHeight] = useState<number>(0);
+  const [overlayWidth, setOverlayWidth] = useState<number>(0);
   const gridRef = useRef<HTMLDivElement>(null);
 
-  const loadStyle: CSSProperties = {
-    '--load-height': `${loadHeight}px`,
-    '--load-width': `${loadWidth}px`
+  const overlayStyle: CSSProperties = {
+    '--height': `${overlayHeight}px`,
+    '--width': `${overlayWidth}px`
   } as CSSProperties;
 
   const [grid, setGrid] = useState<CellGrid>([[]]);
-  const [display, setDisplay] = useState<ReactElement>();
-
   const [loading, setLoading] = useState<boolean>(false);
   const isMounted = useRef<Boolean>(false);
 
   const loaded = (): void => {
-    if(isMounted.current) {
-      setLoading(false);
-      setLoadHeight(0);
-      setLoadWidth(0);
-    }
+    setLoading(false);
+    setOverlayHeight(0);
+    setOverlayWidth(0);
   }
 
   useEffect(() => {
-    if(isMounted.current && gridRef.current /*TODO REMOVE*/) setLoading(true);
+    if(isMounted.current && gridRef.current) setLoading(true);
     else isMounted.current = true;
 
     if(gridRef.current) {
-      setLoadHeight(gridRef.current.clientHeight);
-      setLoadWidth(gridRef.current.clientWidth);
+      setOverlayHeight(gridRef.current.clientHeight);
+      setOverlayWidth(gridRef.current.clientWidth);
     }
 
     let dimensions: Dimension = gridSize[mode];
@@ -77,32 +74,12 @@ export const Grid = ({ mode }: Props) => {
   }, [mode]);
 
   useEffect(() => {
-    setDisplay(
-      <Container fluid className={styles.gridField} ref={gridRef}>
-        {grid.map((row: CellObj[], rowNum: Number) => (
-          <Row className={styles.cellRow} key={`${rowNum}`}>
-            {row.map((cell: CellObj, colNum: Number) => (
-              <Cell
-                key={`${rowNum}${colNum}`}
-                mode={cell.mode}
-                mine={cell.mine}
-                adjacentNum={cell.adjacentNum}
-              />
-            ))}
-          </Row>
-        ))}
-      </Container>
-    );
     throttle(loaded, 500);
   }, [grid])
 
-  useEffect(() => {
-    throttle(loaded, 0);
-  }, [display]);
-
   return (
     <Container fluid className={styles.grid}>
-      <div className={styles.loading} style={loadStyle}>
+      <div className={styles.overlay} style={overlayStyle}>
         <ScaleLoader 
           loading={loading}
           color="black"
@@ -111,8 +88,24 @@ export const Grid = ({ mode }: Props) => {
           radius={3}
         />
       </div>
-      <div className={styles.gridWrapper}>
-        {!loading ? display : null}
+      <div className={styles.gridWrapper} ref={gridRef}>
+        {!loading ? (
+          <Container fluid className={styles.gridField}>
+            {grid.map((row: CellObj[], rowNum: Number) => (
+              <Row className={styles.cellRow} key={`${rowNum}`}>
+                {row.map((cell: CellObj, colNum: Number) => (
+                  <Cell
+                    key={`${rowNum}${colNum}`}
+                    mode={cell.mode}
+                    mine={cell.mine}
+                    adjacentNum={cell.adjacentNum}
+                    paused={paused}
+                  />
+                ))}
+              </Row>
+            ))}
+        </Container>
+        ) : null}
       </div>
     </Container>
   );

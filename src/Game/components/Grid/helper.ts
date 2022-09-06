@@ -1,4 +1,3 @@
-import { ReactElement } from 'react';
 import { Mode, CellGrid } from '../type';
 
 

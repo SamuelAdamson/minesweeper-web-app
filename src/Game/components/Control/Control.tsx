@@ -19,7 +19,6 @@ export type TimeDisplay = {
 
 export const Control = ({ onPause, onUnpause, onReset }: Props) => {
   const [paused, setPaused] = useState<Boolean>(false);
-  const [offset, setOffset] = useState<number>(0);
   const [elapsed, setElapsed] = useState<number>(0);
   const [time, setTime] = useState<TimeDisplay>({
     hours: '00',

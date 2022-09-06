@@ -20,9 +20,10 @@
   animation-name: fadeIn;
   animation-duration: 500ms;
 }
-.loading {
-  height: var(--load-height);
-  width: var(--load-width);
+
+.overlay {
+  height: var(--height);
+  width: var(--width);
   display: flex;
   justify-content: center;
   align-items: center;

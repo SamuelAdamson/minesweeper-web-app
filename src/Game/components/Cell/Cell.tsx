@@ -9,10 +9,18 @@ type Props = {
   mode: Mode;
   mine: Boolean;
   adjacentNum: Number;
+  paused: Boolean;
 };
 
-function getStyle(covered: Boolean, mine: Boolean, adjacentNum: Number): string {
-  let style = covered
+function getStyle(
+  covered: Boolean, 
+  mine: Boolean, 
+  adjacentNum: Number,
+  paused: Boolean
+): string {
+  let style = paused
+  ? cx(styles.cell, styles.paused)
+  : covered
     ? cx(styles.cell, styles.covered)
     : mine
       ? cx(styles.cell, styles.mine)
@@ -21,7 +29,7 @@ function getStyle(covered: Boolean, mine: Boolean, adjacentNum: Number): string 
   return style;
 }
 
-export const Cell = ({ mode, mine, adjacentNum }: Props) => {
+export const Cell = ({ mode, mine, adjacentNum, paused }: Props) => {
   const cellMode: CSSProperties = {
     '--mode': `var(--${mode})`,
   } as CSSProperties;
@@ -29,17 +37,21 @@ export const Cell = ({ mode, mine, adjacentNum }: Props) => {
   const [covered, setCovered] = useState<Boolean>(true);
   const [flagged, setFlagged] = useState<Boolean>(false);
   const [content, setContent] = useState<String>('');
-  const [style, setStyle] = useState<string>(getStyle(covered, mine, adjacentNum));
+  const [style, setStyle] = useState<string>(cx(styles.cell, styles.covered));
 
   const handleClick = (e: MouseEvent<HTMLElement>) => {
     setCovered(false);
-    setStyle(getStyle(false, mine, adjacentNum));
+    setContent((adjacentNum > 0) ? `${adjacentNum}` : '');
   };
 
   const handleRightClick = (e: MouseEvent<HTMLElement>) => {
     e.preventDefault(); // suppress context menu
-    setFlagged(true);
+    setFlagged(true); // TODO more logic here
   };
+
+  useEffect(() => {
+    setStyle(getStyle(covered, mine, adjacentNum, paused));
+  }, [covered, mine, adjacentNum, paused])
 
   return (
     <div

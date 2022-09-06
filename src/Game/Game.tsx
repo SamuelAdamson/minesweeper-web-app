@@ -7,18 +7,18 @@ import styles from './Game.module.css';
 
 export const Game = () => {
   const [gameMode, setGameMode] = useState<Mode>('easy');
-  const [paused, setPause] = useState<Boolean>(false);
+  const [paused, setPaused] = useState<Boolean>(false);
   
   const modeChange = (newMode: Mode) => {
     setGameMode(newMode);
   };
 
   const pause = () => {
-    setPause(true);
+    setPaused(true);
   }
 
   const unpause = () => {
-    setPause(false);
+    setPaused(false);
   }
 
   const reset = () => {
@@ -28,7 +28,7 @@ export const Game = () => {
   return (
     <Container fluid className={styles.game}>
       <ModeSelect mode={gameMode} onModeChange={modeChange} />
-      <Grid mode={gameMode} />
+      <Grid mode={gameMode} paused={paused} />
       <Control onPause={pause} onUnpause={unpause} onReset={reset} />
       <div className={styles.temp}>
         some other content coming soon
