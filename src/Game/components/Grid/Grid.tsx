@@ -58,7 +58,7 @@ export const Grid = ({ mode, paused }: Props) => {
   }
 
   useEffect(() => {
-    if(isMounted.current && gridRef.current) setLoading(true);
+    if(isMounted.current) setLoading(true);
     else isMounted.current = true;
 
     if(gridRef.current) {
@@ -88,9 +88,9 @@ export const Grid = ({ mode, paused }: Props) => {
           radius={3}
         />
       </div>
-      <div className={styles.gridWrapper} ref={gridRef}>
+      <div className={styles.gridWrapper}>
         {!loading ? (
-          <Container fluid className={styles.gridField}>
+          <Container fluid className={styles.gridField} ref={gridRef}>
             {grid.map((row: CellObj[], rowNum: Number) => (
               <Row className={styles.cellRow} key={`${rowNum}`}>
                 {row.map((cell: CellObj, colNum: Number) => (
