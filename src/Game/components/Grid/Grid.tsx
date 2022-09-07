@@ -9,6 +9,8 @@ import styles from './Grid.module.css';
 type Props = {
   mode: Mode;
   paused: Boolean;
+  resetFlag: Boolean;
+  onLoadComplete: Function;
 };
 
 type Dimension = [number, number];
@@ -37,7 +39,7 @@ const mines: MineCounts = {
   hard: 80,
 };
 
-export const Grid = ({ mode, paused }: Props) => {
+export const Grid = ({ mode, paused, resetFlag, onLoadComplete }: Props) => {
   const [overlayHeight, setOverlayHeight] = useState<number>(0);
   const [overlayWidth, setOverlayWidth] = useState<number>(0);
   const gridRef = useRef<HTMLDivElement>(null);
@@ -53,6 +55,7 @@ export const Grid = ({ mode, paused }: Props) => {
 
   const loaded = (): void => {
     setLoading(false);
+    onLoadComplete();
     setOverlayHeight(0);
     setOverlayWidth(0);
   }
@@ -71,7 +74,7 @@ export const Grid = ({ mode, paused }: Props) => {
     
     placeMines(dimensions[0], dimensions[1], newGrid, mines[mode]);
     setGrid(newGrid);
-  }, [mode]);
+  }, [mode, resetFlag]);
 
   useEffect(() => {
     throttle(loaded, 500);

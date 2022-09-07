@@ -8,6 +8,8 @@ type Props = {
   onPause: Function;
   onUnpause: Function;
   onReset: Function;
+  modeChangeFlag: Boolean;
+  loaded: Boolean;
 }
 
 export type TimeDisplay = {
@@ -17,8 +19,9 @@ export type TimeDisplay = {
 }
 
 
-export const Control = ({ onPause, onUnpause, onReset }: Props) => {
+export const Control = ({ onPause, onUnpause, onReset, modeChangeFlag, loaded }: Props) => {
   const [paused, setPaused] = useState<Boolean>(false);
+  const [timerOn, setTimerOn] = useState<Boolean>(false);
   const [elapsed, setElapsed] = useState<number>(0);
   const [time, setTime] = useState<TimeDisplay>({
     hours: '00',
@@ -29,12 +32,9 @@ export const Control = ({ onPause, onUnpause, onReset }: Props) => {
 
   const pauseClick = (pauseStatus: Boolean) => {
     setPaused(pauseStatus);
-    if(pauseStatus) {
-      onPause();
-    }
-    else {
-      onUnpause();
-    }
+    setTimerOn(!pauseStatus);
+    if(pauseStatus) onPause();
+    else onUnpause();
   }
 
   const resetClick = () => {
@@ -45,7 +45,7 @@ export const Control = ({ onPause, onUnpause, onReset }: Props) => {
   useEffect(() => {
     let interval: ReturnType<typeof setInterval> | undefined = undefined;
 
-    if(!paused) {
+    if(timerOn) {
       interval = setInterval(() => {
         setElapsed(prevElapsed => prevElapsed + 1);
       }, 1000);
@@ -56,11 +56,23 @@ export const Control = ({ onPause, onUnpause, onReset }: Props) => {
 
     return () => clearInterval(interval);
 
-  }, [paused])
+  }, [timerOn])
 
+  
   useEffect(() => {
     setTime(formatTime(elapsed));
   }, [elapsed])
+
+
+  useEffect(() => {
+    setTimerOn(loaded && !paused);
+  }, [loaded, paused])
+
+
+  useEffect(() => {
+    setElapsed(0);
+  }, [modeChangeFlag])
+
 
   return(
     <Container fluid className={styles.control}>
