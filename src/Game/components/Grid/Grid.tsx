@@ -3,7 +3,7 @@ import { Container, Row } from 'react-bootstrap';
 import { ScaleLoader } from 'react-spinners'
 import { Cell } from '..';
 import { Mode, CellGrid, CellObj } from '../type';
-import { throttle, createGrid, placeMines } from './helper';
+import { createGrid, placeMines } from './helper';
 import styles from './Grid.module.css';
 
 type Props = {
@@ -77,7 +77,7 @@ export const Grid = ({ mode, paused, resetFlag, onLoadComplete }: Props) => {
   }, [mode, resetFlag]);
 
   useEffect(() => {
-    throttle(loaded, 500);
+    loaded();
   }, [grid])
 
   return (

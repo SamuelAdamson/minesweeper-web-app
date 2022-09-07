@@ -18,7 +18,7 @@
 
   /* Fade in smoothness */
   animation-name: fadeIn;
-  animation-duration: 500ms;
+  animation-duration: 750ms;
 }
 
 .overlay {

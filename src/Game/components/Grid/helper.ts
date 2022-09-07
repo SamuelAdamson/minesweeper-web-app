@@ -1,17 +1,5 @@
 import { Mode, CellGrid } from '../type';
 
-
-let ignoring = false;
-export function throttle(func: Function, timeout: number): void {
-  if(!ignoring) {
-    ignoring = true;
-    setTimeout(() => {
-      func();
-      ignoring = false;
-    }, timeout);
-  }
-}
-
 export function createGrid(rows: Number, cols: Number, mode: Mode): CellGrid {
   let cellGrid: CellGrid = [];
 
