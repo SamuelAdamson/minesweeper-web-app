@@ -4,6 +4,6 @@ export type AdjacentStr = 'zero' | 'one' | 'two' | 'three' | 'fourplus';
 export type CellObj = {
   mode: Mode;
   mine: Boolean;
-  adjacentNum: Number;
+  adjacentNum: number;
 };
 export type CellGrid = CellObj[][];

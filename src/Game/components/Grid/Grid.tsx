@@ -1,9 +1,9 @@
 import { useEffect, useState, useRef, ReactElement, CSSProperties } from 'react';
 import { Container, Row } from 'react-bootstrap';
-import { ScaleLoader } from 'react-spinners'
+import { BarLoader } from 'react-spinners'
 import { Cell } from '..';
 import { Mode, CellGrid, CellObj } from '../type';
-import { createGrid, placeMines } from './helper';
+import { createGrid, placeMines, replaceMine } from './helper';
 import styles from './Grid.module.css';
 
 type Props = {
@@ -22,24 +22,33 @@ type GridSizes = {
 };
 
 type MineCounts = {
-  easy: Number;
-  medium: Number;
-  hard: Number;
+  easy: number;
+  medium: number;
+  hard: number;
 };
 
-const gridSize: GridSizes = {
+const loaderOverride: CSSProperties = {
+  backgroundColor: 'rgba(57,144,126,0.2)',
+  borderRadius: '0.3rem'
+}
+
+const gridSizes: GridSizes = {
   easy: [8, 12],
   medium: [12, 16],
   hard: [16, 20],
 };
 
-const mines: MineCounts = {
+const mineCount: MineCounts = {
   easy: 10,
   medium: 40,
   hard: 80,
 };
 
 export const Grid = ({ mode, paused, resetFlag, onLoadComplete }: Props) => {
+  const [firstClick, setFirstClick] = useState<Boolean>(true);
+  const [numMines, setNumMines] = useState<number>(mineCount[mode]);
+  const [dimensions, setDimensions] = useState<Dimension>(gridSizes[mode]);
+
   const [overlayHeight, setOverlayHeight] = useState<number>(0);
   const [overlayWidth, setOverlayWidth] = useState<number>(0);
   const gridRef = useRef<HTMLDivElement>(null);
@@ -69,10 +78,12 @@ export const Grid = ({ mode, paused, resetFlag, onLoadComplete }: Props) => {
       setOverlayWidth(gridRef.current.clientWidth);
     }
 
-    let dimensions: Dimension = gridSize[mode];
+    let newDimensions: Dimension = gridSizes[mode];
     let newGrid = createGrid(dimensions[0], dimensions[1], mode);
     
-    placeMines(dimensions[0], dimensions[1], newGrid, mines[mode]);
+    setNumMines(mineCount[mode]);
+    setDimensions(newDimensions);
+    placeMines(newDimensions[0], newDimensions[1], newGrid, mineCount[mode]);
     setGrid(newGrid);
   }, [mode, resetFlag]);
 
@@ -80,15 +91,23 @@ export const Grid = ({ mode, paused, resetFlag, onLoadComplete }: Props) => {
     loaded();
   }, [grid])
 
+  const cellClicked = (row: number, col: number) => {
+    if(firstClick) {
+      setFirstClick(false);
+      if(grid[row][col].mine) replaceMine(row, col, dimensions[0], dimensions[1], grid);
+    }
+    
+  }
+
   return (
     <Container fluid className={styles.grid}>
       <div className={styles.overlay} style={overlayStyle}>
-        <ScaleLoader 
+        <BarLoader 
           loading={loading}
-          color="black"
-          height={150}
-          width={12}
-          radius={3}
+          color="teal"
+          cssOverride={loaderOverride}
+          height={10}
+          width={200}
         />
       </div>
       <div className={styles.gridWrapper}>
@@ -99,6 +118,8 @@ export const Grid = ({ mode, paused, resetFlag, onLoadComplete }: Props) => {
                 {row.map((cell: CellObj, colNum: Number) => (
                   <Cell
                     key={`${rowNum}${colNum}`}
+                    row={rowNum}
+                    col={colNum}
                     mode={cell.mode}
                     mine={cell.mine}
                     adjacentNum={cell.adjacentNum}
