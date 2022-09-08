@@ -52,6 +52,8 @@ export const Cell = ({ row, col, mode, mine, adjacentNum, paused }: Props) => {
   };
 
   useEffect(() => {
+    if(paused) setContent('');
+    else if(!covered) setContent((adjacentNum > 0) ? `${adjacentNum}` : '');
     setStyle(getStyle(covered, mine, adjacentNum, paused));
   }, [covered, mine, adjacentNum, paused])
 
