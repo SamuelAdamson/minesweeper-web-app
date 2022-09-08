@@ -31,7 +31,7 @@ function getStyle(
   return style;
 }
 
-export const Cell = ({ row, col, mode, mine, adjacentNum, paused }: Props) => {
+export const Cell = ({ mode, mine, adjacentNum, paused }: Props) => {
   const cellMode: CSSProperties = {
     '--mode': `var(--${mode})`,
   } as CSSProperties;

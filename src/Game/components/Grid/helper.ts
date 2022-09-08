@@ -7,8 +7,11 @@ export function createGrid(rows: Number, cols: Number, mode: Mode): CellGrid {
     cellGrid[i] = [];
     for (let j = 0; j < cols; j++) {
       cellGrid[i][j] = {
+        row: i,
+        col: j,
         mode: mode,
         mine: false,
+        covered: true,
         adjacentNum: 0,
       };
     }
@@ -19,17 +22,16 @@ export function createGrid(rows: Number, cols: Number, mode: Mode): CellGrid {
 
 
 function getAdjacent(  
-  row: number, 
-  col: number, 
+  source: CellObj,
   nRows: number, 
   nCols: number, 
   grid: CellGrid
 ): CellObj[] {
   let adjacent: CellObj[] = [];
 
-  for(let i = Math.max(row-1, 0); i <= row+1 && i < nRows; i++) {
-    for(let j = Math.max(col-1, 0); j <= col+1 && j < nCols; j++) {
-      if(i != row || j != col) {
+  for(let i = Math.max(source.row-1, 0); i <= source.row+1 && i < nRows; i++) {
+    for(let j = Math.max(source.col-1, 0); j <= source.col+1 && j < nCols; j++) {
+      if(i != source.row || j != source.col) {
         adjacent.push(grid[i][j]);
       }
     }
@@ -54,7 +56,7 @@ export function placeMines(
       col = Math.floor(Math.random() * nCols);
     }
 
-    for(const cell of getAdjacent(row, col, nRows, nCols, grid)) {
+    for(const cell of getAdjacent(grid[row][col], nRows, nCols, grid)) {
       cell.adjacentNum++;
     }
     grid[row][col].mine = true;
@@ -70,17 +72,36 @@ export function replaceMine(
   grid: CellGrid
 ): void {
   placeMines(nRows, nCols, grid, 1);
-  for(const cell of getAdjacent(row, col, nRows, nCols, grid)) {
+  for(const cell of getAdjacent(grid[row][col], nRows, nCols, grid)) {
     cell.adjacentNum--;
   }
   grid[row][col].mine = false;
 }
 
+/**
+ * Important note on the below functions. In JavaScript, objects 
+ * and arrays are passed by reference. So, we are not creating 
+ * large swaths of memories in execution. Instead, we are simply 
+ * storing memory addresses.
+ */
 
-export function bfs(grid: CellGrid, row: Number, col: Number) {
+
+export function BFS(grid: CellGrid, source: CellObj): void {
 
 }
 
-export function dfs(grid: CellGrid, row: Number, col: Number) {
+
+export function DFS(grid: CellGrid, source: CellObj): void {
+  const stack: [CellObj] = [source];
+
+  while(stack.length > 0) {
+    let cell = stack.pop();
+    // cell.covered = false; TODO
+
+  }
+}
+
+
+export function recursiveDFS(grid: CellGrid, source: CellObj): void {
 
 }
