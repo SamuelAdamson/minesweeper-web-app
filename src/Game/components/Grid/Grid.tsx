@@ -79,11 +79,11 @@ export const Grid = ({ mode, paused, resetFlag, onLoadComplete }: Props) => {
     }
 
     let newDimensions: Dimension = gridSizes[mode];
-    let newGrid = createGrid(dimensions[0], dimensions[1], mode);
-    
+    let newGrid = createGrid(newDimensions[0], newDimensions[1], mode);
+    placeMines(newDimensions[0], newDimensions[1], newGrid, mineCount[mode]);
+
     setNumMines(mineCount[mode]);
     setDimensions(newDimensions);
-    placeMines(newDimensions[0], newDimensions[1], newGrid, mineCount[mode]);
     setGrid(newGrid);
   }, [mode, resetFlag]);
 
@@ -96,7 +96,7 @@ export const Grid = ({ mode, paused, resetFlag, onLoadComplete }: Props) => {
       setFirstClick(false);
       if(grid[row][col].mine) replaceMine(row, col, dimensions[0], dimensions[1], grid);
     }
-    
+
   }
 
   return (

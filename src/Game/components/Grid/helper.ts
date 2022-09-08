@@ -25,11 +25,13 @@ function getAdjacent(
   nCols: number, 
   grid: CellGrid
 ): CellObj[] {
-  let adjacent = []
+  let adjacent: CellObj[] = [];
 
-  for(let i = row-1; i <= row+1 && i < nRows; i++) {
-    for(let j = col-1; j <= col+1 && j < nCols; j++) {
-      adjacent.push(grid[i][j]);
+  for(let i = Math.max(row-1, 0); i <= row+1 && i < nRows; i++) {
+    for(let j = Math.max(col-1, 0); j <= col+1 && j < nCols; j++) {
+      if(i != row || j != col) {
+        adjacent.push(grid[i][j]);
+      }
     }
   }
 
@@ -47,7 +49,7 @@ export function placeMines(
   let col = Math.floor(Math.random() * nCols);
 
   for(let i = 0; i < numMines; i++) {
-    while(!grid[row][col].mine) {
+    while(grid[row][col].mine) {
       row = Math.floor(Math.random() * nRows);
       col = Math.floor(Math.random() * nCols);
     }
