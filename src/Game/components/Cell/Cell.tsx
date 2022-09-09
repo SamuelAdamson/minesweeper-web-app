@@ -21,13 +21,14 @@ function getStyle(
   paused: Boolean
 ): string {
   let style = paused
-  ? cx(styles.cell, styles.paused)
-  : covered
-    ? cx(styles.cell, styles.covered)
-    : mine
-      ? cx(styles.cell, styles.mine)
-      : cx(styles.cell, styles.uncovered, styles[getAdjacentStr(adjacentNum)])
+    ? cx(styles.cell, styles.paused)
+    : covered
+      ? cx(styles.cell, styles.covered)
+      : mine
+        ? cx(styles.cell, styles.mine)
+        : cx(styles.cell, styles.uncovered, styles[getAdjacentStr(adjacentNum)]);
 
+  console.log(style)
   return style;
 }
 
