@@ -43,17 +43,16 @@ export const Cell = ({ mode, mine, adjacentNum, paused }: Props) => {
 
   const handleClick = (e: MouseEvent<HTMLElement>) => {
     setCovered(false);
-    setContent((adjacentNum > 0) ? `${adjacentNum}` : '');
   };
 
   const handleRightClick = (e: MouseEvent<HTMLElement>) => {
     e.preventDefault(); // suppress context menu
-    setFlagged(true); // TODO more logic here
+    setFlagged(prev => !prev);
   };
 
   useEffect(() => {
-    if(paused) setContent('');
-    else if(!covered) setContent((adjacentNum > 0) ? `${adjacentNum}` : '');
+    if(paused || covered || mine || adjacentNum == 0) setContent('');
+    else setContent(`${adjacentNum}`);
     setStyle(getStyle(covered, mine, adjacentNum, paused));
   }, [covered, mine, adjacentNum, paused])
 
