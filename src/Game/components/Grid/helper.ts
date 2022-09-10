@@ -9,7 +9,6 @@ export function createGrid(rows: Number, cols: Number, mode: Mode): CellGrid {
       cellGrid[i][j] = {
         row: i,
         col: j,
-        mode: mode,
         mine: false,
         covered: true,
         adjacentNum: 0,
@@ -65,17 +64,16 @@ export function placeMines(
 
 
 export function replaceMine(
-  row: number, 
-  col: number, 
+  cell: CellObj,
   nRows: number, 
   nCols: number, 
   grid: CellGrid
 ): void {
   placeMines(nRows, nCols, grid, 1);
-  for(const cell of getAdjacent(grid[row][col], nRows, nCols, grid)) {
+  for(const adj of getAdjacent(cell, nRows, nCols, grid)) {
     cell.adjacentNum--;
   }
-  grid[row][col].mine = false;
+  cell.mine = false;
 }
 
 /**

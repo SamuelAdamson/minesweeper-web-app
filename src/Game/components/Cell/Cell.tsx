@@ -1,16 +1,15 @@
 import { useState, CSSProperties, MouseEvent, useEffect } from 'react';
 import { BookmarkFill as FlagIcon } from 'react-bootstrap-icons';
 import { getAdjacentStr } from './helper';
-import { Mode } from '../type';
+import { Mode, CellObj } from '../type';
 import styles from './Cell.module.css';
 import cx from 'classnames';
 
 type Props = {
-  row: Number;
-  col: Number;
+  cell: CellObj,
+  onClick: (cell: CellObj) => void;
+  onRightClick: (cell: CellObj) => void;
   mode: Mode;
-  mine: Boolean;
-  adjacentNum: Number;
   paused: Boolean;
 };
 
@@ -27,35 +26,32 @@ function getStyle(
       : mine
         ? cx(styles.cell, styles.mine)
         : cx(styles.cell, styles.uncovered, styles[getAdjacentStr(adjacentNum)]);
-
-  console.log(style)
+  
   return style;
 }
 
-export const Cell = ({ mode, mine, adjacentNum, paused }: Props) => {
+export const Cell = ({ cell, onClick, onRightClick, mode, paused }: Props) => {
   const cellMode: CSSProperties = {
     '--mode': `var(--${mode})`,
   } as CSSProperties;
 
-  const [covered, setCovered] = useState<Boolean>(true);
   const [flagged, setFlagged] = useState<Boolean>(false);
   const [content, setContent] = useState<String>('');
   const [style, setStyle] = useState<string>(cx(styles.cell, styles.covered));
 
   const handleClick = (e: MouseEvent<HTMLElement>) => {
-    setCovered(false);
+    onClick(cell);
   };
 
   const handleRightClick = (e: MouseEvent<HTMLElement>) => {
     e.preventDefault(); // suppress context menu
-    setFlagged(prev => !prev);
   };
 
   useEffect(() => {
-    if(paused || covered || mine || adjacentNum == 0) setContent('');
-    else setContent(`${adjacentNum}`);
-    setStyle(getStyle(covered, mine, adjacentNum, paused));
-  }, [covered, mine, adjacentNum, paused])
+    if(paused || cell.covered || cell.mine || cell.adjacentNum == 0) setContent('');
+    else setContent(`${cell.adjacentNum}`);
+    setStyle(getStyle(cell.covered, cell.mine, cell.adjacentNum, paused)); // 
+  }, [cell.covered, cell.mine, cell.adjacentNum, paused])
 
   return (
     <div
@@ -64,7 +60,7 @@ export const Cell = ({ mode, mine, adjacentNum, paused }: Props) => {
       onClick={handleClick}
       onContextMenu={handleRightClick}
     >
-      {flagged ? <FlagIcon /> : content}
+      {flagged ? <FlagIcon /> : (<h3>{content}</h3>)}
     </div>
   );
 };

@@ -26,10 +26,12 @@
 .cell.covered:hover {
   filter: brightness(40%);
 }
-.cell.uncovered,
+.cell.uncovered {
+  pointer-events: none;
+  cursor: default;
+}
 .cell.uncovered.zero {
   background-color: rgba(137, 148, 153, 0.45);
-  cursor: default;
 }
 .cell.uncovered.one {
   /* One Adjacent */
@@ -50,6 +52,7 @@
 .cell.mine {
   /* Cell is a mine */
   background-color: rgb(0, 0, 0);
+  cursor: default;
 }
 
 /* Cell Sizing/Responsiveness*/

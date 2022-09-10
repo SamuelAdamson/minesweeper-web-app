@@ -85,17 +85,23 @@ export const Grid = ({ mode, paused, resetFlag, onLoadComplete }: Props) => {
     setNumMines(mineCount[mode]);
     setDimensions(newDimensions);
     setGrid(newGrid);
+
+    console.log("Grid useeffect")
   }, [mode, resetFlag]);
 
   useEffect(() => {
     loaded();
   }, [grid])
 
-  const cellClicked = (row: number, col: number) => {
+  const cellClicked = (cell: CellObj) => {
     if(firstClick) {
       setFirstClick(false);
-      if(grid[row][col].mine) replaceMine(row, col, dimensions[0], dimensions[1], grid);
+      if(cell.mine) replaceMine(cell, dimensions[0], dimensions[1], grid);
     }
+    cell.covered = false;
+  }
+
+  const cellRightClicked = (cell: CellObj) => {
 
   }
 
@@ -113,16 +119,15 @@ export const Grid = ({ mode, paused, resetFlag, onLoadComplete }: Props) => {
       <div className={styles.gridWrapper}>
         {!loading ? (
           <Container fluid className={styles.gridField} ref={gridRef}>
-            {grid.map((row: CellObj[], rowNum: Number) => (
+            {grid.map((row: CellObj[], rowNum: number) => (
               <Row className={styles.cellRow} key={`${rowNum}`}>
-                {row.map((cell: CellObj, colNum: Number) => (
+                {row.map((cell: CellObj, colNum: number) => (
                   <Cell
                     key={`${rowNum}${colNum}`}
-                    row={rowNum}
-                    col={colNum}
-                    mode={cell.mode}
-                    mine={cell.mine}
-                    adjacentNum={cell.adjacentNum}
+                    cell={cell}
+                    onClick={cellClicked}
+                    onRightClick={cellRightClicked}
+                    mode={mode}
                     paused={paused}
                   />
                 ))}
