@@ -13,12 +13,7 @@ type Props = {
   paused: Boolean;
 };
 
-function getStyle(
-  covered: Boolean, 
-  mine: Boolean, 
-  adjacentNum: Number,
-  paused: Boolean
-): string {
+function getStyle(covered: Boolean, mine: Boolean, adjacentNum: Number,paused: Boolean): string {
   let style = paused
     ? cx(styles.cell, styles.paused)
     : covered
@@ -50,7 +45,7 @@ export const Cell = ({ cell, onClick, onRightClick, mode, paused }: Props) => {
   useEffect(() => {
     if(paused || cell.covered || cell.mine || cell.adjacentNum == 0) setContent('');
     else setContent(`${cell.adjacentNum}`);
-    setStyle(getStyle(cell.covered, cell.mine, cell.adjacentNum, paused)); // 
+    setStyle(getStyle(cell.covered, cell.mine, cell.adjacentNum, paused));
   }, [cell.covered, cell.mine, cell.adjacentNum, paused])
 
   return (

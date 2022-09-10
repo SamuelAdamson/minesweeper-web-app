@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from 'react';
+
 export type Mode = 'easy' | 'medium' | 'hard';
 export type AdjacentStr = 'zero' | 'one' | 'two' | 'three' | 'fourplus';
 
@@ -8,4 +10,5 @@ export type CellObj = {
   covered: Boolean;
   adjacentNum: number;
 };
+
 export type CellGrid = CellObj[][];

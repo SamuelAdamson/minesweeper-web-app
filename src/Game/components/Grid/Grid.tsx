@@ -65,8 +65,20 @@ export const Grid = ({ mode, paused, resetFlag, onLoadComplete }: Props) => {
   const loaded = (): void => {
     setLoading(false);
     onLoadComplete();
-    setOverlayHeight(0);
+    setOverlayHeight(0); 
     setOverlayWidth(0);
+  }
+
+  const cellClicked = (cell: CellObj) => {
+    if(firstClick) {
+      setFirstClick(false);
+      if(cell.mine) replaceMine(cell, dimensions[0], dimensions[1], grid);
+    }
+    cell.covered = false; // TODO THIS DOES NOT TRIGGER USEEFFECT IN CELL
+  }
+
+  const cellRightClicked = (cell: CellObj) => {
+
   }
 
   useEffect(() => {
@@ -74,7 +86,7 @@ export const Grid = ({ mode, paused, resetFlag, onLoadComplete }: Props) => {
     else isMounted.current = true;
 
     if(gridRef.current) {
-      setOverlayHeight(gridRef.current.clientHeight);
+      setOverlayHeight(gridRef.current.clientHeight); // TODO THESE ARE NOT ACCURATE
       setOverlayWidth(gridRef.current.clientWidth);
     }
 
@@ -84,26 +96,13 @@ export const Grid = ({ mode, paused, resetFlag, onLoadComplete }: Props) => {
 
     setNumMines(mineCount[mode]);
     setDimensions(newDimensions);
+    setFirstClick(true);
     setGrid(newGrid);
-
-    console.log("Grid useeffect")
   }, [mode, resetFlag]);
 
   useEffect(() => {
-    loaded();
+    setTimeout(() =>loaded(), 1000);
   }, [grid])
-
-  const cellClicked = (cell: CellObj) => {
-    if(firstClick) {
-      setFirstClick(false);
-      if(cell.mine) replaceMine(cell, dimensions[0], dimensions[1], grid);
-    }
-    cell.covered = false;
-  }
-
-  const cellRightClicked = (cell: CellObj) => {
-
-  }
 
   return (
     <Container fluid className={styles.grid}>
@@ -116,9 +115,9 @@ export const Grid = ({ mode, paused, resetFlag, onLoadComplete }: Props) => {
           width={200}
         />
       </div>
-      <div className={styles.gridWrapper}>
+      <div className={styles.gridWrapper} ref={gridRef}>
         {!loading ? (
-          <Container fluid className={styles.gridField} ref={gridRef}>
+          <Container fluid className={styles.gridField}>
             {grid.map((row: CellObj[], rowNum: number) => (
               <Row className={styles.cellRow} key={`${rowNum}`}>
                 {row.map((cell: CellObj, colNum: number) => (
@@ -133,7 +132,7 @@ export const Grid = ({ mode, paused, resetFlag, onLoadComplete }: Props) => {
                 ))}
               </Row>
             ))}
-        </Container>
+          </Container>
         ) : null}
       </div>
     </Container>
