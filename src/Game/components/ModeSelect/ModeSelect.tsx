@@ -17,8 +17,8 @@ const modes: Array<Mode> = ['easy', 'medium', 'hard'];
 export const ModeSelect = ({ mode, onModeChange }: Props) => {
   const [radioValue, setRadioValue] = useState<Mode>(mode);
   const onNewMode = (newMode: Mode) => {
-    setRadioValue(newMode);
     onModeChange(newMode);
+    setRadioValue(newMode);
   };
 
   return (

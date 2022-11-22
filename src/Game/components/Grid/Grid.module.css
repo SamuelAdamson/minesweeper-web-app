@@ -18,12 +18,20 @@
 
   /* Fade in smoothness */
   animation-name: fadeIn;
-  animation-duration: 750ms;
+  animation-duration: 500ms;
 }
 
-.overlay {
-  height: var(--height);
-  width: var(--width);
+.loader {
+  /* Different options for height */
+  --easy: 3vmax;
+  --medium: 2.5vmax;
+  --hard: 2vmax;
+
+  /* Set size based on mode */
+  height: calc(var(--rows) * calc(var(--mode) + 0.3vmax));
+  width: calc(var(--cols) * calc(var(--mode) + 0.3vmax));
+
+  /* Display/styling */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -47,6 +55,17 @@
     transform: rotate(180deg);
     margin-top: 1rem;
     margin-bottom: 1rem;
+  }
+
+  .loader {
+    /* Different options for height */
+    --easy: 4vmax;
+    --medium: 3vmax;
+    --hard: 4.5vmin;  
+
+    /* Set size based on mode */
+    width: calc(var(--rows) * calc(var(--mode) + 0.44vmax));
+    height: calc(var(--cols) * calc(var(--mode) + 0.44vmax));
   }
 }
 

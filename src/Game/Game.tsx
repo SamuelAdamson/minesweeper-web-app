@@ -27,8 +27,8 @@ export const Game = () => {
   }
 
   const reset = () => {
-    setResetFlag(prev => !prev);
     setLoaded(false);
+    setResetFlag(prev => !prev);
   }
 
   const loadComplete = () => {

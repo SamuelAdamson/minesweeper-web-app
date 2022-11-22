@@ -9,6 +9,7 @@ export function createGrid(rows: Number, cols: Number, mode: Mode): CellGrid {
       cellGrid[i][j] = {
         row: i,
         col: j,
+        key: i * 100 + j,
         mine: false,
         covered: true,
         adjacentNum: 0,
@@ -82,17 +83,34 @@ export function replaceMine(
  */
 
 
+export function uncover(grid: CellGrid, source: CellObj, rc: number, cc: number) {
+  if(!source.adjacentNum) {
+    DFS(grid, source, rc, cc);
+    // BFS(grid, source, rc, cc);
+    // recursiveDFS(grid, source, rc, cc);
+  }
+  else source.covered = false;
+}
+
 export function BFS(grid: CellGrid, source: CellObj): void {
 
 }
 
 
-export function DFS(grid: CellGrid, source: CellObj): void {
+export function DFS(grid: CellGrid, source: CellObj, rc: number, cc: number): void {
   const stack: [CellObj] = [source];
 
   while(stack.length > 0) {
-    let cell = stack.pop();
-    // cell.covered = false; TODO
+    let cell: CellObj = stack.pop()!;
+    
+    for(let i = cell.row - 1; i < cell.row + 2; i++) {
+      for(let j = cell.col - 1; j < cell.col + 2; j++) {
+        if(i >= 0 && i < rc && j >= 0 && j < cc && grid[i][j].covered && !grid[i][j].mine) {
+          grid[i][j].covered = false;
+          if(!grid[i][j].adjacentNum) stack.push(grid[i][j]);
+        }
+      }
+    }
 
   }
 }

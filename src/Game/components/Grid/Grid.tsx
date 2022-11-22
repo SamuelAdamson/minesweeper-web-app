@@ -1,9 +1,9 @@
-import { useEffect, useState, useRef, ReactElement, CSSProperties } from 'react';
+import { useEffect, useState, useRef, CSSProperties } from 'react';
 import { Container, Row } from 'react-bootstrap';
 import { BarLoader } from 'react-spinners'
 import { Cell } from '..';
 import { Mode, CellGrid, CellObj } from '../type';
-import { createGrid, placeMines, replaceMine } from './helper';
+import { createGrid, placeMines, replaceMine, uncover } from './helper';
 import styles from './Grid.module.css';
 
 type Props = {
@@ -41,21 +41,18 @@ const gridSizes: GridSizes = {
 const mineCount: MineCounts = {
   easy: 10,
   medium: 40,
-  hard: 80,
+  //hard: 80
+  hard: 0
 };
 
 export const Grid = ({ mode, paused, resetFlag, onLoadComplete }: Props) => {
   const [firstClick, setFirstClick] = useState<Boolean>(true);
-  const [numMines, setNumMines] = useState<number>(mineCount[mode]);
   const [dimensions, setDimensions] = useState<Dimension>(gridSizes[mode]);
 
-  const [overlayHeight, setOverlayHeight] = useState<number>(0);
-  const [overlayWidth, setOverlayWidth] = useState<number>(0);
-  const gridRef = useRef<HTMLDivElement>(null);
-
-  const overlayStyle: CSSProperties = {
-    '--height': `${overlayHeight}px`,
-    '--width': `${overlayWidth}px`
+  const modeStyle: CSSProperties = {'--mode': `var(--${mode})`} as CSSProperties;
+  const dimensionStyle: CSSProperties = {
+    '--rows': `${dimensions[0]}`,
+    '--cols': `${dimensions[1]}`
   } as CSSProperties;
 
   const [grid, setGrid] = useState<CellGrid>([[]]);
@@ -65,8 +62,6 @@ export const Grid = ({ mode, paused, resetFlag, onLoadComplete }: Props) => {
   const loaded = (): void => {
     setLoading(false);
     onLoadComplete();
-    setOverlayHeight(0); 
-    setOverlayWidth(0);
   }
 
   const cellClicked = (cell: CellObj) => {
@@ -74,7 +69,9 @@ export const Grid = ({ mode, paused, resetFlag, onLoadComplete }: Props) => {
       setFirstClick(false);
       if(cell.mine) replaceMine(cell, dimensions[0], dimensions[1], grid);
     }
-    cell.covered = false; // TODO THIS DOES NOT TRIGGER USEEFFECT IN CELL
+
+    // uncover cells
+    // uncover(grid, cell, dimensions[0], dimensions[1]);
   }
 
   const cellRightClicked = (cell: CellObj) => {
@@ -85,55 +82,54 @@ export const Grid = ({ mode, paused, resetFlag, onLoadComplete }: Props) => {
     if(isMounted.current) setLoading(true);
     else isMounted.current = true;
 
-    if(gridRef.current) {
-      setOverlayHeight(gridRef.current.clientHeight); // TODO THESE ARE NOT ACCURATE
-      setOverlayWidth(gridRef.current.clientWidth);
-    }
-
-    let newDimensions: Dimension = gridSizes[mode];
+    let newDimensions = gridSizes[mode];
     let newGrid = createGrid(newDimensions[0], newDimensions[1], mode);
     placeMines(newDimensions[0], newDimensions[1], newGrid, mineCount[mode]);
 
-    setNumMines(mineCount[mode]);
     setDimensions(newDimensions);
     setFirstClick(true);
     setGrid(newGrid);
   }, [mode, resetFlag]);
 
   useEffect(() => {
-    setTimeout(() =>loaded(), 1000);
+    setTimeout(() => loaded(), 750);
   }, [grid])
 
   return (
     <Container fluid className={styles.grid}>
-      <div className={styles.overlay} style={overlayStyle}>
-        <BarLoader 
-          loading={loading}
-          color="teal"
-          cssOverride={loaderOverride}
-          height={10}
-          width={200}
-        />
-      </div>
-      <div className={styles.gridWrapper} ref={gridRef}>
-        {!loading ? (
+      <div className={styles.gridWrapper}>
+        {loading ?
+          (
+          <div className={styles.loader} style={{...dimensionStyle, ...modeStyle}}>
+            <BarLoader 
+              loading={loading}
+              color="teal"
+              cssOverride={loaderOverride}
+              height={10}
+              width={200}
+            />
+          </div>
+          )
+        :
+          (
           <Container fluid className={styles.gridField}>
             {grid.map((row: CellObj[], rowNum: number) => (
               <Row className={styles.cellRow} key={`${rowNum}`}>
-                {row.map((cell: CellObj, colNum: number) => (
+                {row.map((cell: CellObj) => (
                   <Cell
-                    key={`${rowNum}${colNum}`}
+                    key={`${cell.row}${cell.col}`}
                     cell={cell}
                     onClick={cellClicked}
                     onRightClick={cellRightClicked}
-                    mode={mode}
+                    modeStyle={modeStyle}
                     paused={paused}
                   />
                 ))}
               </Row>
             ))}
           </Container>
-        ) : null}
+          )
+        }
       </div>
     </Container>
   );
