@@ -7,10 +7,10 @@ import cx from 'classnames';
 
 type Props = {
   cell: CellObj,
-  onClick: (cell: CellObj) => void;
-  onRightClick: (cell: CellObj) => void;
   mode: Mode;
   paused: Boolean;
+  onClick: (cell: CellObj) => void;
+  onRightClick: (cell: CellObj) => void;
 };
 
 function getStyle(covered: Boolean, mine: Boolean, adjacentNum: Number, paused: Boolean, mode: Mode) : string 
@@ -26,7 +26,7 @@ function getStyle(covered: Boolean, mine: Boolean, adjacentNum: Number, paused: 
   return cx(styles.cell, style, modeStyle);
 }
 
-export const Cell = ({ cell, onClick, onRightClick, mode, paused }: Props) => {
+export const Cell = ({ cell, mode, paused, onClick, onRightClick }: Props) => {
   const [flagged, setFlagged] = useState<Boolean>(false);
   const [content, setContent] = useState<String>('');
   const [style, setStyle] = useState<string>(cx(styles.cell, styles.covered));

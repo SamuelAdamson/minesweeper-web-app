@@ -60,7 +60,6 @@ export const Grid = ({ mode, paused, resetFlag, onLoadComplete }: Props) => {
 
   const [grid, setGrid] = useState<CellGrid>([[]]);
   const [loading, setLoading] = useState<boolean>(false);
-  const isMounted = useRef<Boolean>(false);
 
   const [gridWrapperStyle, setGridWrapperStyle] = useState<string>(getGridWrapperStyle(mode));
 
@@ -82,8 +81,7 @@ export const Grid = ({ mode, paused, resetFlag, onLoadComplete }: Props) => {
   const cellRightClicked = (cell: CellObj) => {  }
 
   useEffect(() => {
-    if(isMounted.current) setLoading(true);
-    else isMounted.current = true;
+    setLoading(true);
     setGridWrapperStyle(getGridWrapperStyle(mode));
 
     let newDimensions = gridSizes[mode];
@@ -123,10 +121,10 @@ export const Grid = ({ mode, paused, resetFlag, onLoadComplete }: Props) => {
                   <Cell
                     key={`${cell.row}${cell.col}`}
                     cell={cell}
-                    onClick={cellClicked}
-                    onRightClick={cellRightClicked}
                     mode={mode}
                     paused={paused}
+                    onClick={cellClicked}
+                    onRightClick={cellRightClicked}
                   />
                 ))}
               </Row>
