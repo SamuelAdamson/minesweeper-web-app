@@ -5,6 +5,25 @@
   display: flex;
   justify-content: center;
   align-items: center;
+
+  /* Changes on small screen (see below) */
+  margin: 0.15vmax;
+}
+
+.cellEasy {
+  /* Cell mode easy */
+  height: 3vmax;
+  width: 3vmax;
+}
+.cellMedium {
+  /* Cell mode easy */
+  height: 2.5vmax;
+  width: 2.5vmax;
+}
+.cellHard {
+  /* Cell mode easy */
+  height: 2vmax;
+  width: 2vmax;
 }
 
 /*Cell Content Styling*/
@@ -55,27 +74,30 @@
   cursor: default;
 }
 
-/* Cell Sizing/Responsiveness*/
-.cell {
-  /* Different cell options for height/width */
-  --easy: 3vmax;
-  --medium: 2.5vmax;
-  --hard: 2vmax;
-  /* Height and width set by mode */
-  height: var(--mode);
-  width: var(--mode);
-  margin: 0.15vmax;
-}
 
 @media (max-width: 460px) {
   .cell {
     /*Rotate Grid*/
     transform: rotate(90deg);
     white-space: nowrap;
-    /* Different cell options for height/width */
-    --easy: 4vmax;
-    --medium: 3vmax;
-    --hard: 4.5vmin;
+    
+    /* New margin */
     margin: 0.22vmax;
+  }
+
+  .cellEasy {
+    /* Cell mode easy -- small screen */
+    height: 4vmax;
+    width: 4vmax;
+  }
+  .cellMedium {
+    /* Cell mode easy -- small screen */
+    height: 3vmax;
+    width: 3vmax;
+  }
+  .cellHard {
+    /* Cell mode easy -- small screen */
+    height: 4.5vmin;
+    width: 4.5vmin;
   }
 }

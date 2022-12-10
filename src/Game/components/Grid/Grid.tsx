@@ -5,6 +5,8 @@ import { Cell } from '..';
 import { Mode, CellGrid, CellObj } from '../type';
 import { createGrid, placeMines, replaceMine, uncover } from './helper';
 import styles from './Grid.module.css';
+import cx from 'classnames';
+
 
 type Props = {
   mode: Mode;
@@ -45,19 +47,22 @@ const mineCount: MineCounts = {
   hard: 0
 };
 
+function getGridWrapperStyle(mode: Mode) : string {
+  let style: string = (mode == 'easy') ? styles.gridWrapperEasy 
+      : (mode == 'medium') ? styles.gridWrapperMedium : styles.gridWrapperHard;
+
+  return cx(styles.gridWrapper, style);
+}
+
 export const Grid = ({ mode, paused, resetFlag, onLoadComplete }: Props) => {
   const [firstClick, setFirstClick] = useState<Boolean>(true);
   const [dimensions, setDimensions] = useState<Dimension>(gridSizes[mode]);
 
-  const modeStyle: CSSProperties = {'--mode': `var(--${mode})`} as CSSProperties;
-  const dimensionStyle: CSSProperties = {
-    '--rows': `${dimensions[0]}`,
-    '--cols': `${dimensions[1]}`
-  } as CSSProperties;
-
   const [grid, setGrid] = useState<CellGrid>([[]]);
   const [loading, setLoading] = useState<boolean>(false);
   const isMounted = useRef<Boolean>(false);
+
+  const [gridWrapperStyle, setGridWrapperStyle] = useState<string>(getGridWrapperStyle(mode));
 
   const loaded = (): void => {
     setLoading(false);
@@ -74,13 +79,12 @@ export const Grid = ({ mode, paused, resetFlag, onLoadComplete }: Props) => {
     // uncover(grid, cell, dimensions[0], dimensions[1]);
   }
 
-  const cellRightClicked = (cell: CellObj) => {
-
-  }
+  const cellRightClicked = (cell: CellObj) => {  }
 
   useEffect(() => {
     if(isMounted.current) setLoading(true);
     else isMounted.current = true;
+    setGridWrapperStyle(getGridWrapperStyle(mode));
 
     let newDimensions = gridSizes[mode];
     let newGrid = createGrid(newDimensions[0], newDimensions[1], mode);
@@ -92,15 +96,15 @@ export const Grid = ({ mode, paused, resetFlag, onLoadComplete }: Props) => {
   }, [mode, resetFlag]);
 
   useEffect(() => {
-    setTimeout(() => loaded(), 750);
+    setTimeout(() => loaded(), 350);
   }, [grid])
 
   return (
     <Container fluid className={styles.grid}>
-      <div className={styles.gridWrapper}>
+      <div className={gridWrapperStyle}>
         {loading ?
           (
-          <div className={styles.loader} style={{...dimensionStyle, ...modeStyle}}>
+          <div className={styles.loader}>
             <BarLoader 
               loading={loading}
               color="teal"
@@ -121,7 +125,7 @@ export const Grid = ({ mode, paused, resetFlag, onLoadComplete }: Props) => {
                     cell={cell}
                     onClick={cellClicked}
                     onRightClick={cellRightClicked}
-                    modeStyle={modeStyle}
+                    mode={mode}
                     paused={paused}
                   />
                 ))}
