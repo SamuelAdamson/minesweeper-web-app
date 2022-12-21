@@ -43,8 +43,7 @@ const gridSizes: GridSizes = {
 const mineCount: MineCounts = {
   easy: 10,
   medium: 40,
-  //hard: 80
-  hard: 0
+  hard: 80
 };
 
 function getGridWrapperStyle(mode: Mode) : string {
@@ -74,11 +73,21 @@ export const Grid = ({ mode, paused, resetFlag, onLoadComplete }: Props) => {
       if(cell.mine) replaceMine(cell, dimensions[0], dimensions[1], grid);
     }
 
-    // uncover cells
-    // uncover(grid, cell, dimensions[0], dimensions[1]);
+    // make a shallow copy of the current state of the grid
+    let ng = [...grid];
+
+    if(cell.mine) {
+      ng[cell.row][cell.col].covered = false;
+      // game end
+    }
+    else uncover(ng, cell, dimensions[0], dimensions[1]);
+
+    setGrid(ng);
   }
 
-  const cellRightClicked = (cell: CellObj) => {  }
+  const cellRightClicked = (cell: CellObj) => { 
+    
+  }
 
   useEffect(() => {
     setLoading(true);
