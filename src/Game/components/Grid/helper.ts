@@ -11,8 +11,9 @@ export function createGrid(rows: Number, cols: Number, mode: Mode): CellGrid {
         col: j,
         key: i * 100 + j,
         mine: false,
-        covered: true,
         adjacentNum: 0,
+        covered: true,
+        flagged: false,
       };
     }
   }
@@ -83,13 +84,20 @@ export function replaceMine(
  */
 
 
-export function uncover(grid: CellGrid, source: CellObj, rc: number, cc: number) {
+export function uncover(
+  grid: CellGrid, 
+  source: CellObj, 
+  rc: number, cc: number, 
+  flags: number
+): number {
   if(!source.adjacentNum) {
-    DFS(grid, source, rc, cc);
+    return(DFS(grid, source, rc, cc, flags));
     // BFS(grid, source, rc, cc);
     // recursiveDFS(grid, source, rc, cc);
   }
-  else source.covered = false;
+  
+  source.covered = false;
+  return flags;
 }
 
 export function BFS(grid: CellGrid, source: CellObj): void {
@@ -97,7 +105,7 @@ export function BFS(grid: CellGrid, source: CellObj): void {
 }
 
 
-export function DFS(grid: CellGrid, source: CellObj, rc: number, cc: number): void {
+export function DFS(grid: CellGrid, source: CellObj, rc: number, cc: number, flags: number): number {
   const stack: [CellObj] = [source];
 
   while(stack.length > 0) {
@@ -106,13 +114,16 @@ export function DFS(grid: CellGrid, source: CellObj, rc: number, cc: number): vo
     for(let i = cell.row - 1; i < cell.row + 2; i++) {
       for(let j = cell.col - 1; j < cell.col + 2; j++) {
         if(i >= 0 && i < rc && j >= 0 && j < cc && grid[i][j].covered && !grid[i][j].mine) {
+          if(grid[i][j].flagged) grid[i][j].flagged = false, flags--;
           grid[i][j].covered = false;
+
           if(!grid[i][j].adjacentNum) stack.push(grid[i][j]);
         }
       }
     }
-
   }
+
+  return flags;
 }
 
 

@@ -23,7 +23,7 @@ type GridSizes = {
   hard: Dimension;
 };
 
-type MineCounts = {
+type MineCount = {
   easy: number;
   medium: number;
   hard: number;
@@ -40,7 +40,7 @@ const gridSizes: GridSizes = {
   hard: [16, 20],
 };
 
-const mineCount: MineCounts = {
+const mineCount: MineCount = {
   easy: 10,
   medium: 40,
   hard: 80
@@ -56,6 +56,7 @@ function getGridWrapperStyle(mode: Mode) : string {
 export const Grid = ({ mode, paused, resetFlag, onLoadComplete }: Props) => {
   const [firstClick, setFirstClick] = useState<Boolean>(true);
   const [dimensions, setDimensions] = useState<Dimension>(gridSizes[mode]);
+  const [flags, setFlags] = useState<number>(0);
 
   const [grid, setGrid] = useState<CellGrid>([[]]);
   const [loading, setLoading] = useState<boolean>(false);
@@ -80,13 +81,28 @@ export const Grid = ({ mode, paused, resetFlag, onLoadComplete }: Props) => {
       ng[cell.row][cell.col].covered = false;
       // game end
     }
-    else uncover(ng, cell, dimensions[0], dimensions[1]);
+    else setFlags(uncover(ng, cell, dimensions[0], dimensions[1], flags));
 
     setGrid(ng);
   }
 
   const cellRightClicked = (cell: CellObj) => { 
-    
+    if(!cell.flagged && flags < mineCount[mode]) {
+      let ng = [...grid];
+      ng[cell.row][cell.col].flagged = true;
+
+      setFlags((flags) => flags + 1);
+      setGrid(ng);
+    }
+    else if(cell.flagged) {
+      let ng = [...grid];
+      ng[cell.row][cell.col].flagged = false;
+
+      setFlags((flags) => flags - 1);
+      setGrid(ng);
+    }
+
+    console.log(flags);
   }
 
   useEffect(() => {
@@ -99,6 +115,7 @@ export const Grid = ({ mode, paused, resetFlag, onLoadComplete }: Props) => {
 
     setDimensions(newDimensions);
     setFirstClick(true);
+    setFlags(0);
     setGrid(newGrid);
   }, [mode, resetFlag]);
 

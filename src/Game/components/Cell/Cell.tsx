@@ -27,17 +27,16 @@ function getStyle(covered: Boolean, mine: Boolean, adjacentNum: Number, paused: 
 }
 
 export const Cell = ({ cell, mode, paused, onClick, onRightClick }: Props) => {
-  const [flagged, setFlagged] = useState<Boolean>(false);
   const [content, setContent] = useState<String>('');
   const [style, setStyle] = useState<string>(cx(styles.cell, styles.covered));
 
   const handleClick = (_e: MouseEvent<HTMLElement>) => {
-    if(cell.covered) onClick(cell);
+    if(cell.covered && !cell.flagged) onClick(cell);
   };
 
   const handleRightClick = (e: MouseEvent<HTMLElement>) => {
     e.preventDefault(); // suppress context menu
-    onRightClick(cell);
+    if(cell.covered) onRightClick(cell);
   };
 
   useEffect(() => {
@@ -52,7 +51,7 @@ export const Cell = ({ cell, mode, paused, onClick, onRightClick }: Props) => {
       onClick={handleClick}
       onContextMenu={handleRightClick}
     >
-      {flagged ? <FlagIcon /> : (<h3>{content}</h3>)}
+      {cell.flagged ? <FlagIcon /> : (<h3>{content}</h3>)}
     </div>
   );
 };

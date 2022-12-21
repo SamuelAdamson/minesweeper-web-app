@@ -10,6 +10,7 @@ export type CellObj = {
   mine: Boolean;
   adjacentNum: number;
   covered: Boolean;
+  flagged: Boolean;
 };
 
 export type CellGrid = CellObj[][];
