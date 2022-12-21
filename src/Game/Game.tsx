@@ -35,6 +35,10 @@ export const Game = () => {
     setLoaded(true);
   }
 
+  const gameOver = (result: Boolean) => {
+
+  }
+
   return (
     <Container fluid className={styles.game}>
       <ModeSelect 
