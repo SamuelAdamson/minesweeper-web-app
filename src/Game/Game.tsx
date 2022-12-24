@@ -35,8 +35,8 @@ export const Game = () => {
     setLoaded(true);
   }
 
-  const gameOver = (result: Boolean) => {
-
+  const gameEnd = (result: Boolean) => {
+    
   }
 
   return (
@@ -51,6 +51,7 @@ export const Game = () => {
         paused={paused} 
         resetFlag={resetFlag}
         onLoadComplete={loadComplete} 
+        onGameEnd={gameEnd}
       />
       
       <Control 

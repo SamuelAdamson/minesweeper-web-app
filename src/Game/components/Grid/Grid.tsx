@@ -13,6 +13,7 @@ type Props = {
   paused: Boolean;
   resetFlag: Boolean;
   onLoadComplete: Function;
+  onGameEnd: Function;
 };
 
 type Dimension = [number, number];
@@ -53,8 +54,10 @@ function getGridWrapperStyle(mode: Mode) : string {
   return cx(styles.gridWrapper, style);
 }
 
-export const Grid = ({ mode, paused, resetFlag, onLoadComplete }: Props) => {
+export const Grid = ({ mode, paused, resetFlag, onLoadComplete, onGameEnd }: Props) => {
   const [firstClick, setFirstClick] = useState<Boolean>(true);
+  const [gameOver, setGameOver] = useState<Boolean>(false);
+
   const [dimensions, setDimensions] = useState<Dimension>(gridSizes[mode]);
   const [flags, setFlags] = useState<number>(0);
 
@@ -79,7 +82,10 @@ export const Grid = ({ mode, paused, resetFlag, onLoadComplete }: Props) => {
 
     if(cell.mine) {
       ng[cell.row][cell.col].covered = false;
-      // game end
+      
+      // game loss
+      setGameOver(true);
+      onGameEnd(false);
     }
     else setFlags(uncover(ng, cell, dimensions[0], dimensions[1], flags));
 
@@ -115,6 +121,7 @@ export const Grid = ({ mode, paused, resetFlag, onLoadComplete }: Props) => {
 
     setDimensions(newDimensions);
     setFirstClick(true);
+    setGameOver(false);
     setFlags(0);
     setGrid(newGrid);
   }, [mode, resetFlag]);
@@ -149,6 +156,7 @@ export const Grid = ({ mode, paused, resetFlag, onLoadComplete }: Props) => {
                     cell={cell}
                     mode={mode}
                     paused={paused}
+                    gameOver={gameOver}
                     onClick={cellClicked}
                     onRightClick={cellRightClicked}
                   />

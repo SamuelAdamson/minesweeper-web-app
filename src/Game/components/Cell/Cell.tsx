@@ -9,11 +9,18 @@ type Props = {
   cell: CellObj,
   mode: Mode;
   paused: Boolean;
+  gameOver: Boolean;
   onClick: (cell: CellObj) => void;
   onRightClick: (cell: CellObj) => void;
 };
 
-function getStyle(covered: Boolean, mine: Boolean, adjacentNum: Number, paused: Boolean, mode: Mode) : string 
+function getStyle(
+    covered: Boolean, 
+    mine: Boolean, 
+    adjacentNum: Number, 
+    paused: Boolean, 
+    mode: Mode
+) : string 
 {
   let modeStyle: String = (mode == 'easy') ? styles.cellEasy 
       : (mode == 'medium') ? styles.cellMedium : styles.cellHard;
@@ -26,17 +33,17 @@ function getStyle(covered: Boolean, mine: Boolean, adjacentNum: Number, paused: 
   return cx(styles.cell, style, modeStyle);
 }
 
-export const Cell = ({ cell, mode, paused, onClick, onRightClick }: Props) => {
-  const [content, setContent] = useState<String>('');
+export const Cell = ({ cell, mode, paused, gameOver, onClick, onRightClick }: Props) => {
+  const [content, setContent] = useState<string>('');
   const [style, setStyle] = useState<string>(cx(styles.cell, styles.covered));
 
   const handleClick = (_e: MouseEvent<HTMLElement>) => {
-    if(cell.covered && !cell.flagged) onClick(cell);
+    if(!gameOver && cell.covered && !cell.flagged) onClick(cell);
   };
 
   const handleRightClick = (e: MouseEvent<HTMLElement>) => {
     e.preventDefault(); // suppress context menu
-    if(cell.covered) onRightClick(cell);
+    if(!gameOver && cell.covered) onRightClick(cell);
   };
 
   useEffect(() => {
@@ -45,13 +52,18 @@ export const Cell = ({ cell, mode, paused, onClick, onRightClick }: Props) => {
     setStyle(getStyle(cell.covered, cell.mine, cell.adjacentNum, paused, mode));
   }, [cell.covered, cell.mine, cell.adjacentNum, paused, mode])
 
+  useEffect(() => {
+    // uncover mine on game over
+    if(gameOver && cell.mine) setStyle(getStyle(false, cell.mine, 0, false, mode));
+  }, [cell.mine, gameOver, mode])
+
   return (
     <div
       className={style}
       onClick={handleClick}
       onContextMenu={handleRightClick}
     >
-      {cell.flagged ? <FlagIcon /> : (<h3>{content}</h3>)}
+      {(cell.flagged && !paused) ? <FlagIcon className={styles.flag} /> : (<h3>{content}</h3>)}
     </div>
   );
 };

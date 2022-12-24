@@ -74,6 +74,10 @@
   cursor: default;
 }
 
+.flag {
+  /*Rotate inherit*/
+  transform: inherit;
+}
 
 @media (max-width: 460px) {
   .cell {
