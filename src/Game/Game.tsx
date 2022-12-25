@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Container } from 'react-bootstrap';
+import { Container, Modal, Button } from 'react-bootstrap';
 import { Grid, ModeSelect, Control } from './components';
 import { Mode } from './components/type';
 import styles from './Game.module.css';
@@ -7,15 +7,21 @@ import styles from './Game.module.css';
 
 export const Game = () => {
   const [gameMode, setGameMode] = useState<Mode>('easy');
-  const [resetFlag, setResetFlag] = useState<Boolean>(false);
-  const [modeChangeFlag, setModeChangeFlag] = useState<Boolean>(false);
   const [paused, setPaused] = useState<Boolean>(false);
   const [loaded, setLoaded] = useState<Boolean>(true);
+  const [gameOver, setGameOver] = useState<Boolean>(false);
+
+  const [resetFlag, setResetFlag] = useState<Boolean>(false);
+  const [modeChangeFlag, setModeChangeFlag] = useState<Boolean>(false);
+
+  const [modal, setModal] = useState<boolean>(false);
+  const [gr, setGR] = useState<Boolean>(false);
 
   const modeChange = (newMode: Mode) => {
-    setLoaded(false);
     setModeChangeFlag(prev => !prev);
     setGameMode(newMode);
+    setLoaded(false);
+    setGameOver(false);
   };
 
   const pause = () => {
@@ -27,7 +33,9 @@ export const Game = () => {
   }
 
   const reset = () => {
+    hideModal();
     setLoaded(false);
+    setGameOver(false);
     setResetFlag(prev => !prev);
   }
 
@@ -36,32 +44,54 @@ export const Game = () => {
   }
 
   const gameEnd = (result: Boolean) => {
-    
+    setGameOver(true);
+    setGR(result);
+    setTimeout(() => setModal(true), 300);
   }
+
+  const hideModal = () => setModal(false);
 
   return (
     <Container fluid className={styles.game}>
-      <ModeSelect 
-        mode={gameMode} 
-        onModeChange={modeChange} 
+      <Modal show={modal} onHide={hideModal}>
+        <Modal.Header>
+          <Modal.Title > {gr ? 'success' : 'failure'} </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {gr ? 'All non-mine cells have been uncovered.' : 'The player has uncovered a cell that is hiding a mine.' }
+        </Modal.Body>
+        <Modal.Footer>
+          <Button className={styles.controlBtn} onClick={reset}>
+            reset
+          </Button>
+          <Button className={styles.controlBtn} onClick={hideModal}>
+            close
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      <ModeSelect
+        mode={gameMode}
+        onModeChange={modeChange}
       />
-      
+
       <Grid
-        mode={gameMode} 
-        paused={paused} 
+        mode={gameMode}
+        paused={paused}
         resetFlag={resetFlag}
-        onLoadComplete={loadComplete} 
+        onLoadComplete={loadComplete}
         onGameEnd={gameEnd}
       />
-      
-      <Control 
-        onPause={pause} 
-        onUnpause={unpause} 
-        onReset={reset} 
+
+      <Control
+        onPause={pause}
+        onUnpause={unpause}
+        onReset={reset}
         modeChangeFlag={modeChangeFlag}
-        loaded={loaded} 
+        loaded={loaded}
+        gameOver={gameOver}
       />
-      
+
       <div className={styles.temp}>
         some other content coming soon
       </div>

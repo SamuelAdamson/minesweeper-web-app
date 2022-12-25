@@ -19,7 +19,8 @@ function getStyle(
     mine: Boolean, 
     adjacentNum: Number, 
     paused: Boolean, 
-    mode: Mode
+    mode: Mode,
+    gameOver: Boolean
 ) : string 
 {
   let modeStyle: String = (mode == 'easy') ? styles.cellEasy 
@@ -27,7 +28,7 @@ function getStyle(
 
   let style = paused
     ? cx(styles.paused) : covered
-      ? cx(styles.covered) : mine
+      ? (gameOver ? cx(styles.covered, styles.gameOver) : cx(styles.covered)) : mine
         ? cx(styles.mine) : cx(styles.uncovered, styles[getAdjacentStr(adjacentNum)]);
   
   return cx(styles.cell, style, modeStyle);
@@ -49,13 +50,8 @@ export const Cell = ({ cell, mode, paused, gameOver, onClick, onRightClick }: Pr
   useEffect(() => {
     if(paused || cell.covered || cell.mine || cell.adjacentNum == 0) setContent('');
     else setContent(`${cell.adjacentNum}`);
-    setStyle(getStyle(cell.covered, cell.mine, cell.adjacentNum, paused, mode));
-  }, [cell.covered, cell.mine, cell.adjacentNum, paused, mode])
-
-  useEffect(() => {
-    // uncover mine on game over
-    if(gameOver && cell.mine) setStyle(getStyle(false, cell.mine, 0, false, mode));
-  }, [cell.mine, gameOver, mode])
+    setStyle(getStyle(cell.covered, cell.mine, cell.adjacentNum, paused, mode, gameOver));
+  }, [cell.covered, cell.mine, cell.adjacentNum, paused, mode, gameOver])
 
   return (
     <div

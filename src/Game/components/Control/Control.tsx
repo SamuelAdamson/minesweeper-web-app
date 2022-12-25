@@ -10,6 +10,7 @@ type Props = {
   onReset: Function;
   modeChangeFlag: Boolean;
   loaded: Boolean;
+  gameOver: Boolean;
 }
 
 export type TimeDisplay = {
@@ -19,7 +20,7 @@ export type TimeDisplay = {
 }
 
 
-export const Control = ({ onPause, onUnpause, onReset, modeChangeFlag, loaded }: Props) => {
+export const Control = ({ onPause, onUnpause, onReset, modeChangeFlag, loaded, gameOver }: Props) => {
   const [paused, setPaused] = useState<Boolean>(false);
   const [timerOn, setTimerOn] = useState<Boolean>(false);
   const [elapsed, setElapsed] = useState<number>(0);
@@ -65,8 +66,8 @@ export const Control = ({ onPause, onUnpause, onReset, modeChangeFlag, loaded }:
 
 
   useEffect(() => {
-    setTimerOn(loaded && !paused);
-  }, [loaded, paused])
+    setTimerOn(loaded && !paused && !gameOver);
+  }, [loaded, paused, gameOver])
 
 
   useEffect(() => {
@@ -91,9 +92,11 @@ export const Control = ({ onPause, onUnpause, onReset, modeChangeFlag, loaded }:
             <Button 
               onClick={() => pauseClick(!paused)}
               className={
-                paused 
-                  ? cx(styles.controlBtn, styles.selected)
-                  : styles.controlBtn
+                gameOver 
+                ? cx(styles.controlBtn, styles.gameOver)
+                : paused 
+                   ? cx(styles.controlBtn, styles.selected)
+                   : styles.controlBtn
               }
             >
               {paused ? 'unpause' : 'pause'}
