@@ -17,7 +17,7 @@ type Props = {
 function getStyle(
     covered: Boolean, 
     mine: Boolean, 
-    adjacentNum: Number,
+    adjMines: Number,
     paused: Boolean, 
     mode: Mode,
     gameOver: Boolean
@@ -25,12 +25,12 @@ function getStyle(
 {
   let modeStyle: String = (mode == 'easy') ? styles.cellEasy 
       : (mode == 'medium') ? styles.cellMedium : styles.cellHard;
-
+  
   let style = paused
     ? cx(styles.paused) : covered
-      ? (gameOver ? cx(styles.covered, styles.gameOver) : cx(styles.covered)) : mine
-        ? cx(styles.mine) : cx(styles.uncovered, styles[getAdjacentStr(adjacentNum)]);
-  
+      ? (gameOver ? (mine ? cx(styles.mine) : cx(styles.covered, styles.gameOver)) : cx(styles.covered)) : mine
+        ? cx(styles.mine) : cx(styles.uncovered, styles[getAdjacentStr(adjMines)]);
+
   return cx(styles.cell, style, modeStyle);
 }
 
@@ -48,10 +48,10 @@ export const Cell = ({ cell, mode, paused, gameOver, onClick, onRightClick }: Pr
   };
 
   useEffect(() => {
-    if(paused || cell.covered || cell.mine || cell.adjacentNum == 0) setContent('');
-    else setContent(`${cell.adjacentNum}`);
-    setStyle(getStyle(cell.covered, cell.mine, cell.adjacentNum, paused, mode, gameOver));
-  }, [cell.covered, cell.mine, cell.adjacentNum, paused, mode, gameOver])
+    if(paused || cell.covered || cell.mine || cell.adjMines == 0) setContent('');
+    else setContent(`${cell.adjMines}`);
+    setStyle(getStyle(cell.covered, cell.mine, cell.adjMines, paused, mode, gameOver));
+  }, [cell.covered, cell.mine, cell.adjMines, paused, mode, gameOver])
 
   return (
     <div

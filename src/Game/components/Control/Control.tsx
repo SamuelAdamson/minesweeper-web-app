@@ -8,7 +8,7 @@ type Props = {
   onPause: Function;
   onUnpause: Function;
   onReset: Function;
-  modeChangeFlag: Boolean;
+  elapsedFlag: Boolean;
   loaded: Boolean;
   gameOver: Boolean;
 }
@@ -20,7 +20,7 @@ export type TimeDisplay = {
 }
 
 
-export const Control = ({ onPause, onUnpause, onReset, modeChangeFlag, loaded, gameOver }: Props) => {
+export const Control = ({ onPause, onUnpause, onReset, elapsedFlag, loaded, gameOver }: Props) => {
   const [paused, setPaused] = useState<Boolean>(false);
   const [timerOn, setTimerOn] = useState<Boolean>(false);
   const [elapsed, setElapsed] = useState<number>(0);
@@ -72,7 +72,7 @@ export const Control = ({ onPause, onUnpause, onReset, modeChangeFlag, loaded, g
 
   useEffect(() => {
     setElapsed(0);
-  }, [modeChangeFlag])
+  }, [elapsedFlag])
 
 
   return(

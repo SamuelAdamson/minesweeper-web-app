@@ -12,13 +12,13 @@ export const Game = () => {
   const [gameOver, setGameOver] = useState<Boolean>(false);
 
   const [resetFlag, setResetFlag] = useState<Boolean>(false);
-  const [modeChangeFlag, setModeChangeFlag] = useState<Boolean>(false);
+  const [elapsedFlag, setElapsedFlag] = useState<Boolean>(false);
 
   const [modal, setModal] = useState<boolean>(false);
   const [gr, setGR] = useState<Boolean>(false);
 
   const modeChange = (newMode: Mode) => {
-    setModeChangeFlag(prev => !prev);
+    setElapsedFlag(prev => !prev);
     setGameMode(newMode);
     setLoaded(false);
     setGameOver(false);
@@ -36,7 +36,9 @@ export const Game = () => {
     hideModal();
     setLoaded(false);
     setGameOver(false);
+
     setResetFlag(prev => !prev);
+    setElapsedFlag(prev => !prev);
   }
 
   const loadComplete = () => {
@@ -59,7 +61,7 @@ export const Game = () => {
         </Modal.Header>
         <Modal.Body>
           {/* TODO - Add game performance stats here. */}
-          {gr ? 'All non-mine cells have been uncovered.' : 'The player has uncovered a cell that is hiding a mine.' }
+          {gr ? 'All cells without mines have been uncovered.' : 'The player has uncovered a cell that is hiding a mine.' }
         </Modal.Body>
         <Modal.Footer>
           <Button className={styles.controlBtn} onClick={reset}>
@@ -88,7 +90,7 @@ export const Game = () => {
         onPause={pause}
         onUnpause={unpause}
         onReset={reset}
-        modeChangeFlag={modeChangeFlag}
+        elapsedFlag={elapsedFlag}
         loaded={loaded}
         gameOver={gameOver}
       />

@@ -43,8 +43,8 @@ const gridSizes: GridSizes = {
 
 const mineCount: MineCount = {
   easy: 10,
-  medium: 40,
-  hard: 80
+  medium: 30,
+  hard: 50
 };
 
 function getGridWrapperStyle(mode: Mode) : string {

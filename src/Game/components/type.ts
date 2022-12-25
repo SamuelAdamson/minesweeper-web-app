@@ -7,7 +7,7 @@ export type CellObj = {
   col: number;
   key: number;
   mine: Boolean;
-  adjacentNum: number;
+  adjMines: number;
   covered: Boolean;
   flagged: Boolean;
 };

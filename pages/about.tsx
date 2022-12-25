@@ -18,11 +18,16 @@ const About: NextPage = () => {
         </p>
         <p>
           The player is able to flag cells that they believe to be hiding a
-          mine. In this version of minesweeper, the user can double click a
-          previously uncovered cell to uncover all adjacent cells that are not
-          flagged as mines. However, if that cell is adjacent to more flags than
-          it is mines, this functionality will not work in order to protect the
-          player from misclicks.
+          mine. Different difficulty modes offer different board dimensions and 
+          number of mines. This implementation includes the following minesweeper 
+          modes:
+          <br/>
+          <br/>
+          <ul>
+            <li>Easy - 8 x 12 with 10 mines</li>
+            <li>Medium - 12 x 16 with 30 mines</li>
+            <li>Hard - 16 x 20 with 50 mines</li>
+          </ul>
         </p>
       </AboutSection>
       <AboutSection heading="the algorithm">

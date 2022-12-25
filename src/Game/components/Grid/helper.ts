@@ -11,7 +11,7 @@ export function createGrid(rows: Number, cols: Number, mode: Mode): CellGrid {
         col: j,
         key: i * 100 + j,
         mine: false,
-        adjacentNum: 0,
+        adjMines: 0,
         covered: true,
         flagged: false,
       };
@@ -57,7 +57,7 @@ export function placeMines(
     }
 
     for(const cell of getAdjacent(grid[row][col], nRows, nCols, grid)) {
-      cell.adjacentNum++;
+      cell.adjMines++;
     }
     grid[row][col].mine = true;
   }
@@ -71,7 +71,7 @@ export function replaceMine(
 ): void {
   placeMines(nRows, nCols, grid, 1);
   for(const adj of getAdjacent(cell, nRows, nCols, grid)) {
-    adj.adjacentNum--;
+    adj.adjMines--;
   }
   cell.mine = false;
 }
@@ -91,7 +91,7 @@ export function uncover(
   flags: number,
   cells: number
 ): Uncover {
-  if(!source.adjacentNum) {
+  if(!source.adjMines) {
     return(DFS(grid, source, rc, cc, flags, cells));
     // BFS(grid, source, rc, cc);
     // recursiveDFS(grid, source, rc, cc);
@@ -127,7 +127,7 @@ export function DFS(
           grid[i][j].covered = false;
           cells--;
           
-          if(!grid[i][j].adjacentNum) stack.push(grid[i][j]);
+          if(!grid[i][j].adjMines) stack.push(grid[i][j]);
         }
       }
     }
