@@ -21,14 +21,12 @@ const About: NextPage = () => {
           mine. Different difficulty modes offer different board dimensions and 
           number of mines. This implementation includes the following minesweeper 
           modes:
-          <br/>
-          <br/>
-          <ul>
-            <li>Easy - 8 x 12 with 10 mines</li>
-            <li>Medium - 12 x 16 with 30 mines</li>
-            <li>Hard - 16 x 20 with 50 mines</li>
-          </ul>
         </p>
+        <ul>
+          <li>Easy - 8 x 12 with 10 mines</li>
+          <li>Medium - 12 x 16 with 30 mines</li>
+          <li>Hard - 16 x 20 with 50 mines</li>
+        </ul>
       </AboutSection>
       <AboutSection heading="the algorithm">
         <p>
