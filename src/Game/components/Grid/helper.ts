@@ -98,7 +98,7 @@ export function uncover(
   }
   
   source.covered = false;
-  return [flags, 1];
+  return [flags, cells - 1];
 }
 
 export function BFS(grid: CellGrid, source: CellObj): void {
@@ -122,7 +122,7 @@ export function DFS(
     for(let i = cell.row - 1; i < cell.row + 2; i++) {
       for(let j = cell.col - 1; j < cell.col + 2; j++) {
         if(i >= 0 && i < rc && j >= 0 && j < cc && grid[i][j].covered && !grid[i][j].mine) {
-          if(grid[i][j].flagged) grid[i][j].flagged = false, flags--;
+          if(grid[i][j].flagged) grid[i][j].flagged = false, flags++;
           
           grid[i][j].covered = false;
           cells--;

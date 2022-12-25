@@ -89,7 +89,7 @@ export const Grid = ({ mode, paused, resetFlag, onLoadComplete, onGameEnd }: Pro
     }
     else {
       let result: Uncover = uncover(ng, cell, dimensions[0], dimensions[1], flagCnt, cellCnt);
-      
+    
       if(!result[1]) { 
         setGameOver(true);
         onGameEnd(true);
@@ -118,8 +118,6 @@ export const Grid = ({ mode, paused, resetFlag, onLoadComplete, onGameEnd }: Pro
       setFlagCnt((flagCnt) => flagCnt - 1);
       setGrid(ng);
     }
-
-    console.log(flagCnt);
   }
 
   useEffect(() => {

@@ -17,7 +17,7 @@ type Props = {
 function getStyle(
     covered: Boolean, 
     mine: Boolean, 
-    adjacentNum: Number, 
+    adjacentNum: Number,
     paused: Boolean, 
     mode: Mode,
     gameOver: Boolean
