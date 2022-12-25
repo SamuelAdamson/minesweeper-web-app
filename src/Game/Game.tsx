@@ -58,6 +58,7 @@ export const Game = () => {
           <Modal.Title > {gr ? 'success' : 'failure'} </Modal.Title>
         </Modal.Header>
         <Modal.Body>
+          {/* TODO - Add game performance stats here. */}
           {gr ? 'All non-mine cells have been uncovered.' : 'The player has uncovered a cell that is hiding a mine.' }
         </Modal.Body>
         <Modal.Footer>

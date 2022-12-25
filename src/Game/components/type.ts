@@ -1,7 +1,6 @@
-import { Dispatch, SetStateAction } from 'react';
-
 export type Mode = 'easy' | 'medium' | 'hard';
 export type AdjacentStr = 'zero' | 'one' | 'two' | 'three' | 'fourplus';
+export type Uncover = [number, number];
 
 export type CellObj = {
   row: number;
