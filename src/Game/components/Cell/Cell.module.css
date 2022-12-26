@@ -48,7 +48,7 @@
 .cell.covered.gameOver {
   pointer-events: none;
   cursor: default;
-  background-color: rgba(137, 148, 153, 1);
+  background-color: rgba(137, 148, 153, 0.9);
 }
 .cell.uncovered {
   pointer-events: none;

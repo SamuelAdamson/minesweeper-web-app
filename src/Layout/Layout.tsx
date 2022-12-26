@@ -49,6 +49,11 @@ export const Layout = ({ children }: Props) => {
                   performance
                 </Nav.Link>
               </Nav.Item>
+              <Nav.Item as="li">
+                <Nav.Link className={styles.navLink} href="/visualize">
+                  visualize
+                </Nav.Link>
+              </Nav.Item>
             </Nav>
             <Nav>
               <Nav.Item className={styles.navItemExt}>

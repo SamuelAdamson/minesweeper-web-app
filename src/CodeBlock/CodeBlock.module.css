@@ -1,0 +1,16 @@
+.code {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+  margin-right: auto;
+  margin-left: auto;
+  padding: 2rem;
+
+  width: fit-content;
+  background-color: rgba(0,0,0,0.1);
+  border: 3px solid rgb(0,0,0);
+}
+

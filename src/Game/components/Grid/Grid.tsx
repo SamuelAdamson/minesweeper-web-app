@@ -59,7 +59,7 @@ export const Grid = ({ mode, paused, resetFlag, onLoadComplete, onGameEnd }: Pro
   const [gameOver, setGameOver] = useState<Boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
 
-  const [dimensions, setDimensions] = useState<Dimension>([0,0]);
+  const [dim, setDim] = useState<Dimension>([0,0]);
   const [cellCnt, setCellCnt] = useState<number>(0);
   const [flagCnt, setFlagCnt] = useState<number>(0);
 
@@ -74,7 +74,7 @@ export const Grid = ({ mode, paused, resetFlag, onLoadComplete, onGameEnd }: Pro
   const cellClicked = (cell: CellObj) => {
     if(firstClick) {
       setFirstClick(false);
-      if(cell.mine) replaceMine(cell, dimensions[0], dimensions[1], grid);
+      if(cell.mine) replaceMine(cell, dim[0], dim[1], grid);
     }
 
     // make a shallow copy of the current state of the grid
@@ -88,7 +88,7 @@ export const Grid = ({ mode, paused, resetFlag, onLoadComplete, onGameEnd }: Pro
       onGameEnd(false);
     }
     else {
-      let result: Uncover = uncover(ng, cell, dimensions[0], dimensions[1], flagCnt, cellCnt);
+      let result: Uncover = uncover(ng, cell, dim[0], dim[1], flagCnt, cellCnt, 0);
     
       if(!result[1]) { 
         setGameOver(true);
@@ -126,13 +126,13 @@ export const Grid = ({ mode, paused, resetFlag, onLoadComplete, onGameEnd }: Pro
     setGameOver(false);
     setGridWrapperStyle(getGridWrapperStyle(mode));
 
-    let newDimensions = gridSizes[mode];
-    setDimensions(newDimensions);
+    let newDim: Dimension = gridSizes[mode];
+    setDim(newDim);
 
-    let newGrid = createGrid(newDimensions[0], newDimensions[1], mode);
-    placeMines(newDimensions[0], newDimensions[1], newGrid, mineCount[mode]);
+    let newGrid = createGrid(newDim[0], newDim[1], mode);
+    placeMines(newDim[0], newDim[1], newGrid, mineCount[mode]);
 
-    setCellCnt(newDimensions[0] * newDimensions[1] - mineCount[mode]);
+    setCellCnt(newDim[0] * newDim[1] - mineCount[mode]);
     setFlagCnt(0);
     setGrid(newGrid);
   }, [mode, resetFlag]);

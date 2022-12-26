@@ -1,6 +1,6 @@
 import type { NextPage } from 'next';
 import Image from 'next/image';
-import { AboutSection } from '../src/AboutSection';
+import { AboutSection, CodeBlock } from '../src';
 import { BFS, DFS, Layer1, Layer2 } from '../img';
 
 const About: NextPage = () => {
@@ -87,6 +87,41 @@ const About: NextPage = () => {
         <div className="aboutImgContainer">
           <Image src={BFS} alt="bfs" height={632} width={498} className="aboutImg" />
         </div>
+        <p>
+          <strong>A note about limitations in JavaScript/TypeScript</strong> -- Central to 
+          Breadth-first search is the queue data structure. In an optimal setting, the queue 
+          data structure should allow for <i>constant</i> time (O(1)) access/deletion 
+          of the head element in the queue. In other languages, like C++ for example, the standard 
+          library may include such a data structure. However, in JavaScript/TypeScript a queue 
+          implementation does not exist. Thus, we implement a queue using the following: 
+        </p>
+        <CodeBlock
+          language={'typescript'}
+          code={
+`class Queue {
+  q: Array<CellObj>;
+  head: number;
+
+  constructor() {
+    this.q = [];
+    this.head = 0;
+  }
+
+  pop(): CellObj {
+    const front: CellObj = this.q[this.head];
+    delete this.q[this.head];
+    this.head++;
+
+    return front;
+  }
+
+  push(cell: CellObj): void {
+    this.q.push(cell)
+  }
+
+  size(): Number { return this.q.length };
+}`}
+        />
       </AboutSection>
       <AboutSection heading="dfs">
         <p>

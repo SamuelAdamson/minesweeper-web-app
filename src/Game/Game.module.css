@@ -7,14 +7,6 @@
   transition: all ease 0.3s;
 }
 
-.temp {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 750px;
-  width: 100%;
-}
-
 .controlBtn,
 .controlBtn:focus {
   border-radius: 0.2rem;

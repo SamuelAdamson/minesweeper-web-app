@@ -95,9 +95,7 @@ export const Game = () => {
         gameOver={gameOver}
       />
 
-      <div className={styles.temp}>
-        some other content coming soon
-      </div>
+      
     </Container>
   );
 };

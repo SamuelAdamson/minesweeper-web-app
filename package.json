@@ -10,12 +10,14 @@
   },
   "dependencies": {
     "@types/react-bootstrap": "^0.32.30",
+    "@types/react-highlight": "^0.12.5",
     "next": "12.2.5",
     "prettier": "^2.7.1",
     "react": "18.2.0",
     "react-bootstrap": "^2.5.0",
     "react-bootstrap-icons": "^1.8.4",
     "react-dom": "18.2.0",
+    "react-highlight": "^0.15.0",
     "react-loader-spinner": "^5.3.3",
     "react-spinners": "^0.13.4"
   },

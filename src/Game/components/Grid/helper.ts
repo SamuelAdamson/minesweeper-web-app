@@ -1,4 +1,4 @@
-import { Mode, CellGrid, CellObj, Uncover } from '../type';
+import { Mode, CellGrid, CellObj, Uncover, Algorithm } from '../type';
 
 export function createGrid(rows: Number, cols: Number, mode: Mode): CellGrid {
   let cellGrid: CellGrid = [];
@@ -84,29 +84,82 @@ export function replaceMine(
  */
 
 
+class Queue {
+  q: Array<CellObj>;
+  head: number;
+
+  constructor(cell: CellObj) {
+    this.q = [cell];
+    this.head = 0;
+  }
+
+  pop(): CellObj {
+    const front: CellObj = this.q[this.head];
+    delete this.q[this.head];
+    this.head++;
+
+    return front;
+  }
+
+  push(cell: CellObj): void {
+    this.q.push(cell)
+  }
+
+  size(): Number { return this.q.length };
+}
+
 export function uncover(
   grid: CellGrid, 
   source: CellObj, 
   rc: number, cc: number, 
   flags: number,
-  cells: number
+  cells: number,
+  algo: Algorithm
 ): Uncover {
   if(!source.adjMines) {
-    return(DFS(grid, source, rc, cc, flags, cells));
-    // BFS(grid, source, rc, cc);
-    // recursiveDFS(grid, source, rc, cc);
+    switch(algo) {
+      case 0: return(DFS(grid, source, rc, cc, flags, cells));
+      case 1: return(BFS(grid, source, rc, cc, flags, cells));
+      case 2: return(rDFS(grid, source, rc, cc, flags, cells));
+    }
   }
   
   source.covered = false;
   return [flags, cells - 1];
 }
 
-export function BFS(grid: CellGrid, source: CellObj): void {
+function BFS(
+  grid: CellGrid, 
+  source: CellObj, 
+  rc: number, 
+  cc: number, 
+  flags: number, 
+  cells: number
+): Uncover {
+  const queue: Queue = new Queue(source);
 
+  while(queue.size()) {
+    let cell: CellObj = queue.pop();
+    
+    for(let i = cell.row - 1; i < cell.row + 2; i++) {
+      for(let j = cell.col - 1; j < cell.col + 2; j++) {
+        if(i >= 0 && i < rc && j >= 0 && j < cc && grid[i][j].covered && !grid[i][j].mine) {
+          if(grid[i][j].flagged) grid[i][j].flagged = false, flags++;
+          
+          grid[i][j].covered = false;
+          cells--;
+          
+          if(!grid[i][j].adjMines) queue.push(grid[i][j]);
+        }
+      }
+    }
+  }
+
+  return [flags, cells];
 }
 
 
-export function DFS(
+function DFS(
   grid: CellGrid, 
   source: CellObj, 
   rc: number, 
@@ -116,7 +169,7 @@ export function DFS(
 ): Uncover {
   const stack: [CellObj] = [source];
 
-  while(stack.length > 0) {
+  while(stack.length) {
     let cell: CellObj = stack.pop()!;
     
     for(let i = cell.row - 1; i < cell.row + 2; i++) {
@@ -137,6 +190,16 @@ export function DFS(
 }
 
 
-export function recursiveDFS(grid: CellGrid, source: CellObj): void {
+function rDFS(
+  grid: CellGrid, 
+  source: CellObj, 
+  rc: number, 
+  cc: number, 
+  flags: number, 
+  cells: number
+): Uncover {
 
+  return [flags, cells];
 }
+
+function rDFSHelper(): void {}
