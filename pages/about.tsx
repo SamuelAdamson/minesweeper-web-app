@@ -28,6 +28,7 @@ const About: NextPage = () => {
           <li>Hard - 16 x 20 with 50 mines</li>
         </ul>
       </AboutSection>
+      
       <AboutSection heading="the algorithm">
         <p>
           If the player uncovers a cell which is not adjacent to any mines, all
@@ -70,6 +71,25 @@ const About: NextPage = () => {
           We can choose between two methods to perform this traversal.
         </p>
       </AboutSection>
+      
+      <AboutSection heading="dfs">
+        <p>
+          Our first option is <strong>depth-first search</strong> (DFS). In
+          DFS, we start at a source node and search as far down a single &apos;path&apos;
+          as possible before backtracking. The first path is typically chosen
+          based on how the structure is organized. In minesweeper, we may label
+          all adjacent cells with indices and give preference to the lowest
+          index. Thus, the first cell we visit is the cell which is one row up, 
+          and one column to the left.
+        </p>
+        <div className="aboutImgContainer">
+          <Image src={DFS} alt="dfs" height={632} width={498} className="aboutImg" />
+        </div>
+        <p>
+          The key data structure involved in DFS is the stack. TODO
+        </p>
+      </AboutSection>
+
       <AboutSection heading="bfs">
         <p>
           <strong>Breadth-first search</strong> (BFS) is a traversal where we
@@ -88,12 +108,16 @@ const About: NextPage = () => {
           <Image src={BFS} alt="bfs" height={632} width={498} className="aboutImg" />
         </div>
         <p>
+          TODO -- explain what a queue is similar to stack. 
           <strong>A note about limitations in JavaScript/TypeScript</strong> -- Central to 
           Breadth-first search is the queue data structure. In an optimal setting, the queue 
           data structure should allow for <i>constant</i> time (O(1)) access/deletion 
           of the head element in the queue. In other languages, like C++ for example, the standard 
           library may include such a data structure. However, in JavaScript/TypeScript a queue 
-          implementation does not exist. Thus, we implement a queue using the following: 
+          implementation does not exist. Thus, we must manually implement a queue data structure for BFS.
+        </p>
+        <p>
+          
         </p>
         <CodeBlock
           language={'typescript'}
@@ -123,20 +147,10 @@ const About: NextPage = () => {
 }`}
         />
       </AboutSection>
-      <AboutSection heading="dfs">
+
+      <AboutSection heading="comparison">
         <p>
-          Our second option is <strong>depth-first search</strong> (DFS). In
-          DFS, we start at a source node and search as far down a single &apos;path&apos;
-          as possible before backtracking. The first path is typically chosen
-          based on how the structure is organized. In minesweeper, we may label
-          all adjacent cells with indices and give preference to the lowest
-          index.
-        </p>
-        <div className="aboutImgContainer">
-        <Image src={DFS} alt="dfs" height={632} width={498} className="aboutImg" />
-        </div>
-        <p>
-          So, which method is used in this implementation of minesweeper? It
+          So, which search is the most optimal for minesweeper? It
           turns out that the performance of both algorithms in this situation
           are fairly similar. At first glance, the performance seems even
           identical. When analyzing the algorithms, both approaches yield a{' '}
@@ -151,6 +165,7 @@ const About: NextPage = () => {
           analysis <a href="/performance">here</a> .
         </p>
       </AboutSection>
+
       <AboutSection heading="the developer">
         <p>
           My name is Samuel Adamson. I am a undergraduate Computer Science

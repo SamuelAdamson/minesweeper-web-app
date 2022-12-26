@@ -108,6 +108,30 @@ class Queue {
   size(): Number { return this.q.length };
 }
 
+class Stack {
+  q: Array<CellObj>;
+  head: number;
+
+  constructor(cell: CellObj) {
+    this.q = [cell];
+    this.head = 0;
+  }
+
+  pop(): CellObj {
+    const front: CellObj = this.q[this.head];
+    delete this.q[this.head];
+    this.head++;
+
+    return front;
+  }
+
+  push(cell: CellObj): void {
+    this.q.push(cell)
+  }
+
+  size(): Number { return this.q.length };
+}
+
 export function uncover(
   grid: CellGrid, 
   source: CellObj, 
