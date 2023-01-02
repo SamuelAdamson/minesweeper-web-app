@@ -18,7 +18,10 @@ const About: NextPage = () => {
         </p>
         <p>
           The player is able to flag cells that they believe to be hiding a
-          mine. Different difficulty modes offer different board dimensions and 
+          mine. Note however, that the number of flags placed on the board will not 
+          impact the game end conditions. All safe cells must be uncovered in order to 
+          achieve a successful outcome. 
+          Different difficulty modes offer different board dimensions and 
           number of mines. This implementation includes the following minesweeper 
           modes:
         </p>
@@ -64,7 +67,7 @@ const About: NextPage = () => {
         </p>
         <p>
           So, let&apos;s recap. In the framing of a divide-and-conquer algorithm, we
-          need to break our problem down into smaller tasks. The small task in
+          need to break our problem down into smaller tasks. The first small task in
           this case is to check that a cell is not adjacent to any mines. If
           this condition is met, we need to traverse each of its directly
           adjacent neighbors and perform the same check for each of those cells.
@@ -86,7 +89,9 @@ const About: NextPage = () => {
           <Image src={DFS} alt="dfs" height={632} width={498} className="aboutImg" />
         </div>
         <p>
-          The key data structure involved in DFS is the stack. TODO
+          The key data structure involved in DFS is the <i>stack</i>. The stack is a <strong>last in, first out (LIFO) </strong> 
+          data structure, meaning that the most recent item added (pushed) to the data structure, will be the first item 
+          removed (popped) from the datastructure. Thus, 
         </p>
       </AboutSection>
 

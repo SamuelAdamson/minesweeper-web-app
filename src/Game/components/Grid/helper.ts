@@ -93,6 +93,7 @@ class Queue {
     this.head = 0;
   }
 
+  /* Assumes that queue has at least one member */
   pop(): CellObj {
     const front: CellObj = this.q[this.head];
     delete this.q[this.head];
@@ -109,27 +110,22 @@ class Queue {
 }
 
 class Stack {
-  q: Array<CellObj>;
-  head: number;
+  s: Array<CellObj>;
 
   constructor(cell: CellObj) {
-    this.q = [cell];
-    this.head = 0;
+    this.s = [cell];
   }
 
+  /* Assumes that queue has at least one member */
   pop(): CellObj {
-    const front: CellObj = this.q[this.head];
-    delete this.q[this.head];
-    this.head++;
-
-    return front;
+    return this.s.pop()!;
   }
 
   push(cell: CellObj): void {
-    this.q.push(cell)
+    this.s.push(cell)
   }
 
-  size(): Number { return this.q.length };
+  size(): Number { return this.s.length };
 }
 
 export function uncover(
@@ -191,10 +187,10 @@ function DFS(
   flags: number, 
   cells: number
 ): Uncover {
-  const stack: [CellObj] = [source];
+  const stack: Stack = new Stack(source);
 
-  while(stack.length) {
-    let cell: CellObj = stack.pop()!;
+  while(stack.size()) {
+    let cell: CellObj = stack.pop();
     
     for(let i = cell.row - 1; i < cell.row + 2; i++) {
       for(let j = cell.col - 1; j < cell.col + 2; j++) {
