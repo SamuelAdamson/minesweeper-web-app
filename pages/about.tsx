@@ -184,7 +184,7 @@ const About: NextPage = () => {
     this.q.push(cell);
   }
 
-  size(): Number { return this.q.length };
+  size(): Number { return (this.head - this.q.length) };
 }`}
         />
       </AboutSection>
