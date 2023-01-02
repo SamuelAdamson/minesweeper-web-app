@@ -1,9 +1,11 @@
+import { useEffect } from 'react';
+import Prism from 'prismjs';
+import "prismjs/themes/prism-okaidia.css";
 import styles from './CodeBlock.module.css';
-import Highlight from 'react-highlight'
 
-// Note this list can be expanded -- see acceptable highlight.js languages
-// https://github.com/highlightjs/highlight.js/blob/main/SUPPORTED_LANGUAGES.md
-type Language = 'typescript' | 'cpp' | 'css' | 'html';
+// Note this list can be expanded -- see acceptable prism.js languages
+// https://prismjs.com/
+type Language = 'javascript' | 'cpp' | 'css' | 'html';
 
 type Props = {
   code: string;
@@ -11,12 +13,15 @@ type Props = {
 };
 
 export const CodeBlock = ({ code, language } : Props) => {
+  useEffect(() => {
+    Prism.highlightAll();
+  }, []);
+
   return(
     <div className={styles.code}>
-      {/* TODO - show current language name -- allow for switch */}
-      <Highlight className={`language-${language}`}>
-        {code}
-      </Highlight>
+      <pre>
+        <code className={`language-${language}`}>{code}</code>
+      </pre>
     </div>
   );
 };

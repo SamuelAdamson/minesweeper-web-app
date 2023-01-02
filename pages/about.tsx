@@ -125,7 +125,7 @@ const About: NextPage = () => {
           
         </p>
         <CodeBlock
-          language={'typescript'}
+          language={'javascript'}
           code={
 `class Queue {
   q: Array<CellObj>;
