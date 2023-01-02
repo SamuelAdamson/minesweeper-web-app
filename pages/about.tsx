@@ -31,7 +31,6 @@ const About: NextPage = () => {
           <li>Hard - 16 x 20 with 50 mines</li>
         </ul>
       </AboutSection>
-      
       <AboutSection heading="the algorithm">
         <p>
           If the player uncovers a cell which is not adjacent to any mines, all
@@ -74,7 +73,6 @@ const About: NextPage = () => {
           We can choose between two methods to perform this traversal.
         </p>
       </AboutSection>
-      
       <AboutSection heading="dfs">
         <p>
           Our first option is <strong>depth-first search</strong> (DFS). In
@@ -89,12 +87,45 @@ const About: NextPage = () => {
           <Image src={DFS} alt="dfs" height={632} width={498} className="aboutImg" />
         </div>
         <p>
-          The key data structure involved in DFS is the <i>stack</i>. The stack is a <strong>last in, first out (LIFO) </strong> 
+          The key data structure involved in DFS is the <strong>stack</strong>. The stack is a <strong>last in, first out (LIFO) </strong> 
           data structure, meaning that the most recent item added (pushed) to the data structure, will be the first item 
-          removed (popped) from the datastructure. Thus, 
+          removed (popped) from the data structure. A stack can be thought of as a 
+          <i>stack</i> of boxes where we can only add and remove boxes at the top of the stack. Thus, we can quickly 
+          grab the top box, but other boxes are not accessible.
         </p>
-      </AboutSection>
+        <p>          
+          So, in the case of minesweeper, in a DFS implementation each cell 
+          that should be uncovered will be added to the stack including the cell which was clicked. Now, the next cell 
+          to be uncovered will be the cell which was added to the stack most recently. We refer to this as the top of the stack. 
+          This continues until there are no more cells to add to the stack, and the stack has been emptied.
+        </p>
+        <p>
+          Now, in JavaScript/TypeScript, we can easily implement a stack using an array without the need for a class implementation. 
+          However, for the sake of demonstration, the following is a possible class implementation.
+        </p>
+        <CodeBlock
+          language={'javascript'}
+          code={
+`class Stack {
+  s: Array<CellObj>;
 
+  constructor(cell: CellObj) {
+    this.s = [cell];
+  }
+
+  /* Assumes that queue has at least one member */
+  pop(): CellObj {
+    return this.s.pop()!;
+  }
+
+  push(cell: CellObj): void {
+    this.s.push(cell);
+  }
+
+  size(): Number { return this.s.length };
+}`}
+        />
+      </AboutSection>
       <AboutSection heading="bfs">
         <p>
           <strong>Breadth-first search</strong> (BFS) is a traversal where we
@@ -113,16 +144,21 @@ const About: NextPage = () => {
           <Image src={BFS} alt="bfs" height={632} width={498} className="aboutImg" />
         </div>
         <p>
-          TODO -- explain what a queue is similar to stack. 
-          <strong>A note about limitations in JavaScript/TypeScript</strong> -- Central to 
-          Breadth-first search is the queue data structure. In an optimal setting, the queue 
-          data structure should allow for <i>constant</i> time (O(1)) access/deletion 
-          of the head element in the queue. In other languages, like C++ for example, the standard 
-          library may include such a data structure. However, in JavaScript/TypeScript a queue 
-          implementation does not exist. Thus, we must manually implement a queue data structure for BFS.
+          Similar to the use of a stack data structure in DFS, BFS relies on a <strong>queue</strong> data structure. 
+          The queue is a <strong>first in, first out (FIFO)</strong> data structure, which means that the earliest item which 
+          was pushed to the data structure is the first item to popped from the data structure. Now if a stack is analogous to a stack 
+          of boxes, a queue can be related to a <i>queue</i> (or line) of people at a grocery shop. The first person to enter the queue 
+          will be the first person to be serviced by the cashier (assuming reasonable politeness). So, as more people enter the queue, 
+          they will have to wait for those ahead of them to be serviced first.
         </p>
         <p>
-          
+          In the context of minesweeper, each cell which needs to be uncovered will be added to the queue. The cell at the front of the queue 
+          will be popped from the queue, uncovered, and then each of it's adjacent cells which should be uncovered are added back to the queue. 
+          The result is that the cells are uncovered in an order which is consistent with closeness to the source cell.
+        </p>
+        <p>
+          Unlike languages like C++, in JavaScript/TypeScript, there is no queue implementation included in the standard library. Therefore, 
+          it is necessary to implement one using a class.
         </p>
         <CodeBlock
           language={'javascript'}
@@ -145,7 +181,7 @@ const About: NextPage = () => {
   }
 
   push(cell: CellObj): void {
-    this.q.push(cell)
+    this.q.push(cell);
   }
 
   size(): Number { return this.q.length };

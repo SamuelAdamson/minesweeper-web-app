@@ -103,7 +103,7 @@ class Queue {
   }
 
   push(cell: CellObj): void {
-    this.q.push(cell)
+    this.q.push(cell);
   }
 
   size(): Number { return this.q.length };
@@ -122,7 +122,7 @@ class Stack {
   }
 
   push(cell: CellObj): void {
-    this.s.push(cell)
+    this.s.push(cell);
   }
 
   size(): Number { return this.s.length };
