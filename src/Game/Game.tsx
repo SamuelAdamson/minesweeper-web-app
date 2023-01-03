@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Container, Modal, Button } from 'react-bootstrap';
-import { Grid, ModeSelect, Control } from './components';
-import { Mode } from './components/type';
+import { Grid, ModeSelect, Control, AlgoSelect } from './components';
+import { Mode, Algorithm } from './components/type';
 import styles from './Game.module.css';
 
 
@@ -15,7 +15,8 @@ export const Game = () => {
   const [elapsedFlag, setElapsedFlag] = useState<Boolean>(false);
 
   const [modal, setModal] = useState<boolean>(false);
-  const [gr, setGR] = useState<Boolean>(false);
+  const [result, setResult] = useState<Boolean>(false);
+  const [algo, setAlgo] = useState<Algorithm>(0);
 
   const modeChange = (newMode: Mode) => {
     setElapsedFlag(prev => !prev);
@@ -47,8 +48,12 @@ export const Game = () => {
 
   const gameEnd = (result: Boolean) => {
     setGameOver(true);
-    setGR(result);
+    setResult(result);
     setTimeout(() => setModal(true), 300);
+  }
+
+  const changeAlgo = (algorithm: Algorithm) => {
+    setAlgo(algorithm);
   }
 
   const hideModal = () => setModal(false);
@@ -57,11 +62,11 @@ export const Game = () => {
     <Container fluid className={styles.game}>
       <Modal show={modal} onHide={hideModal}>
         <Modal.Header>
-          <Modal.Title > {gr ? 'success' : 'failure'} </Modal.Title>
+          <Modal.Title > {result ? 'success' : 'failure'} </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           {/* TODO - Add game performance stats here. */}
-          {gr ? 'All cells without mines have been uncovered.' : 'The player has uncovered a cell that is hiding a mine.' }
+          {result ? 'All cells without mines have been uncovered.' : 'The player has uncovered a cell that is hiding a mine.' }
         </Modal.Body>
         <Modal.Footer>
           <Button className={styles.controlBtn} onClick={reset}>
@@ -84,6 +89,7 @@ export const Game = () => {
         resetFlag={resetFlag}
         onLoadComplete={loadComplete}
         onGameEnd={gameEnd}
+        algo={algo}
       />
 
       <Control
@@ -95,7 +101,11 @@ export const Game = () => {
         gameOver={gameOver}
       />
 
-      
+      <AlgoSelect 
+        algo={algo}
+        onAlgoChange={changeAlgo}
+      />
+
     </Container>
   );
 };

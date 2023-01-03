@@ -178,7 +178,6 @@ function BFS(
   return [flags, cells];
 }
 
-
 function DFS(
   grid: CellGrid, 
   source: CellObj, 
@@ -209,7 +208,6 @@ function DFS(
   return [flags, cells];
 }
 
-
 function rDFS(
   grid: CellGrid, 
   source: CellObj, 
@@ -218,6 +216,8 @@ function rDFS(
   flags: number, 
   cells: number
 ): Uncover {
+
+  
 
   return [flags, cells];
 }

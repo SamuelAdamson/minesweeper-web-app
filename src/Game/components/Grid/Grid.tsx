@@ -2,7 +2,7 @@ import { useEffect, useState, useRef, CSSProperties } from 'react';
 import { Container, Row } from 'react-bootstrap';
 import { BarLoader } from 'react-spinners'
 import { Cell } from '..';
-import { Mode, CellGrid, CellObj, Uncover } from '../type';
+import { Mode, CellGrid, CellObj, Uncover, Algorithm } from '../type';
 import { createGrid, placeMines, replaceMine, uncover } from './helper';
 import styles from './Grid.module.css';
 import cx from 'classnames';
@@ -14,6 +14,7 @@ type Props = {
   resetFlag: Boolean;
   onLoadComplete: Function;
   onGameEnd: Function;
+  algo: Algorithm;
 };
 
 type Dimension = [number, number];
@@ -54,7 +55,7 @@ function getGridWrapperStyle(mode: Mode) : string {
   return cx(styles.gridWrapper, style);
 }
 
-export const Grid = ({ mode, paused, resetFlag, onLoadComplete, onGameEnd }: Props) => {
+export const Grid = ({ mode, paused, resetFlag, onLoadComplete, onGameEnd, algo }: Props) => {
   const [firstClick, setFirstClick] = useState<Boolean>(true);
   const [gameOver, setGameOver] = useState<Boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
@@ -88,7 +89,7 @@ export const Grid = ({ mode, paused, resetFlag, onLoadComplete, onGameEnd }: Pro
       onGameEnd(false);
     }
     else {
-      let result: Uncover = uncover(ng, cell, dim[0], dim[1], flagCnt, cellCnt, 0);
+      let result: Uncover = uncover(ng, cell, dim[0], dim[1], flagCnt, cellCnt, algo);
     
       if(!result[1]) { 
         setGameOver(true);
