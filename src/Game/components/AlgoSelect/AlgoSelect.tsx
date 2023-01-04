@@ -4,8 +4,6 @@ import {
   ToggleButton,
   ButtonGroup,
 } from 'react-bootstrap';
-import { Button } from 'react-bootstrap/lib/InputGroup';
-import { CodeBlock } from '../../../';
 import { Algorithm } from '../type';
 import styles from './AlgoSelect.module.css';
 
@@ -25,36 +23,112 @@ const algos: Array<[String, String]> = [
 ];
 
 const algoCode: Array<String> = [
+`function DFS(
+  grid: CellGrid, 
+  source: CellObj, 
+  rc: number, 
+  cc: number, 
+  flags: number, 
+  cells: number
+): Uncover {
+  const stack: Stack = new Stack(source);
 
+  while(stack.size()) {
+    let cell: CellObj = stack.pop();
+    
+    for(let i = Math.max(0, cell.row - 1); i < (cell.row + 2) && i < rc; i++) {
+      for(let j = Math.max(0, cell.col - 1); j < (cell.col + 2) && j < cc; j++) {
+        if(grid[i][j].covered) {
+          if(grid[i][j].flagged) grid[i][j].flagged = false, flags++;
+          grid[i][j].covered = false, cells--;
+          
+          if(!grid[i][j].adjMines) stack.push(grid[i][j]);
+        }
+      }
+    }
+  }
+
+  return [flags, cells];
+}`,
+`function BFS(
+  grid: CellGrid, 
+  source: CellObj, 
+  rc: number, 
+  cc: number, 
+  flags: number, 
+  cells: number
+): Uncover {
+  const queue: Queue = new Queue(source);
+
+  while(queue.size()) {
+    let cell: CellObj = queue.pop();
+    
+    for(let i = Math.max(0, cell.row - 1); i < (cell.row + 2) && i < rc; i++) {
+      for(let j = Math.max(0, cell.col - 1); j < (cell.col + 2) && j < cc; j++) {
+        if(grid[i][j].covered) {
+          if(grid[i][j].flagged) grid[i][j].flagged = false, flags++;
+          grid[i][j].covered = false, cells--;
+          
+          if(!grid[i][j].adjMines) queue.push(grid[i][j]);
+        }
+      }
+    }
+  }
+
+  return [flags, cells];
+}`,
+`function recursiveDFS(
+  grid: CellGrid, 
+  source: CellObj, 
+  rc: number, 
+  cc: number, 
+  flags: number, 
+  cells: number
+): Uncover {
+  if(source.flagged) source.flagged = false, flags++;
+  source.covered = false, cells--;
+
+  if(!source.adjMines) {
+    for(let i = Math.max(0, source.row - 1); i < (source.row + 2) && i < rc; i++) {
+      for(let j = Math.max(0, source.col - 1); j < (source.col + 2) && j < cc; j++) {
+        if(grid[i][j].covered) {
+          [flags, cells] = recursiveDFS(grid, grid[i][j], rc, cc, flags, cells)
+        }
+      }
+    }
+  }
+  
+  return [flags, cells];
+}`,
 ];
 
 export const AlgoSelect = ({ algo, onAlgoChange }: Props) => {
-  const [radioValue, setRadioValue] = useState<Algorithm>(algo);
+  const [algoValue, setAlgoValue] = useState<Algorithm>(algo);
   const onNewAlgo = (algorithm: Algorithm) => {
     onAlgoChange(algorithm);
-    setRadioValue(algorithm);  
+    setAlgoValue(algorithm);  
   };
 
   return(
     <Container fluid className={styles.AlgoSelect}>
-      <Button>
+      <ButtonGroup aria-label="algo-select-group">
         {algoI.map((i: Algorithm) => (
           <ToggleButton
             className={styles.AlgoButton}
             key={`algo-${i}`}
-            id={`radio-${i}`}
+            id={`algo-${i}`}
             type="radio"
-            name="radio"
+            name="algo-radio"
             value={i}
-            checked={i == radioValue}
+            checked={i == algoValue}
             onClick={(e) => onNewAlgo(i)}
           >
-            <h5>{algos[i][0]}</h5>
+            <h6>{algos[i][0]}</h6>
             <p>{algos[i][1]}</p>
-            
           </ToggleButton>
+
         ))}
-      </Button>
+      </ButtonGroup>
     </Container>
   );
 };

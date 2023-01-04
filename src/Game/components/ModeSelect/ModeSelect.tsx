@@ -15,24 +15,24 @@ type Props = {
 const modes: Array<Mode> = ['easy', 'medium', 'hard'];
 
 export const ModeSelect = ({ mode, onModeChange }: Props) => {
-  const [radioValue, setRadioValue] = useState<Mode>(mode);
+  const [modeValue, setModeValue] = useState<Mode>(mode);
   const onNewMode = (newMode: Mode) => {
     onModeChange(newMode);
-    setRadioValue(newMode);
+    setModeValue(newMode);
   };
 
   return (
     <Container fluid className={styles.ModeSelect}>
-      <ButtonGroup>
+      <ButtonGroup aria-label="mode-select-group">
         {modes.map((m: Mode, idx: Number) => (
           <ToggleButton
             className={styles.ModeButton}
             key={`mode-${idx}`}
-            id={`radio-${idx}`}
+            id={`mode-${idx}`}
             type="radio"
-            name="radio"
+            name="mode-radio"
             value={m}
-            checked={m == radioValue}
+            checked={m == modeValue}
             onClick={(e) => onNewMode(m)}
           >
             {m}

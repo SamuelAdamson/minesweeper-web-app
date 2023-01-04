@@ -16,7 +16,7 @@ export const Game = () => {
 
   const [modal, setModal] = useState<boolean>(false);
   const [result, setResult] = useState<Boolean>(false);
-  const [algo, setAlgo] = useState<Algorithm>(0);
+  const [algo, setAlgo] = useState<Algorithm>(2);
 
   const modeChange = (newMode: Mode) => {
     setElapsedFlag(prev => !prev);
@@ -52,7 +52,7 @@ export const Game = () => {
     setTimeout(() => setModal(true), 300);
   }
 
-  const changeAlgo = (algorithm: Algorithm) => {
+  const algoChange = (algorithm: Algorithm) => {
     setAlgo(algorithm);
   }
 
@@ -103,7 +103,7 @@ export const Game = () => {
 
       <AlgoSelect 
         algo={algo}
-        onAlgoChange={changeAlgo}
+        onAlgoChange={algoChange}
       />
 
     </Container>

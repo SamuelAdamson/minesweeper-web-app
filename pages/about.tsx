@@ -1,6 +1,6 @@
 import type { NextPage } from 'next';
 import Image from 'next/image';
-import { AboutSection, CodeBlock } from '../src';
+import { AboutSection, Code } from '../src';
 import { BFS, DFS, Layer1, Layer2 } from '../img';
 
 const About: NextPage = () => {
@@ -103,7 +103,7 @@ const About: NextPage = () => {
           Now, in JavaScript/TypeScript, we can easily implement a stack using an array without the need for a class implementation. 
           However, for the sake of demonstration, the following is a possible class implementation.
         </p>
-        <CodeBlock
+        <Code
           language={'javascript'}
           code={
 `class Stack {
@@ -160,7 +160,7 @@ const About: NextPage = () => {
           Unlike languages like C++, in JavaScript/TypeScript, there is no queue implementation included in the standard library. Therefore, 
           it is necessary to implement one using a class.
         </p>
-        <CodeBlock
+        <Code
           language={'javascript'}
           code={
 `class Queue {

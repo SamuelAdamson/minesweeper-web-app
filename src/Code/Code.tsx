@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import Prism from 'prismjs';
 import "prismjs/themes/prism-okaidia.css";
-import styles from './CodeBlock.module.css';
+import styles from './Code.module.css';
 
 // Note this list can be expanded -- see acceptable prism.js languages
 // https://prismjs.com/
@@ -12,7 +12,7 @@ type Props = {
   language: Language;
 };
 
-export const CodeBlock = ({ code, language } : Props) => {
+export const Code = ({ code, language } : Props) => {
   useEffect(() => {
     Prism.highlightAll();
   }, []);

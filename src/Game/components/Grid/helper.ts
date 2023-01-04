@@ -140,42 +140,12 @@ export function uncover(
     switch(algo) {
       case 0: return(DFS(grid, source, rc, cc, flags, cells));
       case 1: return(BFS(grid, source, rc, cc, flags, cells));
-      case 2: return(rDFS(grid, source, rc, cc, flags, cells));
+      case 2: return(recursiveDFS(grid, source, rc, cc, flags, cells));
     }
   }
   
   source.covered = false;
   return [flags, cells - 1];
-}
-
-function BFS(
-  grid: CellGrid, 
-  source: CellObj, 
-  rc: number, 
-  cc: number, 
-  flags: number, 
-  cells: number
-): Uncover {
-  const queue: Queue = new Queue(source);
-
-  while(queue.size()) {
-    let cell: CellObj = queue.pop();
-    
-    for(let i = cell.row - 1; i < cell.row + 2; i++) {
-      for(let j = cell.col - 1; j < cell.col + 2; j++) {
-        if(i >= 0 && i < rc && j >= 0 && j < cc && grid[i][j].covered && !grid[i][j].mine) {
-          if(grid[i][j].flagged) grid[i][j].flagged = false, flags++;
-          
-          grid[i][j].covered = false;
-          cells--;
-          
-          if(!grid[i][j].adjMines) queue.push(grid[i][j]);
-        }
-      }
-    }
-  }
-
-  return [flags, cells];
 }
 
 function DFS(
@@ -191,13 +161,11 @@ function DFS(
   while(stack.size()) {
     let cell: CellObj = stack.pop();
     
-    for(let i = cell.row - 1; i < cell.row + 2; i++) {
-      for(let j = cell.col - 1; j < cell.col + 2; j++) {
-        if(i >= 0 && i < rc && j >= 0 && j < cc && grid[i][j].covered && !grid[i][j].mine) {
+    for(let i = Math.max(0, cell.row - 1); i < (cell.row + 2) && i < rc; i++) {
+      for(let j = Math.max(0, cell.col - 1); j < (cell.col + 2) && j < cc; j++) {
+        if(grid[i][j].covered) {
           if(grid[i][j].flagged) grid[i][j].flagged = false, flags++;
-          
-          grid[i][j].covered = false;
-          cells--;
+          grid[i][j].covered = false, cells--;
           
           if(!grid[i][j].adjMines) stack.push(grid[i][j]);
         }
@@ -208,7 +176,7 @@ function DFS(
   return [flags, cells];
 }
 
-function rDFS(
+function BFS(
   grid: CellGrid, 
   source: CellObj, 
   rc: number, 
@@ -216,10 +184,46 @@ function rDFS(
   flags: number, 
   cells: number
 ): Uncover {
+  const queue: Queue = new Queue(source);
 
-  
+  while(queue.size()) {
+    let cell: CellObj = queue.pop();
+    
+    for(let i = Math.max(0, cell.row - 1); i < (cell.row + 2) && i < rc; i++) {
+      for(let j = Math.max(0, cell.col - 1); j < (cell.col + 2) && j < cc; j++) {
+        if(grid[i][j].covered) {
+          if(grid[i][j].flagged) grid[i][j].flagged = false, flags++;
+          grid[i][j].covered = false, cells--;
+          
+          if(!grid[i][j].adjMines) queue.push(grid[i][j]);
+        }
+      }
+    }
+  }
 
   return [flags, cells];
 }
 
-function rDFSHelper(): void {}
+function recursiveDFS(
+  grid: CellGrid, 
+  source: CellObj, 
+  rc: number, 
+  cc: number, 
+  flags: number, 
+  cells: number
+): Uncover {
+  if(source.flagged) source.flagged = false, flags++;
+  source.covered = false, cells--;
+
+  if(!source.adjMines) {
+    for(let i = Math.max(0, source.row - 1); i < (source.row + 2) && i < rc; i++) {
+      for(let j = Math.max(0, source.col - 1); j < (source.col + 2) && j < cc; j++) {
+        if(grid[i][j].covered) {
+          [flags, cells] = recursiveDFS(grid, grid[i][j], rc, cc, flags, cells)
+        }
+      }
+    }
+  }
+  
+  return [flags, cells];
+}
