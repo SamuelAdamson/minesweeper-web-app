@@ -103,7 +103,7 @@ export const Algo = ({ algo, onAlgoChange }: Props) => {
   };
 
   return(
-    <Container fluid className={styles.AlgoSelect}>
+    <Container fluid className={styles.Algo}>
       <ButtonGroup aria-label="algo-select-group">
         {algoI.map((i: Algorithm) => (
           <ToggleButton
@@ -122,6 +122,7 @@ export const Algo = ({ algo, onAlgoChange }: Props) => {
       </ButtonGroup>
       <Code 
         code={algoCode[algoValue]}
+        centered={false}
         language='javascript'
       />
     </Container>

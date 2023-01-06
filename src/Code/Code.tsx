@@ -9,18 +9,19 @@ type Language = 'javascript' | 'cpp' | 'css' | 'html';
 
 type Props = {
   code: String;
+  centered: Boolean;
   language: Language;
 };
 
-export const Code = ({ code, language } : Props) => {
+export const Code = ({ code, centered, language } : Props) => {
   useEffect(() => {
     Prism.highlightAll();
   }, [code]);
 
   return(
-    <div className={styles.code}>
-      <pre style={{transition: "all ease 0.3s"}}>
-        <code style={{transition: "all ease 0.3s"}} className={`language-${language}`}>{code}</code>
+    <div className={centered ? styles.codeCenter : styles.code}>
+      <pre>
+        <code className={`language-${language}`}>{code}</code>
       </pre>
     </div>
   );

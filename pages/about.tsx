@@ -105,6 +105,7 @@ const About: NextPage = () => {
         </p>
         <Code
           language={'javascript'}
+          centered={true}
           code={
 `class Stack {
   s: Array<CellObj>;
@@ -162,6 +163,7 @@ const About: NextPage = () => {
         </p>
         <Code
           language={'javascript'}
+          centered={true}
           code={
 `class Queue {
   q: Array<CellObj>;
