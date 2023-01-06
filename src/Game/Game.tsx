@@ -1,11 +1,14 @@
 import { useState } from 'react';
 import { Container, Modal, Button } from 'react-bootstrap';
-import { Grid, ModeSelect, Control, AlgoSelect } from './components';
+import { Grid, ModeSelect, Control } from './components';
 import { Mode, Algorithm } from './components/type';
 import styles from './Game.module.css';
 
+type Props = {
+  algo: Algorithm;
+}
 
-export const Game = () => {
+export const Game = ({ algo }: Props) => {
   const [gameMode, setGameMode] = useState<Mode>('easy');
   const [paused, setPaused] = useState<Boolean>(false);
   const [loaded, setLoaded] = useState<Boolean>(true);
@@ -16,7 +19,6 @@ export const Game = () => {
 
   const [modal, setModal] = useState<boolean>(false);
   const [result, setResult] = useState<Boolean>(false);
-  const [algo, setAlgo] = useState<Algorithm>(2);
 
   const modeChange = (newMode: Mode) => {
     setElapsedFlag(prev => !prev);
@@ -50,10 +52,6 @@ export const Game = () => {
     setGameOver(true);
     setResult(result);
     setTimeout(() => setModal(true), 300);
-  }
-
-  const algoChange = (algorithm: Algorithm) => {
-    setAlgo(algorithm);
   }
 
   const hideModal = () => setModal(false);
@@ -99,11 +97,6 @@ export const Game = () => {
         elapsedFlag={elapsedFlag}
         loaded={loaded}
         gameOver={gameOver}
-      />
-
-      <AlgoSelect 
-        algo={algo}
-        onAlgoChange={algoChange}
       />
 
     </Container>

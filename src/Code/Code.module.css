@@ -1,14 +1,7 @@
-.code {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  
+.code {  
   margin-bottom: 1rem;
   margin-top: 1rem;
-  margin-right: auto;
-  margin-left: auto;
-
-  width: fit-content;
+  overflow-x: scroll;
+  transition: all ease 0.3s;
 }
 

@@ -1,0 +1,27 @@
+.AlgoSelect {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 100%;
+  border: 2px solid rgba(0,0,0,0.5);
+  padding: 2rem;
+  margin-top: 3rem;
+  margin-bottom: 2rem;
+}
+
+.AlgoButton {
+  cursor: pointer;
+  border-radius: 0.3rem !important;
+  margin-left: 0.3rem !important;
+  margin-right: 0.3rem;
+  background-color: transparent;
+  border: none;
+  color: rgba(0, 0, 0, 0.5);
+  font-size: large;
+  transition: all ease 0.4s !important;
+}
+.AlgoButton:hover {
+  background-color: transparent;
+  color: rgb(0,0,0);
+}

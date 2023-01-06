@@ -1,11 +1,8 @@
 import { useState } from 'react';
-import {
-  Container,
-  ToggleButton,
-  ButtonGroup,
-} from 'react-bootstrap';
-import { Algorithm } from '../type';
-import styles from './AlgoSelect.module.css';
+import { Container, ToggleButton, ButtonGroup } from 'react-bootstrap';
+import { Code } from '../';
+import { Algorithm } from '../Game/components/type';
+import styles from './Algo.module.css';
 
 type Props = {
   algo: Algorithm;
@@ -16,11 +13,7 @@ type Props = {
 // 1 -> BFS
 // 2 -> Recursive DFS
 const algoI: Array<Algorithm> = [0, 1, 2];
-const algos: Array<[String, String]> = [
-  ['DFS', 'Depth-First Search'],
-  ['BFS', 'Breadth-First Search'],
-  ['Recursive DFS', 'Recursive Depth-First Search'],
-];
+const algos: Array<String> = ['dfs', 'bfs', 'recursive dfs'];
 
 const algoCode: Array<String> = [
 `function DFS(
@@ -102,7 +95,7 @@ const algoCode: Array<String> = [
 }`,
 ];
 
-export const AlgoSelect = ({ algo, onAlgoChange }: Props) => {
+export const Algo = ({ algo, onAlgoChange }: Props) => {
   const [algoValue, setAlgoValue] = useState<Algorithm>(algo);
   const onNewAlgo = (algorithm: Algorithm) => {
     onAlgoChange(algorithm);
@@ -123,12 +116,14 @@ export const AlgoSelect = ({ algo, onAlgoChange }: Props) => {
             checked={i == algoValue}
             onClick={(e) => onNewAlgo(i)}
           >
-            <h6>{algos[i][0]}</h6>
-            <p>{algos[i][1]}</p>
+            {algos[i]}
           </ToggleButton>
-
         ))}
       </ButtonGroup>
+      <Code 
+        code={algoCode[algoValue]}
+        language='javascript'
+      />
     </Container>
   );
 };

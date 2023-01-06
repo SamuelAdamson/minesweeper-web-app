@@ -8,19 +8,19 @@ import styles from './Code.module.css';
 type Language = 'javascript' | 'cpp' | 'css' | 'html';
 
 type Props = {
-  code: string;
+  code: String;
   language: Language;
 };
 
 export const Code = ({ code, language } : Props) => {
   useEffect(() => {
     Prism.highlightAll();
-  }, []);
+  }, [code]);
 
   return(
     <div className={styles.code}>
-      <pre>
-        <code className={`language-${language}`}>{code}</code>
+      <pre style={{transition: "all ease 0.3s"}}>
+        <code style={{transition: "all ease 0.3s"}} className={`language-${language}`}>{code}</code>
       </pre>
     </div>
   );

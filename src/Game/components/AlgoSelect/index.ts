@@ -1,1 +1,0 @@
-export { AlgoSelect } from './AlgoSelect';
