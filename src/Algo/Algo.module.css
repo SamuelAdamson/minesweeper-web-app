@@ -1,4 +1,4 @@
-.Algo {
+.algo {
   width: 100%;
   padding: 2rem;
   margin-top: 3rem;
@@ -8,7 +8,12 @@
   border-radius: 0.3rem;
 }
 
-.AlgoButton {
+.algoRow {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.algoBtn {
   cursor: pointer;
   border-radius: 0.3rem !important;
   margin-left: 0.3rem !important;
@@ -19,8 +24,52 @@
   font-size: large;
   transition: all ease 0.4s !important;
 }
-.AlgoButton:hover {
+.algoBtn:hover {
   background-color: transparent;
   color: rgb(0,0,0);
 }
 
+.controlBtn,
+.controlBtn:focus {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+
+  border-radius: 0.2rem;
+  border-width: 2px;
+  border-color: rgba(0,0,0,0.5);
+  color: rgba(0,0,0,0.5);
+  background-color: transparent;
+  transition: all ease 0.3s;
+}
+.controlBtn.selected,
+.controlBtn:hover {
+  border-color: rgb(0,0,0);
+  background-color: transparent;
+  color: rgb(0,0,0);
+}
+
+.algoBtnCol {
+  display: flex;
+  justify-content: flex-start;
+}
+.copyBtnCol {
+  display: flex;
+  justify-content: flex-end;
+}
+
+
+@media (max-width: 576px) {
+  .algoRow {
+    padding: 0;
+  }
+  
+  .algoBtnCol {
+    margin-bottom: 1rem;
+    justify-content: center;
+  }
+
+  .controlBtn,
+  .controlBtn:focus {
+    width: 100%;
+  }
+}

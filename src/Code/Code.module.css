@@ -3,14 +3,12 @@
   margin-bottom: 2rem;
   margin-left: 1rem;
   margin-right: 1rem;
-  overflow-x: scroll;
 }
 
 .codeCenter {
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow-x: hidden;
 }
 
 @media (max-width: 460px) {

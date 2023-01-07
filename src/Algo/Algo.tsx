@@ -1,7 +1,9 @@
-import { useState } from 'react';
-import { Container, ToggleButton, ButtonGroup } from 'react-bootstrap';
+import { useState, MouseEvent } from 'react';
+import { Container, ToggleButton, ButtonGroup, Button, Row, Col } from 'react-bootstrap';
+import { CheckSquareFill as CopyIcon } from 'react-bootstrap-icons';
 import { Code } from '../';
 import { Algorithm } from '../Game/components/type';
+import cx from 'classnames';
 import styles from './Algo.module.css';
 
 type Props = {
@@ -15,7 +17,7 @@ type Props = {
 const algoI: Array<Algorithm> = [0, 1, 2];
 const algos: Array<String> = ['dfs', 'bfs', 'recursive dfs'];
 
-const algoCode: Array<String> = [
+const algoCode: Array<string> = [
 `function DFS(
   grid: CellGrid, 
   source: CellObj, 
@@ -97,29 +99,48 @@ const algoCode: Array<String> = [
 
 export const Algo = ({ algo, onAlgoChange }: Props) => {
   const [algoValue, setAlgoValue] = useState<Algorithm>(algo);
+  const [copy, setCopy] = useState<Boolean>(false);
+
   const onNewAlgo = (algorithm: Algorithm) => {
     onAlgoChange(algorithm);
     setAlgoValue(algorithm);  
   };
 
+  const onCopy = (_e: MouseEvent<HTMLButtonElement>) => {
+    navigator.clipboard.writeText(algoCode[algoValue]);
+    
+    setCopy(true);
+    setTimeout(() => { setCopy(false) }, 3000);
+  }
+
   return(
-    <Container fluid className={styles.Algo}>
-      <ButtonGroup aria-label="algo-select-group">
-        {algoI.map((i: Algorithm) => (
-          <ToggleButton
-            className={styles.AlgoButton}
-            key={`algo-${i}`}
-            id={`algo-${i}`}
-            type="radio"
-            name="algo-radio"
-            value={i}
-            checked={i == algoValue}
-            onClick={(e) => onNewAlgo(i)}
-          >
-            {algos[i]}
-          </ToggleButton>
-        ))}
-      </ButtonGroup>
+    <Container fluid className={styles.algo}>
+      <Row className={styles.algoRow}>
+        <Col xs={12} sm={12} md lg xl={6} className={styles.algoBtnCol}>
+          <ButtonGroup aria-label="algo-select-group">
+            {algoI.map((i: Algorithm) => (
+              <ToggleButton
+                className={styles.algoBtn}
+                key={`algo-${i}`}
+                id={`algo-${i}`}
+                type="radio"
+                name="algo-radio"
+                value={i}
+                checked={i == algoValue}
+                onClick={(_e) => onNewAlgo(i)}
+              >
+                {algos[i]}
+              </ToggleButton>
+            ))}
+          </ButtonGroup>
+        </Col>
+        <Col xs={12} sm={12} md lg xl={6} className={styles.copyBtnCol}>
+          <Button className={cx(styles.controlBtn, copy ? styles.selected : null)} onClick={onCopy}>
+            {copy ? <CopyIcon /> : 'copy'}
+          </Button>
+        </Col>
+      </Row>
+
       <Code 
         code={algoCode[algoValue]}
         centered={false}
