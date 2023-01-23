@@ -97,6 +97,9 @@ const algoCode: Array<string> = [
 }`,
 ];
 
+// TODO add vertical option
+// TODO add code display option
+
 export const Algo = ({ algo, onAlgoChange }: Props) => {
   const [algoValue, setAlgoValue] = useState<Algorithm>(algo);
   const [copy, setCopy] = useState<Boolean>(false);
