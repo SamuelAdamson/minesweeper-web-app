@@ -9,6 +9,7 @@ import styles from './Algo.module.css';
 type Props = {
   algo: Algorithm;
   onAlgoChange: Function;
+  full?: Boolean;
 };
 
 // 0 -> DFS
@@ -97,16 +98,13 @@ const algoCode: Array<string> = [
 }`,
 ];
 
-// TODO add vertical option
-// TODO add code display option
-
-export const Algo = ({ algo, onAlgoChange }: Props) => {
+export const Algo = ({ algo, onAlgoChange, full=false }: Props) => {
   const [algoValue, setAlgoValue] = useState<Algorithm>(algo);
   const [copy, setCopy] = useState<Boolean>(false);
 
   const onNewAlgo = (algorithm: Algorithm) => {
     onAlgoChange(algorithm);
-    setAlgoValue(algorithm);  
+    setAlgoValue(algorithm);
   };
 
   const onCopy = (_e: MouseEvent<HTMLButtonElement>) => {
@@ -117,7 +115,7 @@ export const Algo = ({ algo, onAlgoChange }: Props) => {
   }
 
   return(
-    <Container fluid className={styles.algo}>
+    <Container fluid className={full ? styles.algoFull : styles.algoMinimal}>
       <Row className={styles.algoRow}>
         <Col xs={12} sm={12} md lg xl={6} className={styles.algoBtnCol}>
           <ButtonGroup aria-label="algo-select-group">
@@ -137,18 +135,22 @@ export const Algo = ({ algo, onAlgoChange }: Props) => {
             ))}
           </ButtonGroup>
         </Col>
-        <Col xs={12} sm={12} md lg xl={6} className={styles.copyBtnCol}>
-          <Button className={cx(styles.controlBtn, copy ? styles.selected : null)} onClick={onCopy}>
-            {copy ? <CopyIcon /> : 'copy'}
-          </Button>
-        </Col>
+        {full ?
+          <Col xs={12} sm={12} md lg xl={6} className={styles.copyBtnCol}>
+            <Button className={cx(styles.controlBtn, copy ? styles.selected : null)} onClick={onCopy}>
+              {copy ? <CopyIcon /> : 'copy'}
+            </Button>
+          </Col>
+        : null}
       </Row>
 
-      <Code 
-        code={algoCode[algoValue]}
-        centered={false}
-        language='javascript'
-      />
+      {full ? 
+        <Code 
+          code={algoCode[algoValue]}
+          centered={false}
+          language='javascript'
+        />
+      : null}
     </Container>
   );
 };

@@ -1,11 +1,7 @@
-.algo {
+.algoFull {
   width: 100%;
-  padding: 2rem;
-  margin-top: 2rem;
-  margin-bottom: 2rem;
-
-  border: 3px solid rgba(0,0,0,0.5);
-  border-radius: 0.3rem;
+  padding: 3rem;
+  margin: 2rem 0 2rem 0;
 }
 
 .algoRow {
@@ -18,9 +14,13 @@
   border-radius: 0.3rem !important;
   margin-left: 0.3rem !important;
   margin-right: 0.3rem;
+
+  display: flex;
+  align-items: center;
+
   background-color: transparent;
-  border: none;
   color: rgba(0, 0, 0, 0.5);
+  border: none;
   font-size: large;
   transition: all ease 0.4s !important;
 }
@@ -33,6 +33,7 @@
 .controlBtn:focus {
   padding-left: 1.5rem;
   padding-right: 1.5rem;
+  margin-right: 0.3rem;
 
   border-radius: 0.2rem;
   border-width: 2px;
@@ -71,5 +72,6 @@
   .controlBtn,
   .controlBtn:focus {
     width: 100%;
+    margin-right: 0;
   }
 }
