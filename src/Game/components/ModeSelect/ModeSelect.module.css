@@ -9,10 +9,11 @@
   border-radius: 0.3rem !important;
   margin-left: 0.3rem !important;
   margin-right: 0.3rem;
+  padding: 0.5rem 1rem;
   background-color: transparent;
   border: none;
   color: rgba(0, 0, 0, 0.5);
-  font-size: large;
+  font-size: larger;
   transition: all ease 0.4s !important;
 }
 .ModeButton:hover {

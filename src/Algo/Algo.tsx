@@ -115,10 +115,13 @@ export const Algo = ({ algo, onAlgoChange, full=false }: Props) => {
   }
 
   return(
-    <Container fluid className={full ? styles.algoFull : styles.algoMinimal}>
+    <Container fluid className={cx(styles.algo, full ? styles.full : null)}>
       <Row className={styles.algoRow}>
-        <Col xs={12} sm={12} md lg xl={6} className={styles.algoBtnCol}>
-          <ButtonGroup aria-label="algo-select-group">
+        <Col 
+          xs={12} sm={12} md lg xl xxl={full ? 6 : 12} 
+          className={cx(styles.algoBtnCol, full ? styles.full : null)}
+        >
+          <ButtonGroup aria-label="algo-select-group" vertical={!full}>
             {algoI.map((i: Algorithm) => (
               <ToggleButton
                 className={styles.algoBtn}
@@ -135,15 +138,14 @@ export const Algo = ({ algo, onAlgoChange, full=false }: Props) => {
             ))}
           </ButtonGroup>
         </Col>
-        {full ?
-          <Col xs={12} sm={12} md lg xl={6} className={styles.copyBtnCol}>
+        {full ? 
+          <Col xs={12} sm={12} md lg xl xxl={6} className={styles.copyBtnCol}>
             <Button className={cx(styles.controlBtn, copy ? styles.selected : null)} onClick={onCopy}>
               {copy ? <CopyIcon /> : 'copy'}
             </Button>
           </Col>
         : null}
       </Row>
-
       {full ? 
         <Code 
           code={algoCode[algoValue]}

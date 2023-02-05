@@ -1,28 +1,46 @@
-.algoFull {
+.algo {
+  /* Non-sticky menu that occupies majority of screen */
   width: 100%;
+}
+.algo.full {
   padding: 3rem;
   margin: 2rem 0 2rem 0;
 }
-
 .algoRow {
-  padding-left: 1rem;
-  padding-right: 1rem;
+  padding: 1rem 0;
+}
+
+.algoBtnCol {
+  display: flex;
+  justify-content: center;
+  padding: 0;
+}
+.algoBtnCol.full {
+  justify-content: flex-start;
+}
+.copyBtnCol {
+  display: flex;
+  justify-content: flex-end;
 }
 
 .algoBtn {
   cursor: pointer;
   border-radius: 0.3rem !important;
-  margin-left: 0.3rem !important;
-  margin-right: 0.3rem;
+  margin: 0.3rem !important;
+  padding: 0.5rem 1rem;
 
   display: flex;
+  justify-content: center;
   align-items: center;
 
   background-color: transparent;
   color: rgba(0, 0, 0, 0.5);
   border: none;
-  font-size: large;
+  font-size: larger;
   transition: all ease 0.4s !important;
+}
+.algoBtn.full {
+  margin: 0 0.3rem !important;
 }
 .algoBtn:hover {
   background-color: transparent;
@@ -48,16 +66,6 @@
   background-color: transparent;
   color: rgb(0,0,0);
 }
-
-.algoBtnCol {
-  display: flex;
-  justify-content: flex-start;
-}
-.copyBtnCol {
-  display: flex;
-  justify-content: flex-end;
-}
-
 
 @media (max-width: 576px) {
   .algoRow {
