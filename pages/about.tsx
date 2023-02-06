@@ -25,7 +25,7 @@ const About: NextPage = () => {
           number of mines. This implementation includes the following minesweeper 
           modes:
         </p>
-        <ul>
+        <ul className="bullets">
           <li>Easy - 8 x 12 with 10 mines</li>
           <li>Medium - 12 x 16 with 30 mines</li>
           <li>Hard - 16 x 20 with 50 mines</li>

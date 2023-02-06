@@ -1,6 +1,6 @@
 import type { NextPage } from 'next';
 import { useState } from 'react';
-import { Visual } from '../src';
+import { Visual, Algo } from '../src';
 import { Algorithm } from '../src/Game/components/type';
 
 const Visualize: NextPage = () => {
@@ -10,6 +10,7 @@ const Visualize: NextPage = () => {
   return(
     <>
       <Visual />
+      <Algo algo={algo} onAlgoChange={algoChange} full/>
     </>
   )
 }
