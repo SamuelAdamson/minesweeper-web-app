@@ -116,40 +116,57 @@ export const Algo = ({ algo, onAlgoChange, full=false }: Props) => {
 
   return(
     <Container fluid className={cx(styles.algo, full ? styles.full : null)}>
-      <Row className={styles.algoRow}>
-        <Col sm={12} md={full ? 6 : 12} className={cx(styles.algoBtnCol, full ? styles.full : null)}>
-          <ButtonGroup aria-label="algo-select-group" vertical={!full} className={styles.algoBtnGroup}>
-            {algoI.map((i: Algorithm) => (
-              <ToggleButton
-                className={styles.algoBtn}
-                key={`algo-${i}`}
-                id={`algo-${i}`}
-                type="radio"
-                name="algo-radio"
-                value={i}
-                checked={i == algoValue}
-                onClick={(_e) => onNewAlgo(i)}
-              >
-                {algos[i]}
-              </ToggleButton>
-            ))}
-          </ButtonGroup>
-        </Col>
-        {full ? 
+      {full ? 
+        <>
+        <Row className={styles.algoRow}>
+          <Col sm={12} md={6} className={cx(styles.algoBtnCol, styles.full)}>
+            <ButtonGroup aria-label="algo-select-group" className={styles.algoBtnGroup}>
+              {algoI.map((i: Algorithm) => (
+                <ToggleButton
+                  className={cx(styles.algoBtn, styles.full)}
+                  key={`algo-${i}`}
+                  id={`algo-${i}`}
+                  type="radio"
+                  name="algo-radio"
+                  value={i}
+                  checked={i == algoValue}
+                  onClick={(_e) => onNewAlgo(i)}
+                >
+                  {algos[i]}
+                </ToggleButton>
+              ))}
+            </ButtonGroup>
+          </Col>
           <Col sm={12} md={full ? 6 : 12} className={styles.copyBtnCol}>
             <Button className={cx(styles.controlBtn, copy ? styles.selected : null)} onClick={onCopy}>
               {copy ? <CopyIcon /> : 'copy'}
             </Button>
           </Col>
-        : null}
-      </Row>
-      {full ? 
+        </Row>
         <Code 
           code={algoCode[algoValue]}
           centered={false}
           language='javascript'
         />
-      : null}
+        </>
+       : 
+        <ButtonGroup aria-label="algo-select-group" vertical={true} className={styles.algoBtnGroup}>
+          {algoI.map((i: Algorithm) => (
+            <ToggleButton
+              className={styles.algoBtn}
+              key={`algo-${i}`}
+              id={`algo-${i}`}
+              type="radio"
+              name="algo-radio"
+              value={i}
+              checked={i == algoValue}
+              onClick={(_e) => onNewAlgo(i)}
+            >
+              {algos[i]}
+            </ToggleButton>
+          ))}
+        </ButtonGroup>
+       }
     </Container>
   );
 };

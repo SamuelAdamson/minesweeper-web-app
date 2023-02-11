@@ -1,6 +1,6 @@
 .algo {
-  /* Non-sticky menu that occupies majority of screen */
-  width: 100%;
+  /* Algorithm Select */
+  margin: 1rem 0;
 }
 .algo.full {
   padding: 3rem;
@@ -26,8 +26,9 @@
 .algoBtn {
   cursor: pointer;
   border-radius: 0.3rem !important;
-  margin: 0.3rem !important;
+  margin: 0.3rem 0 !important;
   padding: 0.5rem 1rem;
+  width: 100%;
 
   display: flex;
   justify-content: center;
@@ -37,9 +38,10 @@
   color: rgba(0, 0, 0, 0.5);
   border: none;
   font-size: larger;
-  transition: all ease 0.4s !important;
+  transition: all ease 0.4s;
 }
 .algoBtn.full {
+  width: auto;
   margin: 0 0.3rem !important;
 }
 .algoBtn:hover {
@@ -68,20 +70,11 @@
 }
 
 @media (max-width: 576px) {
-  .algoRow {
-    padding: 0;
-  }
-  
   .algoBtnGroup {
     width: 100%;
   }
-
   .algoBtnCol {
-    margin-bottom: 1rem;
-  }
-
-  .algoBtn {
-    width: 100%;
+    margin-bottom: 2rem;
   }
 
   .controlBtn,
