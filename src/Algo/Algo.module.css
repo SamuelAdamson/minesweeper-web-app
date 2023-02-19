@@ -10,6 +10,13 @@
   padding: 1rem 0;
 }
 
+.algoBtnGroup {
+  width: 100%;
+}
+.algoBtnGroup.full {
+  width: fit-content;
+}
+
 .algoBtnCol {
   display: flex;
   justify-content: center;
@@ -21,12 +28,13 @@
 .copyBtnCol {
   display: flex;
   justify-content: flex-end;
+  padding: 0;
 }
 
 .algoBtn {
   cursor: pointer;
   border-radius: 0.3rem !important;
-  margin: 0.3rem 0 !important;
+  margin: 0.3rem 0;
   padding: 0.5rem 1rem;
   width: 100%;
 
@@ -42,7 +50,7 @@
 }
 .algoBtn.full {
   width: auto;
-  margin: 0 0.3rem !important;
+  margin: 0 0.3rem;
 }
 .algoBtn:hover {
   background-color: transparent;
@@ -70,9 +78,17 @@
 }
 
 @media (max-width: 576px) {
-  .algoBtnGroup {
+  .algoBtnGroup.full {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
     width: 100%;
   }
+  .algoBtn.full {
+    margin: 0.3rem 0;
+    width: 100%;
+  }
+
   .algoBtnCol {
     margin-bottom: 2rem;
   }

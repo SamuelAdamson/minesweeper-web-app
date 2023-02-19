@@ -52,7 +52,7 @@
 @media (max-width: 576px) {
   .controlCol {
     justify-content: center !important;
-    margin-bottom: 0.5rem;
+    margin-bottom: 2rem;
     padding: 0;
   }
   .controlBtn,

@@ -44,10 +44,13 @@
 }
 
 .footer {
-  margin-top: auto;
-  position: relative;
+  margin-top: 3rem;
   background-color: #212529;
   padding: 0.5rem;
+}
+.footerWrapper {
+  margin-top: auto;
+  position: relative;
 }
 .footSection {
   display: flex;

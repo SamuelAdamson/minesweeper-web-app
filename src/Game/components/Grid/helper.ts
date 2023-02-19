@@ -228,4 +228,13 @@ function recursiveDFS(
   return [flags, cells];
 }
 
-// TODO add IDDFS
+function IDDFS(
+  grid: CellGrid, 
+  source: CellObj, 
+  rc: number, 
+  cc: number, 
+  flags: number, 
+  cells: number
+): Uncover {
+  return [flags, cells]
+}

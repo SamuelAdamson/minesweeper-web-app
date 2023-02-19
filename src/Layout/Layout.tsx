@@ -70,71 +70,73 @@ export const Layout = ({ children }: Props) => {
         </Navbar>
         <Container className={styles.mainContainer}>{children}</Container>
       </Container>
-      <footer className={styles.footer}>
-        <Container className={styles.footSection}>
-          <a
-            href="https://www.linkedin.com/in/samuel-adamson-cs"
-            className={styles.footLink}
-          >
-            <Image
-              layout="intrinsic"
-              className={styles.grow}
-              src={LinkedInIcon}
-              height={40}
-              width={40}
-              alt="li"
-            />
-          </a>
-          <a
-            href="https://github.com/SamuelAdamson"
-            className={styles.footLink}
-          >
-            <Image
-              className={styles.grow}
-              src={GitHubIcon}
-              height={40}
-              width={40}
-              alt="gh"
-            />
-          </a>
-          <a
-            href="https://www.youtube.com/channel/UC4nZnhi_pEXX9mt1G2cZyVA"
-            className={styles.footLink}
-          >
-            <Image
-              className={styles.grow}
-              src={YoutubeIcon}
-              height={40}
-              width={40}
-              alt="yt"
-            />
-          </a>
+      <footer className={styles.footerWrapper}>
+        <div className={styles.footer}>
+          <Container className={styles.footSection}>
+            <a
+              href="https://www.linkedin.com/in/samuel-adamson-cs"
+              className={styles.footLink}
+            >
+              <Image
+                layout="intrinsic"
+                className={styles.grow}
+                src={LinkedInIcon}
+                height={40}
+                width={40}
+                alt="li"
+              />
+            </a>
+            <a
+              href="https://github.com/SamuelAdamson"
+              className={styles.footLink}
+            >
+              <Image
+                className={styles.grow}
+                src={GitHubIcon}
+                height={40}
+                width={40}
+                alt="gh"
+              />
+            </a>
+            <a
+              href="https://www.youtube.com/channel/UC4nZnhi_pEXX9mt1G2cZyVA"
+              className={styles.footLink}
+            >
+              <Image
+                className={styles.grow}
+                src={YoutubeIcon}
+                height={40}
+                width={40}
+                alt="yt"
+              />
+            </a>
 
-          <a
-            href="https://www.instagram.com/giibb4"
-            className={styles.footLink}
-          >
-            <Image
-              className={styles.grow}
-              src={InstagramIcon}
-              height={40}
-              width={40}
-              alt="ig"
-            />
-          </a>
-          <a href="mailto:sadamson@uccs.edu" className={styles.footLink}>
-            <Image
-              className={styles.grow}
-              src={OutlookIcon}
-              height={40}
-              width={40}
-              alt="mt"
-            />
-          </a>
-        </Container>
-        <Container className={styles.footSection}>
-          <div className={styles.footTag}>Samuel Adamson &#8226; Colorado</div>
-        </Container>
+            <a
+              href="https://www.instagram.com/giibb4"
+              className={styles.footLink}
+            >
+              <Image
+                className={styles.grow}
+                src={InstagramIcon}
+                height={40}
+                width={40}
+                alt="ig"
+              />
+            </a>
+            <a href="mailto:sadamson@uccs.edu" className={styles.footLink}>
+              <Image
+                className={styles.grow}
+                src={OutlookIcon}
+                height={40}
+                width={40}
+                alt="mt"
+              />
+            </a>
+          </Container>
+          <Container className={styles.footSection}>
+            <div className={styles.footTag}>Samuel Adamson &#8226; Colorado</div>
+          </Container>
+        </div>
       </footer>
     </div>
   );

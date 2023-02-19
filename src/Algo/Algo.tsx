@@ -120,7 +120,7 @@ export const Algo = ({ algo, onAlgoChange, full=false }: Props) => {
         <>
         <Row className={styles.algoRow}>
           <Col sm={12} md={6} className={cx(styles.algoBtnCol, styles.full)}>
-            <ButtonGroup aria-label="algo-select-group" className={styles.algoBtnGroup}>
+            <ButtonGroup aria-label="algo-select-group" className={cx(styles.algoBtnGroup, styles.full)}>
               {algoI.map((i: Algorithm) => (
                 <ToggleButton
                   className={cx(styles.algoBtn, styles.full)}
