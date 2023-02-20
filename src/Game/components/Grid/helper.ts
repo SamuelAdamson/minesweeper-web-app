@@ -227,14 +227,3 @@ function recursiveDFS(
   
   return [flags, cells];
 }
-
-function IDDFS(
-  grid: CellGrid, 
-  source: CellObj, 
-  rc: number, 
-  cc: number, 
-  flags: number, 
-  cells: number
-): Uncover {
-  return [flags, cells]
-}
