@@ -18,3 +18,5 @@ export type CellObj = {
 };
 
 export type CellGrid = CellObj[][];
+
+export type Dimension = [number, number];

@@ -1,8 +1,8 @@
-import { useEffect, useState, useRef, CSSProperties } from 'react';
+import { useEffect, useState, CSSProperties } from 'react';
 import { Container, Row } from 'react-bootstrap';
 import { BarLoader } from 'react-spinners'
 import { Cell } from '..';
-import { Mode, CellGrid, CellObj, Uncover, Algorithm } from '../type';
+import { Mode, CellGrid, CellObj, Uncover, Algorithm, Dimension } from '../type';
 import { createGrid, placeMines, replaceMine, uncover } from './helper';
 import styles from './Grid.module.css';
 import cx from 'classnames';
@@ -16,8 +16,6 @@ type Props = {
   onGameEnd: Function;
   algo: Algorithm;
 };
-
-type Dimension = [number, number];
 
 type GridSizes = {
   easy: Dimension;

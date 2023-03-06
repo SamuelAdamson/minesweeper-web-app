@@ -5,6 +5,8 @@ import cx from 'classnames';
 export const VCell = () => {
   const [style, setStyle] = useState<string>(styles.cell);
 
+
+  
   return (
     <div 
       className={style}
