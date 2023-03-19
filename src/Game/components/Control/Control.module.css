@@ -1,7 +1,6 @@
 .control {
   padding: 0;
 }
-
 .controlRow {
   margin: 0;
 }
@@ -9,6 +8,7 @@
 .controlCol {
   display: flex;
   align-items: center;
+  padding: 0;
 }
 .controlCol.left {
   justify-content: flex-start;

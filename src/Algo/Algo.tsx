@@ -1,24 +1,21 @@
 import { useState, MouseEvent } from 'react';
 import { Container, ToggleButton, ButtonGroup, Button, Row, Col } from 'react-bootstrap';
-import { CheckSquareFill as CopyIcon } from 'react-bootstrap-icons';
-import { Code } from '../';
 import { Algorithm } from '../Game/components/type';
 import cx from 'classnames';
 import styles from './Algo.module.css';
 
+enum AlgoDisplay {
+  Performance,
+  Text
+}
+
 type Props = {
   algo: Algorithm;
   onAlgoChange: Function;
-  full?: Boolean;
+  display?: AlgoDisplay;
 };
 
-// 0 -> DFS
-// 1 -> BFS
-// 2 -> Recursive DFS
-const algoI: Array<Algorithm> = [0, 1, 2];
-const algos: Array<String> = ['dfs', 'bfs', 'recursive dfs'];
-
-const algoCode: Array<string> = [
+const algoSource: [string, string, string] = [
 `function DFS(
   grid: CellGrid, 
   source: CellObj, 
@@ -95,78 +92,28 @@ const algoCode: Array<string> = [
   }
   
   return [flags, cells];
-}`,
-];
+}`];
 
-export const Algo = ({ algo, onAlgoChange, full=false }: Props) => {
+export const Algo = ({ algo, onAlgoChange, display=AlgoDisplay.Text }: Props) => {
   const [algoValue, setAlgoValue] = useState<Algorithm>(algo);
-  const [copy, setCopy] = useState<Boolean>(false);
 
   const onNewAlgo = (algorithm: Algorithm) => {
     onAlgoChange(algorithm);
     setAlgoValue(algorithm);
   };
 
-  const onCopy = (_e: MouseEvent<HTMLButtonElement>) => {
-    navigator.clipboard.writeText(algoCode[algoValue]);
-    
-    setCopy(true);
-    setTimeout(() => { setCopy(false) }, 3000);
-  }
+  /* New plan here
+  
+    Create a drop down accordion for this componenet (Only vertical configuration, no longer full and non-full)
+    Two different options for algo -- Performance and Text
+
+    Performance shows a small graph with live updating performance metrics for the last 5 runs of the algorithm
+    Text gives a short description with an option to copy and paste the source code (source code is not displayed)
+  */
 
   return(
-    <Container fluid className={cx(styles.algo, full ? styles.full : null)}>
-      {full ? 
-        <>
-        <Row className={styles.algoRow}>
-          <Col sm={12} md={6} className={cx(styles.algoBtnCol, styles.full)}>
-            <ButtonGroup aria-label="algo-select-group" className={cx(styles.algoBtnGroup, styles.full)}>
-              {algoI.map((i: Algorithm) => (
-                <ToggleButton
-                  className={cx(styles.algoBtn, styles.full)}
-                  key={`algo-${i}`}
-                  id={`algo-${i}`}
-                  type="radio"
-                  name="algo-radio"
-                  value={i}
-                  checked={i == algoValue}
-                  onClick={(_e) => onNewAlgo(i)}
-                >
-                  {algos[i]}
-                </ToggleButton>
-              ))}
-            </ButtonGroup>
-          </Col>
-          <Col sm={12} md={full ? 6 : 12} className={styles.copyBtnCol}>
-            <Button className={cx(styles.controlBtn, copy ? styles.selected : null)} onClick={onCopy}>
-              {copy ? <CopyIcon /> : 'copy'}
-            </Button>
-          </Col>
-        </Row>
-        <Code 
-          code={algoCode[algoValue]}
-          centered={false}
-          language='javascript'
-        />
-        </>
-       : 
-        <ButtonGroup aria-label="algo-select-group" vertical={true} className={styles.algoBtnGroup}>
-          {algoI.map((i: Algorithm) => (
-            <ToggleButton
-              className={styles.algoBtn}
-              key={`algo-${i}`}
-              id={`algo-${i}`}
-              type="radio"
-              name="algo-radio"
-              value={i}
-              checked={i == algoValue}
-              onClick={(_e) => onNewAlgo(i)}
-            >
-              {algos[i]}
-            </ToggleButton>
-          ))}
-        </ButtonGroup>
-       }
+    <Container fluid className={styles.algo}>
+      
     </Container>
   );
 };

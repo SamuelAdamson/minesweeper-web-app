@@ -5,7 +5,7 @@ import { Game, Algo } from '../src';
 import { Algorithm } from '../src/Game/components/type';
 
 const Home: NextPage = () => {
-  const [algo, setAlgo] = useState<Algorithm>(0);
+  const [algo, setAlgo] = useState<Algorithm>(Algorithm.DFS);
   const algoChange = (newAlgo: Algorithm) => { setAlgo(newAlgo); };
 
   return (

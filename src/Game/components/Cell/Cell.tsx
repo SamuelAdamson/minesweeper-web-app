@@ -59,7 +59,9 @@ export const Cell = ({ cell, mode, paused, gameOver, onClick, onRightClick }: Pr
       onClick={handleClick}
       onContextMenu={handleRightClick}
     >
-      {(cell.flagged && !paused) ? <FlagIcon className={styles.flag} /> : (<h3>{content}</h3>)}
+      {(cell.flagged && !(paused || gameOver)) ? 
+        <FlagIcon className={styles.flag} /> 
+        : (<h3>{content}</h3>)}
     </div>
   );
 };
