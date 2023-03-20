@@ -1,5 +1,5 @@
 import { useState, MouseEvent } from 'react';
-import { Container, ToggleButton, ButtonGroup, Button, Row, Col } from 'react-bootstrap';
+import { Container, Dropdown, SSRProvider } from 'react-bootstrap';
 import { Algorithm } from '../Game/components/type';
 import cx from 'classnames';
 import styles from './Algo.module.css';
@@ -15,7 +15,30 @@ type Props = {
   display?: AlgoDisplay;
 };
 
-const algoSource: [string, string, string] = [
+const algos: [Algorithm, Algorithm, Algorithm] = [
+  Algorithm.DFS, Algorithm.BFS, Algorithm.RecursiveDFS
+];
+
+const algoName: {[key in Algorithm]: string} = {
+  [Algorithm.DFS]: 'dfs',
+  [Algorithm.BFS]: 'bfs',
+  [Algorithm.RecursiveDFS]: 'recursive dfs'
+};
+
+const algoTexts: {[key in Algorithm]: string} ={
+[Algorithm.DFS]: 
+'Depth-first search invovles traversing a path of cells \
+(or nodes) as far as possible until conditions no longer satisfy the \
+search or the target is reached.',
+[Algorithm.BFS]:
+'Breadth-first search traverses cells (or nodes) in layers \
+where each layer is equidistant from the source of the search. \
+Cells in closer proximity to the source will be evaluated first.',
+[Algorithm.RecursiveDFS]: ''
+}
+
+const algoSource: {[key in Algorithm]: string} = {
+[Algorithm.DFS]:
 `function DFS(
   grid: CellGrid, 
   source: CellObj, 
@@ -43,6 +66,7 @@ const algoSource: [string, string, string] = [
 
   return [flags, cells];
 }`,
+[Algorithm.BFS]:
 `function BFS(
   grid: CellGrid, 
   source: CellObj, 
@@ -70,6 +94,7 @@ const algoSource: [string, string, string] = [
 
   return [flags, cells];
 }`,
+[Algorithm.RecursiveDFS]:
 `function recursiveDFS(
   grid: CellGrid, 
   source: CellObj, 
@@ -92,7 +117,7 @@ const algoSource: [string, string, string] = [
   }
   
   return [flags, cells];
-}`];
+}`};
 
 export const Algo = ({ algo, onAlgoChange, display=AlgoDisplay.Text }: Props) => {
   const [algoValue, setAlgoValue] = useState<Algorithm>(algo);
@@ -113,7 +138,27 @@ export const Algo = ({ algo, onAlgoChange, display=AlgoDisplay.Text }: Props) =>
 
   return(
     <Container fluid className={styles.algo}>
-      
+      <SSRProvider>
+        <Dropdown>
+          <Dropdown.Toggle className={styles.algoToggle}>{algoName[algo]}</Dropdown.Toggle>
+          <Dropdown.Menu className={styles.algoMenu}>
+            {algos.map(a => (
+              <Dropdown.Item
+                key={`algo-${a}`}
+                className={styles.algoMenuItem}
+                onClick={(_e) => onNewAlgo(a)}
+              >
+                {algoName[a]}
+              </Dropdown.Item>
+            ))}
+          </Dropdown.Menu>
+        </Dropdown>
+      </SSRProvider>
+      {(display == AlgoDisplay.Text) ?
+        <Container className={styles.algoText}>
+          <p style={{marginBottom: 0}}>{algoTexts[algo]}</p>
+        </Container>
+      : null}
     </Container>
   );
 };

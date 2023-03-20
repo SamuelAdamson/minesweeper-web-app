@@ -1,0 +1,50 @@
+.algo {
+  padding: 0;
+
+
+}
+
+.algoToggle,
+.algoToggle:focus {
+  width: 100%;
+  padding: 0.4rem 1rem;
+
+  background-color: transparent;
+  color: rgba(0,0,0,0.5);
+  border: 2px solid rgba(0,0,0,0.5);
+  border-radius: 0.2rem;
+
+  font-size: large;
+  text-align: start;  
+}
+.algoToggle:active,
+.algoToggle:hover {
+  background-color: rgb(0,0,0);
+  border-color: rgb(0,0,0);
+  color: white;
+}
+
+.algoMenu {
+  width: 100%;
+}
+.algoMenuItem {
+  color: rgba(0,0,0,0.5);
+  font-size: large;
+}
+.algoMenuItem:focus {
+  color: rgb(255,255,255);
+  background-color: rgb(0,0,0);
+}
+
+.algoText {
+  margin-top: 0.5rem;
+  padding: 1rem;
+
+  background-color: rgb(240,240,240);
+  color: rgba(0,0,0,0.5);
+  border: 2px solid rgba(0,0,0,0.5);
+  border-radius: 0.2rem;
+
+  font-size: small;
+  text-align: center;
+}
