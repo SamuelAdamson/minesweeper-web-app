@@ -1,5 +1,26 @@
 import { Mode, CellGrid, CellObj, Uncover, Algorithm } from '../type';
 
+/* Helper get all adjacent cells */
+function getAdjacent(  
+  source: CellObj,
+  nRows: number, 
+  nCols: number, 
+  grid: CellGrid
+): CellObj[] {
+  let adjacent: CellObj[] = [];
+
+  for(let i = Math.max(source.row-1, 0); i <= source.row+1 && i < nRows; i++) {
+    for(let j = Math.max(source.col-1, 0); j <= source.col+1 && j < nCols; j++) {
+      if(i != source.row || j != source.col) {
+        adjacent.push(grid[i][j]);
+      }
+    }
+  }
+
+  return adjacent;
+}
+
+/* Initialize Grid */
 export function createGrid(rows: number, cols: number, mode: Mode): CellGrid {
   let cellGrid: CellGrid = [];
 
@@ -22,26 +43,7 @@ export function createGrid(rows: number, cols: number, mode: Mode): CellGrid {
   return cellGrid;
 }
 
-function getAdjacent(  
-  source: CellObj,
-  nRows: number, 
-  nCols: number, 
-  grid: CellGrid
-): CellObj[] {
-  let adjacent: CellObj[] = [];
-
-  for(let i = Math.max(source.row-1, 0); i <= source.row+1 && i < nRows; i++) {
-    for(let j = Math.max(source.col-1, 0); j <= source.col+1 && j < nCols; j++) {
-      if(i != source.row || j != source.col) {
-        adjacent.push(grid[i][j]);
-      }
-    }
-  }
-
-  return adjacent;
-}
-
-
+/* Place all mines on grid */ 
 export function placeMines(
   nRows: number, 
   nCols: number, 
@@ -64,6 +66,7 @@ export function placeMines(
   }
 }
 
+/* Replace a mine in event of first click failure */ 
 export function replaceMine(
   cell: CellObj,
   nRows: number, 
@@ -75,6 +78,38 @@ export function replaceMine(
     adj.adjMines--;
   }
   cell.mine = false;
+}
+
+/* Place a flag */
+export function placeFlag(
+  cell: CellObj,
+  nRows: number,
+  nCols: number,
+  grid: CellGrid,
+): CellGrid {
+  grid[cell.row][cell.col].flagged = true;
+
+  for(const adj of getAdjacent(cell, nRows, nCols, grid)) {
+    adj.adjFlags++;
+  }
+  
+  return grid;
+}
+
+/* Unplace a flag */
+export function removeFlag(
+  cell: CellObj,
+  nRows: number,
+  nCols: number,
+  grid: CellGrid,
+): CellGrid {
+  grid[cell.row][cell.col].flagged = false;
+
+  for(const adj of getAdjacent(cell, nRows, nCols, grid)) {
+    adj.adjFlags--;
+  }
+
+  return grid;
 }
 
 /**
@@ -129,24 +164,104 @@ class Stack {
   size(): Number { return this.s.length };
 }
 
+/* Uncover a cell (cell is covered) */
 export function uncover(
-  grid: CellGrid, 
+  grid: CellGrid,
   source: CellObj, 
-  rc: number, cc: number, 
+  rc: number,
+  cc: number, 
   flags: number,
   cells: number,
-  algo: Algorithm
+  algo: Algorithm,
 ): Uncover {
+  /* Uncover source */
+  source.covered = false, cells--;
+
+  /* If mine */
+  if(source.mine)
+    return {
+      hitMine: true,
+      remainingFlags: flags,
+      remainingCells: cells,
+      cascades: 0,
+    };
+
+  /* Uncover w/ cascading (regular or shortcut click) */
   if(!source.adjMines) {
-    switch(algo) {
-      case 0: return(DFS(grid, source, rc, cc, flags, cells));
-      case 1: return(BFS(grid, source, rc, cc, flags, cells));
-      case 2: return(recursiveDFS(grid, source, rc, cc, flags, cells));
-    }
+    if(algo == Algorithm.DFS) return(DFS(grid, source, rc, cc, flags, cells));
+    return(BFS(grid, source, rc, cc, flags, cells));
   }
   
-  source.covered = false;
-  return [flags, cells - 1];
+  /* Single uncover (no cascading) */
+  return {
+    hitMine: false,
+    remainingFlags: flags,
+    remainingCells: cells,
+    cascades: 0,
+  };
+}
+
+/* Uncover shortcut (click on covered cell with adequate flags) */
+export function uncoverShortcut(
+  grid: CellGrid,
+  source: CellObj, 
+  rc: number,
+  cc: number, 
+  flags: number,
+  cells: number,
+  algo: Algorithm,
+): Uncover {
+  /* Get adjacent */
+  let adjacents = getAdjacent(source, rc, cc, grid);
+  let toCascade: CellObj[] = [], totalCascades: number = 0;
+
+  /* Iterate over adjacents, check for opportunities to cascade and mines */
+  for(let adj of adjacents) {
+    if(adj.flagged) continue;
+
+    /* Hit a mine */
+    if(adj.mine) {
+      adj.covered = false, cells--;
+      return {
+        hitMine: true,
+        remainingFlags: flags,
+        remainingCells: cells,
+        cascades: 0,
+      };
+    }
+
+    /* Opportunity to cascade */
+    if(adj.adjMines == 0)
+      toCascade.push(adj);
+  }
+
+  /* Perform cascades */
+  toCascade.forEach(newSource => {
+    if(!newSource.covered) return; // If its not covered no need to cascade anymore
+
+    /* Perform cascade */
+    let cascadeResult: Uncover = algo == Algorithm.DFS ?
+      DFS(grid, source, rc, cc, flags, cells) : BFS(grid, source, rc, cc, flags, cells);
+
+    flags = cascadeResult.remainingFlags;
+    cells = cascadeResult.remainingCells;
+    totalCascades += cascadeResult.cascades;
+  });
+
+  /* Finally, ensure all adjacents are uncovered */
+  adjacents.forEach(adj => {
+    if(adj.flagged) return;
+
+    if(adj.covered)
+      adj.covered = false, cells--;
+  });
+
+  return {
+    hitMine: false,
+    remainingCells: cells,
+    remainingFlags: flags,
+    cascades: totalCascades,
+  };
 }
 
 function DFS(
@@ -164,7 +279,7 @@ function DFS(
     
     for(let i = Math.max(0, cell.row - 1); i < (cell.row + 2) && i < rc; i++) {
       for(let j = Math.max(0, cell.col - 1); j < (cell.col + 2) && j < cc; j++) {
-        if(grid[i][j].covered) {
+        if(grid[i][j].covered && !grid[i][j].mine) {
           if(grid[i][j].flagged) grid[i][j].flagged = false, flags++;
           grid[i][j].covered = false, cells--;
           
@@ -174,7 +289,12 @@ function DFS(
     }
   }
 
-  return [flags, cells];
+  return {
+    hitMine: false,
+    remainingFlags: flags,
+    remainingCells: cells,
+    cascades: 1,
+  };
 }
 
 function BFS(
@@ -192,7 +312,7 @@ function BFS(
     
     for(let i = Math.max(0, cell.row - 1); i < (cell.row + 2) && i < rc; i++) {
       for(let j = Math.max(0, cell.col - 1); j < (cell.col + 2) && j < cc; j++) {
-        if(grid[i][j].covered) {
+        if(grid[i][j].covered && !grid[i][j].mine) {
           if(grid[i][j].flagged) grid[i][j].flagged = false, flags++;
           grid[i][j].covered = false, cells--;
           
@@ -202,29 +322,10 @@ function BFS(
     }
   }
 
-  return [flags, cells];
-}
-
-function recursiveDFS(
-  grid: CellGrid, 
-  source: CellObj, 
-  rc: number, 
-  cc: number, 
-  flags: number, 
-  cells: number
-): Uncover {
-  if(source.flagged) source.flagged = false, flags++;
-  source.covered = false, cells--;
-
-  if(!source.adjMines) {
-    for(let i = Math.max(0, source.row - 1); i < (source.row + 2) && i < rc; i++) {
-      for(let j = Math.max(0, source.col - 1); j < (source.col + 2) && j < cc; j++) {
-        if(grid[i][j].covered) {
-          [flags, cells] = recursiveDFS(grid, grid[i][j], rc, cc, flags, cells)
-        }
-      }
-    }
-  }
-  
-  return [flags, cells];
+  return {
+    hitMine: false,
+    remainingFlags: flags,
+    remainingCells: cells,
+    cascades: 1,
+  };
 }

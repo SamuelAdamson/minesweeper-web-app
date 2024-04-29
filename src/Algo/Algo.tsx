@@ -1,7 +1,6 @@
-import { useState, MouseEvent } from 'react';
+import { useState } from 'react';
 import { Container, Dropdown, SSRProvider } from 'react-bootstrap';
 import { Algorithm } from '../Game/components/type';
-import cx from 'classnames';
 import styles from './Algo.module.css';
 
 enum AlgoDisplay {
@@ -15,14 +14,13 @@ type Props = {
   display?: AlgoDisplay;
 };
 
-const algos: [Algorithm, Algorithm, Algorithm] = [
-  Algorithm.DFS, Algorithm.BFS, Algorithm.RecursiveDFS
+const algos: [Algorithm, Algorithm] = [
+  Algorithm.DFS, Algorithm.BFS
 ];
 
 const algoName: {[key in Algorithm]: string} = {
   [Algorithm.DFS]: 'dfs',
   [Algorithm.BFS]: 'bfs',
-  [Algorithm.RecursiveDFS]: 'recursive dfs'
 };
 
 const algoTexts: {[key in Algorithm]: string} ={
@@ -34,7 +32,6 @@ search or the target is reached.',
 'Breadth-first search traverses cells (or nodes) in layers \
 where each layer is equidistant from the source of the search. \
 Cells in closer proximity to the source will be evaluated first.',
-[Algorithm.RecursiveDFS]: ''
 }
 
 const algoSource: {[key in Algorithm]: string} = {
@@ -94,30 +91,7 @@ const algoSource: {[key in Algorithm]: string} = {
 
   return [flags, cells];
 }`,
-[Algorithm.RecursiveDFS]:
-`function recursiveDFS(
-  grid: CellGrid, 
-  source: CellObj, 
-  rc: number, 
-  cc: number, 
-  flags: number, 
-  cells: number
-): Uncover {
-  if(source.flagged) source.flagged = false, flags++;
-  source.covered = false, cells--;
-
-  if(!source.adjMines) {
-    for(let i = Math.max(0, source.row - 1); i < (source.row + 2) && i < rc; i++) {
-      for(let j = Math.max(0, source.col - 1); j < (source.col + 2) && j < cc; j++) {
-        if(grid[i][j].covered) {
-          [flags, cells] = recursiveDFS(grid, grid[i][j], rc, cc, flags, cells)
-        }
-      }
-    }
-  }
-  
-  return [flags, cells];
-}`};
+};
 
 export const Algo = ({ algo, onAlgoChange, display=AlgoDisplay.Text }: Props) => {
   const [algoValue, setAlgoValue] = useState<Algorithm>(algo);

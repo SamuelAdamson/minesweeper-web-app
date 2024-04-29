@@ -3,7 +3,12 @@ import { Container, Row } from 'react-bootstrap';
 import { BarLoader } from 'react-spinners'
 import { Cell } from '..';
 import { Mode, CellGrid, CellObj, Uncover, Algorithm, Dimension } from '../type';
-import { createGrid, placeMines, replaceMine, uncover } from './helper';
+import {
+  createGrid,
+  placeMines, replaceMine,
+  uncover, uncoverShortcut, 
+  placeFlag, removeFlag, 
+} from './helper';
 import styles from './Grid.module.css';
 import cx from 'classnames';
 
@@ -76,44 +81,50 @@ export const Grid = ({ mode, paused, resetFlag, onLoadComplete, onGameEnd, algo 
       if(cell.mine) replaceMine(cell, dim[0], dim[1], grid);
     }
 
+    /* Case when cell is uncovered AND not correct number of flags */
+    if(!cell.covered && cell.adjFlags != cell.adjMines) {
+      return; // Do nothing
+    }
+
     // make a shallow copy of the current state of the grid
     let ng = [...grid];
+    let uncoverResult: Uncover;
 
-    if(cell.mine) {
-      ng[cell.row][cell.col].covered = false;
-      
-      // game loss
+    /* Make uncover operations */
+    if(cell.covered) // Cell is covered
+      uncoverResult = uncover(ng, cell, dim[0], dim[1], flagCnt, cellCnt, algo);
+    else  // Cell not covered (use shortcut methods)
+      uncoverResult = uncoverShortcut(ng, cell, dim[0], dim[1], flagCnt, cellCnt, algo);
+
+    /* Set remaining flag and cell count */
+    setFlagCnt(uncoverResult.remainingFlags);
+    setCellCnt(uncoverResult.remainingCells);
+
+    /* Check if loss */
+    if(uncoverResult.hitMine) {
       setGameOver(true);
-      onGameEnd(false);
-    }
-    else {
-      let result: Uncover = uncover(ng, cell, dim[0], dim[1], flagCnt, cellCnt, algo);
-    
-      if(!result[1]) { 
-        setGameOver(true);
-        onGameEnd(true);
-      }
-      else {
-        setFlagCnt(result[0]);
-        setCellCnt(result[1]);
-      }
+      onGameEnd(false); // loss
     }
 
+    /* Check game win (no more mines) */
+    if(uncoverResult.remainingCells == 0) {
+      setGameOver(true);
+      onGameEnd(true);
+    }
+    
+    /* Set new grid */
     setGrid(ng);
   }
 
   const cellRightClicked = (cell: CellObj) => { 
+    // If cell is not flagged (Place flag)
     if(!cell.flagged && flagCnt < mineCount[mode]) {
-      let ng = [...grid];
-      ng[cell.row][cell.col].flagged = true;
-
+      let ng = placeFlag(cell, dim[0], dim[1], grid);
       setFlagCnt((flagCnt) => flagCnt + 1);
       setGrid(ng);
     }
-    else if(cell.flagged) {
-      let ng = [...grid];
-      ng[cell.row][cell.col].flagged = false;
-
+    else if(cell.flagged) { // Cell is flagged (Remove flag)
+      let ng = removeFlag(cell, dim[0], dim[1], grid);
       setFlagCnt((flagCnt) => flagCnt - 1);
       setGrid(ng);
     }

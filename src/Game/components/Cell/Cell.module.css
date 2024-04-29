@@ -51,11 +51,12 @@
   background-color: rgba(137, 148, 153, 0.9);
 }
 .cell.uncovered {
-  pointer-events: none;
-  cursor: default;
+  cursor: pointer;
 }
 .cell.uncovered.zero {
   background-color: rgba(137, 148, 153, 0.45);
+  pointer-events: none;
+  cursor: default;
 }
 .cell.uncovered.one {
   /* One Adjacent */

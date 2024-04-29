@@ -1,11 +1,16 @@
 export type Mode = 'easy' | 'medium' | 'hard';
 export type AdjacentStr = 'zero' | 'one' | 'two' | 'three' | 'fourplus';
-export type Uncover = [number, number];
+
+export type Uncover = {
+  hitMine: boolean,         // Did uncover result in hit mine
+  remainingFlags: number,   // Remaining flags after uncover
+  remainingCells: number,   // Remaining cells after uncover
+  cascades: number,         // Number of cascade searches made (Could be more than one in shortcut uncovers)
+};
 
 export enum Algorithm {
   DFS,
-  BFS,
-  RecursiveDFS
+  BFS
 };
 
 export type CellObj = {

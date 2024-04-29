@@ -19,8 +19,7 @@ export const Cell = ({ cell, mode, paused, gameOver, onClick, onRightClick }: Pr
   const [style, setStyle] = useState<string>(cx(styles.cell, styles.covered));
 
   const handleClick = (_e: MouseEvent<HTMLElement>) => {
-    if(!gameOver && cell.covered && !cell.flagged) onClick(cell);
-    
+    if(!gameOver && !paused && !cell.flagged) onClick(cell);
   };
 
   const handleRightClick = (e: MouseEvent<HTMLElement>) => {
