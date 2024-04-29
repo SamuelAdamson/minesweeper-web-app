@@ -1,6 +1,6 @@
 import { Mode, CellGrid, CellObj, Uncover, Algorithm } from '../type';
 
-export function createGrid(rows: Number, cols: Number, mode: Mode): CellGrid {
+export function createGrid(rows: number, cols: number, mode: Mode): CellGrid {
   let cellGrid: CellGrid = [];
 
   for (let i = 0; i < rows; i++) {
@@ -12,6 +12,7 @@ export function createGrid(rows: Number, cols: Number, mode: Mode): CellGrid {
         key: i * 100 + j,
         mine: false,
         adjMines: 0,
+        adjFlags: 0,
         covered: true,
         flagged: false,
       };
@@ -45,7 +46,7 @@ export function placeMines(
   nRows: number, 
   nCols: number, 
   grid: CellGrid, 
-  numMines: Number
+  numMines: number
 ): void {
   let row = Math.floor(Math.random() * nRows);
   let col = Math.floor(Math.random() * nCols);

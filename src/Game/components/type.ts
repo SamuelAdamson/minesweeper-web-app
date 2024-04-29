@@ -14,6 +14,7 @@ export type CellObj = {
   key: number;
   mine: Boolean;
   adjMines: number;
+  adjFlags: number;
   covered: Boolean;
   flagged: Boolean;
 };

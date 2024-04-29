@@ -44,7 +44,7 @@ const About: NextPage = () => {
           and will be uncovered.
         </p>
         <div className="aboutImgContainer">
-          <Image src={Layer1} alt="layer1" height={656} width={498} className="aboutImg" />
+          <Image src={Layer1} alt="layer1" width={0} height={0} sizes="" />
         </div>
         <p>
           Now our definition of <i>nearby</i> cells does not stop here. Let&apos;s
@@ -56,7 +56,7 @@ const About: NextPage = () => {
           uncovered.
         </p>
         <div className="aboutImgContainer">
-          <Image src={Layer2} alt="layer2" height={656} width={498} className="aboutImg" />
+          <Image src={Layer2} alt="layer2" width={0} height={0} className="aboutImg" unoptimized />
         </div>
         <p>
           From this point forward, our search for <i>nearby</i> cells becomes
@@ -84,7 +84,7 @@ const About: NextPage = () => {
           and one column to the left.
         </p>
         <div className="aboutImgContainer">
-          <Image src={DFS} alt="dfs" height={632} width={498} className="aboutImg" />
+          <Image src={DFS} alt="dfs" className="aboutImg" width={0} height={0} unoptimized />
         </div>
         <p>
           The key data structure involved in DFS is the <strong>stack</strong>. The stack is a <strong>last in, first out (LIFO) </strong> 
@@ -142,7 +142,7 @@ const About: NextPage = () => {
           cells directly adjacent to the second layer, etc.
         </p>
         <div className="aboutImgContainer">
-          <Image src={BFS} alt="bfs" height={632} width={498} className="aboutImg" />
+          <Image src={BFS} alt="bfs" width={0} height={0} className="aboutImg" unoptimized />
         </div>
         <p>
           Similar to the use of a stack data structure in DFS, BFS relies on a <strong>queue</strong> data structure. 
@@ -211,11 +211,8 @@ const About: NextPage = () => {
 
       <AboutSection heading="the developer">
         <p>
-          My name is Samuel Adamson. I am a undergraduate Computer Science
-          student at the University of Colorado with a focus in AI. For the most
-          part, my professional experience has centered around full stack
-          engineering and data engineering/analysis. As my career progresses, I
-          hope to shift my focus towards machine learning engineering. In my
+          My name is Samuel Adamson. I am a recent Computer Science graduate with a 
+          focus in cloud infrastructure engineering. In my
           freetime, I enjoy building web apps like this one. Feel free to check
           out my <a href="https://samueladamson.github.io/">portfolio</a>.
         </p>

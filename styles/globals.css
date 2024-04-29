@@ -50,6 +50,11 @@ body {
   margin-top: 1vw;
   margin-bottom: calc(1rem + 1vw);
 }
+.aboutImg {
+  width: 70vw;
+  max-width: 480px;
+  height: auto;
+}
 .about a {
   color: rgba(0, 0, 0, 0.7);
 }

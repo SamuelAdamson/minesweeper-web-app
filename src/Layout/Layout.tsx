@@ -3,8 +3,8 @@ import { Navbar, Nav, Container } from 'react-bootstrap';
 import Image from 'next/image';
 import styles from './Layout.module.css';
 import {
-  Grid as ToggleIcon,
-  ArrowUpRight as ArrowIcon,
+  ListNested as ToggleIcon,
+  ArrowUp as ArrowIcon,
 } from 'react-bootstrap-icons';
 import {
   GitHub as GitHubIcon,
@@ -22,7 +22,7 @@ export const Layout = ({ children }: Props) => {
   return (
     <div className={styles.layout}>
       <Container>
-        <Navbar expand="sm" className={styles.navBar}>
+        <Navbar expand="md" className={styles.navBar}>
           <Navbar.Toggle
             className={styles.toggle}
             data-bs-toggle="collapse"
@@ -30,7 +30,7 @@ export const Layout = ({ children }: Props) => {
             aria-controls="navbarSupportedContent"
             aria-expanded="false"
           >
-            <ToggleIcon />
+            <ToggleIcon height={28} width={36} />
           </Navbar.Toggle>
           <Navbar.Collapse>
             <Nav as="ul" className="me-auto">
@@ -56,9 +56,9 @@ export const Layout = ({ children }: Props) => {
               </Nav.Item>
             </Nav>
             <Nav>
-              <Nav.Item className={styles.navItemExt}>
+              <Nav.Item>
                 <Nav.Link
-                  className={styles.navLinkExt}
+                  className={styles.navLink}
                   href="https://samueladamson.github.io"
                 >
                   creator
@@ -78,7 +78,6 @@ export const Layout = ({ children }: Props) => {
               className={styles.footLink}
             >
               <Image
-                layout="intrinsic"
                 className={styles.grow}
                 src={LinkedInIcon}
                 height={40}
