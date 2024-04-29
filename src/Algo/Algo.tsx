@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Container, Dropdown, SSRProvider } from 'react-bootstrap';
+import { Container, ButtonGroup, ToggleButton } from 'react-bootstrap';
 import { Algorithm } from '../Game/components/type';
 import styles from './Algo.module.css';
 
@@ -22,17 +22,6 @@ const algoName: {[key in Algorithm]: string} = {
   [Algorithm.DFS]: 'dfs',
   [Algorithm.BFS]: 'bfs',
 };
-
-const algoTexts: {[key in Algorithm]: string} ={
-[Algorithm.DFS]: 
-'Depth-first search invovles traversing a path of cells \
-(or nodes) as far as possible until conditions no longer satisfy the \
-search or the target is reached.',
-[Algorithm.BFS]:
-'Breadth-first search traverses cells (or nodes) in layers \
-where each layer is equidistant from the source of the search. \
-Cells in closer proximity to the source will be evaluated first.',
-}
 
 const algoSource: {[key in Algorithm]: string} = {
 [Algorithm.DFS]:
@@ -93,7 +82,7 @@ const algoSource: {[key in Algorithm]: string} = {
 }`,
 };
 
-export const Algo = ({ algo, onAlgoChange, display=AlgoDisplay.Text }: Props) => {
+export const Algo = ({ algo, onAlgoChange }: Props) => {
   const [algoValue, setAlgoValue] = useState<Algorithm>(algo);
 
   const onNewAlgo = (algorithm: Algorithm) => {
@@ -101,38 +90,24 @@ export const Algo = ({ algo, onAlgoChange, display=AlgoDisplay.Text }: Props) =>
     setAlgoValue(algorithm);
   };
 
-  /* New plan here
-  
-    Create a drop down accordion for this componenet (Only vertical configuration, no longer full and non-full)
-    Two different options for algo -- Performance and Text
-
-    Performance shows a small graph with live updating performance metrics for the last 5 runs of the algorithm
-    Text gives a short description with an option to copy and paste the source code (source code is not displayed)
-  */
-
   return(
     <Container fluid className={styles.algo}>
-      <SSRProvider>
-        <Dropdown>
-          <Dropdown.Toggle className={styles.algoToggle}>{algoName[algo]}</Dropdown.Toggle>
-          <Dropdown.Menu className={styles.algoMenu}>
-            {algos.map(a => (
-              <Dropdown.Item
-                key={`algo-${a}`}
-                className={styles.algoMenuItem}
-                onClick={(_e) => onNewAlgo(a)}
-              >
-                {algoName[a]}
-              </Dropdown.Item>
-            ))}
-          </Dropdown.Menu>
-        </Dropdown>
-      </SSRProvider>
-      {(display == AlgoDisplay.Text) ?
-        <Container className={styles.algoText}>
-          <p style={{marginBottom: 0}}>{algoTexts[algo]}</p>
-        </Container>
-      : null}
+      <ButtonGroup className={styles.algoButtonGroup} aria-label="algorithm-select-group">
+        {algos.map((a: Algorithm, idx: Number) => (
+          <ToggleButton
+            className={styles.algoButton}
+            key={`algorithm-${idx}`}
+            id={`algorithm-${idx}`}
+            type="radio"
+            name="mode-radio"
+            value={a}
+            checked={a == algoValue}
+            onClick={(e) => onNewAlgo(a)}
+          >
+            {algoName[a]}
+          </ToggleButton>
+        ))}
+      </ButtonGroup>
     </Container>
   );
 };

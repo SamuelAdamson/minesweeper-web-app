@@ -1,50 +1,31 @@
 .algo {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
   padding: 0;
-
-
 }
 
-.algoToggle,
-.algoToggle:focus {
+.algoButtonGroup {
+  display: flex;
+  flex-direction: column;
   width: 100%;
-  padding: 0.4rem 1rem;
+}
 
+.algoButton {
+  border-radius: 0.3rem !important;
+  margin: 0 0 0.5rem 0 !important;
+  border-width: 2px !important;
+  border-color: rgba(0,0,0,0.5);
+
+  cursor: pointer;
+  width: 100%;
   background-color: transparent;
   color: rgba(0,0,0,0.5);
-  border: 2px solid rgba(0,0,0,0.5);
-  border-radius: 0.2rem;
-
-  font-size: large;
-  text-align: start;  
+  font-size: larger;
+  transition: all ease 0.4s !important;
 }
-.algoToggle:active,
-.algoToggle:hover {
-  background-color: rgb(0,0,0);
+.algoButton:hover {
+  background-color: transparent;
+  color: rgb(0,0,0);
   border-color: rgb(0,0,0);
-  color: white;
-}
-
-.algoMenu {
-  width: 100%;
-}
-.algoMenuItem {
-  color: rgba(0,0,0,0.5);
-  font-size: large;
-}
-.algoMenuItem:focus {
-  color: rgb(255,255,255);
-  background-color: rgb(0,0,0);
-}
-
-.algoText {
-  margin-top: 0.5rem;
-  padding: 1rem;
-
-  background-color: rgb(240,240,240);
-  color: rgba(0,0,0,0.5);
-  border: 2px solid rgba(0,0,0,0.5);
-  border-radius: 0.2rem;
-
-  font-size: small;
-  text-align: center;
 }
