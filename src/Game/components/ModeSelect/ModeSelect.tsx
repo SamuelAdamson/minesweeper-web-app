@@ -23,7 +23,7 @@ export const ModeSelect = ({ mode, onModeChange }: Props) => {
 
   return (
     <Container fluid className={styles.ModeSelect}>
-      <ButtonGroup aria-label="mode-select-group">
+      <ButtonGroup id="mode-select-group" aria-label="mode-select-group">
         {modes.map((m: Mode, idx: Number) => (
           <ToggleButton
             className={styles.ModeButton}

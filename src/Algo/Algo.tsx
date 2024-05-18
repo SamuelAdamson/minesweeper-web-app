@@ -92,14 +92,14 @@ export const Algo = ({ algo, onAlgoChange }: Props) => {
 
   return(
     <Container fluid className={styles.algo}>
-      <ButtonGroup className={styles.algoButtonGroup} aria-label="algorithm-select-group">
+      <ButtonGroup className={styles.algoButtonGroup} id="algorithm-select-group" aria-label="algorithm-select-group">
         {algos.map((a: Algorithm, idx: Number) => (
           <ToggleButton
             className={styles.algoButton}
             key={`algorithm-${idx}`}
             id={`algorithm-${idx}`}
             type="radio"
-            name="mode-radio"
+            name="algo-radio"
             value={a}
             checked={a == algoValue}
             onClick={(e) => onNewAlgo(a)}

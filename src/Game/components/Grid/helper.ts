@@ -1,4 +1,4 @@
-import { Mode, CellGrid, CellObj, Uncover, Algorithm } from '../type';
+import { Mode, CellGrid, CellObj, Uncover, Algorithm, CascadeResult } from '../type';
 
 /* Helper get all adjacent cells */
 function getAdjacent(  
@@ -174,6 +174,16 @@ export function uncover(
   cells: number,
   algo: Algorithm,
 ): Uncover {
+  /* Set cascade function */
+  let cascadeFunction: (
+    grid: CellGrid, 
+    source: CellObj, 
+    rc: number, 
+    cc: number, 
+    flags: number, 
+    cells: number
+  ) => CascadeResult = (algo == Algorithm.DFS) ? DFS : BFS;
+  
   /* Uncover source */
   source.covered = false, cells--;
 
@@ -184,12 +194,20 @@ export function uncover(
       remainingFlags: flags,
       remainingCells: cells,
       cascades: 0,
+      cascadeTimes: [],
     };
 
-  /* Uncover w/ cascading (regular or shortcut click) */
+  /* Uncover w/ a cascade involved */
   if(!source.adjMines) {
-    if(algo == Algorithm.DFS) return(DFS(grid, source, rc, cc, flags, cells));
-    return(BFS(grid, source, rc, cc, flags, cells));
+    let cascadeResult: CascadeResult = cascadeFunction(grid, source, rc, cc, flags, cells);
+
+    return {
+      hitMine: false,
+      remainingFlags: cascadeResult.remainingFlags,
+      remainingCells: cascadeResult.remainingCells,
+      cascades: 1,
+      cascadeTimes: [cascadeResult.cascadeTime],
+    }
   }
   
   /* Single uncover (no cascading) */
@@ -198,6 +216,7 @@ export function uncover(
     remainingFlags: flags,
     remainingCells: cells,
     cascades: 0,
+    cascadeTimes: [],
   };
 }
 
@@ -211,9 +230,22 @@ export function uncoverShortcut(
   cells: number,
   algo: Algorithm,
 ): Uncover {
+  /* Set cascade function */
+  let cascadeFunction: (
+    grid: CellGrid, 
+    source: CellObj, 
+    rc: number, 
+    cc: number, 
+    flags: number, 
+    cells: number
+  ) => CascadeResult = (algo == Algorithm.DFS) ? DFS : BFS;
+
   /* Get adjacent */
   let adjacents = getAdjacent(source, rc, cc, grid);
-  let toCascade: CellObj[] = [], totalCascades: number = 0;
+  let toCascade: CellObj[] = [];
+
+  // Store result of cascades
+  let totalCascades: number = 0, cascadeTimes: number[] = [];
 
   /* Iterate over adjacents, check for opportunities to cascade and mines */
   for(let adj of adjacents) {
@@ -227,6 +259,7 @@ export function uncoverShortcut(
         remainingFlags: flags,
         remainingCells: cells,
         cascades: 0,
+        cascadeTimes: [],
       };
     }
 
@@ -240,12 +273,13 @@ export function uncoverShortcut(
     if(!newSource.covered) return; // If its not covered no need to cascade anymore
 
     /* Perform cascade */
-    let cascadeResult: Uncover = algo == Algorithm.DFS ?
-      DFS(grid, source, rc, cc, flags, cells) : BFS(grid, source, rc, cc, flags, cells);
+    let cascadeResult: CascadeResult = cascadeFunction(grid, source, rc, cc, flags, cells);
 
     flags = cascadeResult.remainingFlags;
     cells = cascadeResult.remainingCells;
-    totalCascades += cascadeResult.cascades;
+
+    totalCascades++;
+    cascadeTimes.push(cascadeResult.cascadeTime);
   });
 
   /* Finally, ensure all adjacents are uncovered */
@@ -261,6 +295,7 @@ export function uncoverShortcut(
     remainingCells: cells,
     remainingFlags: flags,
     cascades: totalCascades,
+    cascadeTimes: cascadeTimes,
   };
 }
 
@@ -271,7 +306,10 @@ function DFS(
   cc: number, 
   flags: number, 
   cells: number
-): Uncover {
+): CascadeResult {
+  /* Start timer */
+  const start = performance.now();
+
   const stack: Stack = new Stack(source);
 
   while(stack.size()) {
@@ -289,11 +327,15 @@ function DFS(
     }
   }
 
+  /* Stop timer */
+  const stop = performance.now();
+
+  console.log(`${start} ${stop}`)
+
   return {
-    hitMine: false,
     remainingFlags: flags,
     remainingCells: cells,
-    cascades: 1,
+    cascadeTime: stop - start,
   };
 }
 
@@ -304,7 +346,10 @@ function BFS(
   cc: number, 
   flags: number, 
   cells: number
-): Uncover {
+): CascadeResult {
+  /* Start timer */
+  const start = performance.now();
+
   const queue: Queue = new Queue(source);
 
   while(queue.size()) {
@@ -322,10 +367,12 @@ function BFS(
     }
   }
 
+  /* Stop timer */
+  const stop = performance.now();
+
   return {
-    hitMine: false,
     remainingFlags: flags,
     remainingCells: cells,
-    cascades: 1,
+    cascadeTime: stop - start,
   };
 }

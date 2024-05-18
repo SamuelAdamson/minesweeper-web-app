@@ -46,9 +46,9 @@ const gridSizes: GridSizes = {
 };
 
 const mineCount: MineCount = {
-  easy: 10,
-  medium: 30,
-  hard: 50
+  easy: 8,
+  medium: 24,
+  hard: 36
 };
 
 function getGridWrapperStyle(mode: Mode) : string {
@@ -95,6 +95,9 @@ export const Grid = ({ mode, paused, resetFlag, onLoadComplete, onGameEnd, algo 
       uncoverResult = uncover(ng, cell, dim[0], dim[1], flagCnt, cellCnt, algo);
     else  // Cell not covered (use shortcut methods)
       uncoverResult = uncoverShortcut(ng, cell, dim[0], dim[1], flagCnt, cellCnt, algo);
+
+    // DEBUG
+    console.log(uncoverResult.cascadeTimes);
 
     /* Set remaining flag and cell count */
     setFlagCnt(uncoverResult.remainingFlags);
