@@ -6,10 +6,11 @@ import styles from './Game.module.css';
 
 type Props = {
   algo: Algorithm;
+  onCascade: Function;
 }
 
-export const Game = ({ algo }: Props) => {
-  const [gameMode, setGameMode] = useState<Mode>('easy');
+export const Game = ({ algo, onCascade }: Props) => {
+  const [gameMode, setGameMode] = useState<Mode>('small');
   const [paused, setPaused] = useState<Boolean>(false);
   const [loaded, setLoaded] = useState<Boolean>(true);
   const [gameOver, setGameOver] = useState<Boolean>(false);
@@ -86,6 +87,7 @@ export const Game = ({ algo }: Props) => {
         paused={paused}
         resetFlag={resetFlag}
         onLoadComplete={loadComplete}
+        onCascade={onCascade}
         onGameEnd={gameEnd}
         algo={algo}
       />

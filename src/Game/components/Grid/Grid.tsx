@@ -19,19 +19,20 @@ type Props = {
   resetFlag: Boolean;
   onLoadComplete: Function;
   onGameEnd: Function;
+  onCascade: Function;
   algo: Algorithm;
 };
 
 type GridSizes = {
-  easy: Dimension;
+  small: Dimension;
   medium: Dimension;
-  hard: Dimension;
+  large: Dimension;
 };
 
 type MineCount = {
-  easy: number;
+  small: number;
   medium: number;
-  hard: number;
+  large: number;
 };
 
 const loaderOverride: CSSProperties = {
@@ -40,25 +41,25 @@ const loaderOverride: CSSProperties = {
 }
 
 const gridSizes: GridSizes = {
-  easy: [8, 12],
+  small: [8, 12],
   medium: [12, 16],
-  hard: [16, 20],
+  large: [16, 20],
 };
 
 const mineCount: MineCount = {
-  easy: 8,
+  small: 8,
   medium: 24,
-  hard: 36
+  large: 36
 };
 
 function getGridWrapperStyle(mode: Mode) : string {
-  let style: string = (mode == 'easy') ? styles.gridWrapperEasy 
+  let style: string = (mode == 'small') ? styles.gridWrapperEasy 
       : (mode == 'medium') ? styles.gridWrapperMedium : styles.gridWrapperHard;
 
   return cx(styles.gridWrapper, style);
 }
 
-export const Grid = ({ mode, paused, resetFlag, onLoadComplete, onGameEnd, algo }: Props) => {
+export const Grid = ({ mode, paused, resetFlag, onLoadComplete, onCascade, onGameEnd, algo }: Props) => {
   const [firstClick, setFirstClick] = useState<Boolean>(true);
   const [gameOver, setGameOver] = useState<Boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
@@ -96,8 +97,9 @@ export const Grid = ({ mode, paused, resetFlag, onLoadComplete, onGameEnd, algo 
     else  // Cell not covered (use shortcut methods)
       uncoverResult = uncoverShortcut(ng, cell, dim[0], dim[1], flagCnt, cellCnt, algo);
 
-    // DEBUG
-    console.log(uncoverResult.cascadeTimes);
+    /* Call on cascade logic */
+    if(uncoverResult.cascades > 0)
+      onCascade(uncoverResult.cascades, uncoverResult.cascadeTimes);
 
     /* Set remaining flag and cell count */
     setFlagCnt(uncoverResult.remainingFlags);

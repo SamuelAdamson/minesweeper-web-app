@@ -21,8 +21,8 @@ export function getStyle(
     gameOver: Boolean
 ) : string 
 {
-  let modeStyle: String = (mode == 'easy') ? styles.cellEasy 
-      : (mode == 'medium') ? styles.cellMedium : styles.cellHard;
+  let modeStyle: String = (mode == 'small') ? styles.cellSmall 
+      : (mode == 'medium') ? styles.cellMedium : styles.cellLarge;
   
   let style = paused
     ? cx(styles.paused) : covered

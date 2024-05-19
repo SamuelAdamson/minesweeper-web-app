@@ -1,4 +1,4 @@
-export type Mode = 'easy' | 'medium' | 'hard';
+export type Mode = 'small' | 'medium' | 'large';
 export type AdjacentStr = 'zero' | 'one' | 'two' | 'three' | 'fourplus';
 
 /* Result of cascade specifically */
@@ -16,6 +16,12 @@ export type Uncover = {
   cascades: number,         // Number of cascade searches made (Could be more than one in shortcut uncovers)
   cascadeTimes: number[],   // Casecade run times (milliseconds)
 };
+
+/* Cascade type used in onCascade calls */
+export type Cascade = {
+  count: number,
+  times: number[],
+}
 
 export enum Algorithm {
   DFS,

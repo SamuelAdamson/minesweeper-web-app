@@ -330,8 +330,6 @@ function DFS(
   /* Stop timer */
   const stop = performance.now();
 
-  console.log(`${start} ${stop}`)
-
   return {
     remainingFlags: flags,
     remainingCells: cells,

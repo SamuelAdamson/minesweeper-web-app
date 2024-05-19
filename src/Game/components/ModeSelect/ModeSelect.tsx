@@ -12,7 +12,7 @@ type Props = {
   onModeChange: Function;
 };
 
-const modes: Array<Mode> = ['easy', 'medium', 'hard'];
+const modes: Array<Mode> = ['small', 'medium', 'large'];
 
 export const ModeSelect = ({ mode, onModeChange }: Props) => {
   const [modeValue, setModeValue] = useState<Mode>(mode);

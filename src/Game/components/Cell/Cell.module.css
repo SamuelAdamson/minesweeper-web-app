@@ -10,18 +10,18 @@
   margin: 0.15vmax;
 }
 
-.cellEasy {
-  /* Cell mode easy */
+.cellSmall {
+  /* Cell mode small */
   height: 3vmax;
   width: 3vmax;
 }
 .cellMedium {
-  /* Cell mode easy */
+  /* Cell mode medium */
   height: 2.5vmax;
   width: 2.5vmax;
 }
-.cellHard {
-  /* Cell mode easy */
+.cellLarge {
+  /* Cell mode large */
   height: 2vmax;
   width: 2vmax;
 }
@@ -95,18 +95,18 @@
     margin: 0.22vmax;
   }
 
-  .cellEasy {
-    /* Cell mode easy -- small screen */
+  .cellSmall {
+    /* Cell mode small -- small screen */
     height: 4vmax;
     width: 4vmax;
   }
   .cellMedium {
-    /* Cell mode easy -- small screen */
+    /* Cell mode medium -- small screen */
     height: 3vmax;
     width: 3vmax;
   }
-  .cellHard {
-    /* Cell mode easy -- small screen */
+  .cellLarge {
+    /* Cell mode large -- small screen */
     height: 4.5vmin;
     width: 4.5vmin;
   }

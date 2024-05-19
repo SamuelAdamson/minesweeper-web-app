@@ -21,14 +21,14 @@ const About: NextPage = () => {
           mine. Note however, that the number of flags placed on the board will not 
           impact the game end conditions. All safe cells must be uncovered in order to 
           achieve a successful outcome. 
-          Different difficulty modes offer different board dimensions and 
+          Different modes of play offer different board dimensions and 
           number of mines. This implementation includes the following minesweeper 
           modes:
         </p>
         <ul className="bullets">
-          <li>Easy - 8 x 12 with 10 mines</li>
-          <li>Medium - 12 x 16 with 30 mines</li>
-          <li>Hard - 16 x 20 with 50 mines</li>
+          <li>Small - 8 x 12 with 8 mines</li>
+          <li>Medium - 12 x 16 with 24 mines</li>
+          <li>Large - 16 x 20 with 36 mines</li>
         </ul>
       </AboutSection>
       <AboutSection heading="the algorithm">
@@ -195,8 +195,8 @@ const About: NextPage = () => {
         <p>
           So, which search is the most optimal for minesweeper? It
           turns out that the performance of both algorithms in this situation
-          are fairly similar. At first glance, the performance seems even
-          identical. When analyzing the algorithms, both approaches yield a{' '}
+          are fairly similar. At first glance, the discrete time complexity of both
+          algorithms seems identical. When analyzing the algorithms, both approaches yield a{' '}
           <strong>linear time complexity</strong> as each cell which will be
           uncovered must only be visited once. However, there is more to the
           story here.
@@ -213,8 +213,8 @@ const About: NextPage = () => {
         <p>
           My name is Samuel Adamson. I am a recent Computer Science graduate with a 
           focus in cloud infrastructure engineering. In my
-          freetime, I enjoy building web apps like this one. Feel free to check
-          out my <a href="https://samueladamson.github.io/">portfolio</a>.
+          freetime, I enjoy competitive programming and building mediocre projects like this one. 
+          Feel free to check out my <a href="https://samueladamson.github.io/">portfolio</a>.
         </p>
       </AboutSection>
     </>
