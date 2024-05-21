@@ -2,7 +2,7 @@ import { useEffect, useState, CSSProperties } from 'react';
 import { Container, Row } from 'react-bootstrap';
 import { BarLoader } from 'react-spinners'
 import { Cell } from '..';
-import { Mode, CellGrid, CellObj, Uncover, Algorithm, Dimension } from '../type';
+import { Mode, CellGrid, CellObj, Uncover, Algorithm, Dimension, Cascade } from '../type';
 import {
   createGrid,
   placeMines, replaceMine,
@@ -98,8 +98,12 @@ export const Grid = ({ mode, paused, resetFlag, onLoadComplete, onCascade, onGam
       uncoverResult = uncoverShortcut(ng, cell, dim[0], dim[1], flagCnt, cellCnt, algo);
 
     /* Call on cascade logic */
-    if(uncoverResult.cascades > 0)
-      onCascade(uncoverResult.cascades, uncoverResult.cascadeTimes);
+    if(uncoverResult.cascades > 0) {
+      onCascade(new Object({
+        count: uncoverResult.cascades, 
+        times: uncoverResult.cascadeTimes
+      }));
+    }
 
     /* Set remaining flag and cell count */
     setFlagCnt(uncoverResult.remainingFlags);

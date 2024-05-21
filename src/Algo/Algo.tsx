@@ -5,6 +5,7 @@ import styles from './Algo.module.css';
 
 type Props = {
   algo: Algorithm;
+  resetFlag: Boolean;
   newCascade: Cascade | null;
   onAlgoChange: Function;
 };
@@ -18,7 +19,7 @@ const algoNames: {[key in Algorithm]: string} = {
   [Algorithm.BFS]: 'bfs',
 };
 
-export const Algo = ({ algo, newCascade, onAlgoChange }: Props) => {
+export const Algo = ({ algo, resetFlag, newCascade, onAlgoChange }: Props) => {
   const [messages, setMessages] = useState<JSX.Element[]>([]);
   const [messageIndex, setMessageIndex] = useState<number>(0);
   const messageAnchor = useRef<HTMLDivElement>(null);
@@ -51,14 +52,40 @@ export const Algo = ({ algo, newCascade, onAlgoChange }: Props) => {
 
   /* Add new cascade message to message box */
   useEffect(() => {
-    if(!newCascade) return; // Ignore null messages (initial render)
+    if(!newCascade) return;
+    const algoName = algoNames[algo].toLocaleUpperCase();
 
-    
+    console.log(newCascade);
+
+    newCascade.times.forEach((time) => {
+      if(time == 0) {
+        addToMessages(
+          <>A cascade occurred using <span className={styles.highlight}>{algoName}</span>, 
+          but its execution time was immeasurable in the browser.</>
+        );
+      }
+      else {
+        addToMessages(
+          <>A cascade executed in <span className={styles.highlight}>{time.toFixed(2)} ms</span> using 
+          <span className={styles.highlight}> {algoName}</span>.</>
+        );
+      }
+    });
 
   }, [newCascade]);
 
   /* Scroll to bottom when new message is added */
   useEffect(() => scrollToBottom(), [messages]);
+
+  /* Reset */
+  useEffect(() => {
+    setMessages([]);
+    const algoName = algoNames[algo].toLocaleUpperCase();
+
+    addToMessages(
+      <>Cascade algorithm set to <span className={styles.highlight}>{algoName}</span>.</>
+    );
+  }, [resetFlag]);
 
   return(
     <Container fluid className={styles.algo}>
