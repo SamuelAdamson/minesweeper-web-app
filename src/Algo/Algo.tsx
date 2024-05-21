@@ -1,12 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { Container, ButtonGroup, ToggleButton } from 'react-bootstrap';
 import { Algorithm, Cascade } from '../Game/components/type';
 import styles from './Algo.module.css';
-
-enum AlgoDisplay {
-  Performance,
-  Text
-}
 
 type Props = {
   algo: Algorithm;
@@ -24,9 +19,15 @@ const algoNames: {[key in Algorithm]: string} = {
 };
 
 export const Algo = ({ algo, newCascade, onAlgoChange }: Props) => {
-  const onNewAlgo = (algorithm: Algorithm) => { onAlgoChange(algorithm); };
   const [messages, setMessages] = useState<JSX.Element[]>([]);
   const [messageIndex, setMessageIndex] = useState<number>(0);
+  const messageAnchor = useRef<HTMLDivElement>(null);
+
+  const onNewAlgo = (algorithm: Algorithm) => 
+    onAlgoChange(algorithm);
+
+  const scrollToBottom = () => 
+    messageAnchor.current?.scrollIntoView({ block: 'end', behavior: 'smooth' });
 
   const addToMessages = (newMessage: JSX.Element) => {
     const indexedNewMessage: JSX.Element = <p key={`message-${messageIndex}`}>{newMessage}</p>;
@@ -56,6 +57,9 @@ export const Algo = ({ algo, newCascade, onAlgoChange }: Props) => {
 
   }, [newCascade]);
 
+  /* Scroll to bottom when new message is added */
+  useEffect(() => scrollToBottom(), [messages]);
+
   return(
     <Container fluid className={styles.algo}>
       <ButtonGroup className={styles.algoButtonGroup} id="algorithm-select-group" aria-label="algorithm-select-group">
@@ -77,6 +81,7 @@ export const Algo = ({ algo, newCascade, onAlgoChange }: Props) => {
       
       <div className={styles.messageBox}>
         {messages}
+        <div ref={messageAnchor}></div>
       </div>
 
     </Container>
