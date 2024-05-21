@@ -18,7 +18,7 @@ const About: NextPage = () => {
         </p>
         <p>
           The player is able to flag cells that they believe to be hiding a
-          mine. Note however, that the number of flags placed on the board will not 
+          mine (right click). Note however, that the number of flags placed on the board will not 
           impact the game end conditions. All safe cells must be uncovered in order to 
           achieve a successful outcome. 
           Different modes of play offer different board dimensions and 
@@ -30,12 +30,24 @@ const About: NextPage = () => {
           <li>Medium - 12 x 16 with 24 mines</li>
           <li>Large - 16 x 20 with 36 mines</li>
         </ul>
+        <p>
+          This implementation of minesweeper also includes shortcut clicks. If an uncovered cell has an appropriate 
+          number of flags on adjacent cells, the player can click the uncovered cell and all remaining adjacent unflagged cells 
+          will be uncovered automatically. For example, if an uncovered cell has one adjacent mine (uncovered cell labeled '1') and 
+          exactly one directly adjacent cell is flagged, the player can left click the uncovered cell and all remaining unflagged adjacent 
+          cells will be uncovered. 
+        </p>
+        <p>
+          (I play minesweeper far too much. As a result, I discovered that these shortcut clicks dramatically improve smoothness of the game.)
+        </p>
       </AboutSection>
       <AboutSection heading="the algorithm">
         <p>
-          If the player uncovers a cell which is not adjacent to any mines, all
-          nearby cells will also be automatically uncovered. Let&apos;s define{' '}
-          <i>nearby</i> in this statement.
+          If the player uncovers a cell which is not directly adjacent to any mines, all
+          nearby cells will also be automatically uncovered. This is referred to as a <strong>cascade</strong>. 
+          
+          In order to understand how cascades work, we need to define which cells 
+          qualify as <i>nearby</i>.
         </p>
         <p>
           For the purposes of this description, we will refer to the originally
@@ -47,8 +59,8 @@ const About: NextPage = () => {
           <Image src={Layer1} alt="layer1" width={0} height={0} sizes="" />
         </div>
         <p>
-          Now our definition of <i>nearby</i> cells does not stop here. Let&apos;s
-          consider the case that one of these newly uncovered cells is similar
+          Adjacent cells are NOT the only cells which are uncovered during a cascade. Let&apos;s
+          consider the case that one of these newly uncovered adjacent cells is similar
           to the source in that all of its directly adjacent neighbors are not
           mines. In this case, we can consider this cell to be a{' '}
           <strong>new source</strong> cell. All of the cells directly adjacent
@@ -66,11 +78,11 @@ const About: NextPage = () => {
         </p>
         <p>
           So, let&apos;s recap. In the framing of a divide-and-conquer algorithm, we
-          need to break our problem down into smaller tasks. The first small task in
-          this case is to check that a cell is not adjacent to any mines. If
+          need to break our problem down into smaller tasks. The first small task is 
+          to check that a cell is not adjacent to any mines. If
           this condition is met, we need to traverse each of its directly
           adjacent neighbors and perform the same check for each of those cells.
-          We can choose between two methods to perform this traversal.
+          We can choose between two methods to perform this repetitive traversal.
         </p>
       </AboutSection>
       <AboutSection heading="dfs">
@@ -195,8 +207,8 @@ const About: NextPage = () => {
         <p>
           So, which search is the most optimal for minesweeper? It
           turns out that the performance of both algorithms in this situation
-          are fairly similar. At first glance, the discrete time complexity of both
-          algorithms seems identical. When analyzing the algorithms, both approaches yield a{' '}
+          are fairly similar. At first glance, the qualitative time complexity of both
+          algorithms seem identical. When analyzing the algorithms, both approaches yield a{' '}
           <strong>linear time complexity</strong> as each cell which will be
           uncovered must only be visited once. However, there is more to the
           story here.

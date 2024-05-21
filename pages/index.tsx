@@ -9,9 +9,9 @@ const Home: NextPage = () => {
   const [newCascade, setNewCascade] = useState<Cascade | null>(null);
   const [resetFlag, setResetFlag] = useState<Boolean>(false);
 
-  const algoChange = (newAlgo: Algorithm) => { setAlgo(newAlgo); };
-  const handleCascade = (cascade: Cascade) => { setNewCascade(cascade) }
-  const handleReset = (reset: Boolean) => { setResetFlag(reset) };
+  const algoChange = (newAlgo: Algorithm) => setAlgo(newAlgo);
+  const handleCascade = (cascade: Cascade) => setNewCascade(cascade);
+  const handleReset = (reset: Boolean) => setResetFlag(reset);
 
   return (
     <Container fluid style={{padding: 0}}>
@@ -21,6 +21,11 @@ const Home: NextPage = () => {
         </Col>
         <Col md={12} lg={3} style={{display: 'flex', alignItems: 'center'}}>
           <Algo algo={algo} resetFlag={resetFlag} newCascade={newCascade} onAlgoChange={algoChange} />
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+
         </Col>
       </Row>
       

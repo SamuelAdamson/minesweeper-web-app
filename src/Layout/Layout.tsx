@@ -93,7 +93,7 @@ export const Layout = ({ children }: Props) => {
               />
             </a>
             <a
-              href="https://www.youtube.com/channel/UC4nZnhi_pEXX9mt1G2cZyVA"
+              href="https://www.youtube.com/@giibb"
               className={styles.footLink}
             >
               <Image
