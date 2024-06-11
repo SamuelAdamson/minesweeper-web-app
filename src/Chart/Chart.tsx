@@ -7,7 +7,7 @@ import dynamic from 'next/dynamic';
 const ApexChart = dynamic(() => import('react-apexcharts'), { ssr: false });
 import { Container } from 'react-bootstrap';
 
-import { Algorithm } from '../Game/components/type';
+import { Algorithm } from '../index';
 import { ChartData } from './index';
 import styles from './Chart.module.css';
 

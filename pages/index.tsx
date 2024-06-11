@@ -1,9 +1,7 @@
 import type { NextPage } from 'next';
 import { Container, Row, Col } from 'react-bootstrap';
 import { useState } from 'react';
-import { Game, Algo } from '../src';
-import { Algorithm, Cascade } from '../src/Game/components/type';
-import { ChartData, Chart } from '../src/Chart';
+import { Game, Algo, Algorithm, Cascade, ChartData, Chart } from '../src';
 
 const Home: NextPage = () => {
   const [algo, setAlgo] = useState<Algorithm>(Algorithm.DFS);

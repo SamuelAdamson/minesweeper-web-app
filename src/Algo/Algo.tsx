@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import { Container, ButtonGroup, ToggleButton } from 'react-bootstrap';
-import { Algorithm, Cascade } from '../Game/components/type';
+import { Cascade, Clear, Algorithm } from '../index';
 import styles from './Algo.module.css';
 
 type Props = {
@@ -34,6 +34,15 @@ export const Algo = ({ algo, resetFlag, newCascade, onAlgoChange }: Props) => {
     const indexedNewMessage: JSX.Element = <p key={`message-${messageIndex}`}>{newMessage}</p>;
     setMessageIndex(prevIndex => prevIndex + 1);
     setMessages(prevMessages => [...prevMessages, indexedNewMessage]);
+  }
+
+  const resetMessages = () => {
+    setMessages([]);
+    const algoName = algoNames[algo].toLocaleUpperCase();
+
+    addToMessages(
+      <>Cascade algorithm set to <span className={styles.highlight}>{algoName}</span>.</>
+    );
   }
 
   // DEBUG ONLY
@@ -79,12 +88,7 @@ export const Algo = ({ algo, resetFlag, newCascade, onAlgoChange }: Props) => {
 
   /* Reset */
   useEffect(() => {
-    setMessages([]);
-    const algoName = algoNames[algo].toLocaleUpperCase();
-
-    addToMessages(
-      <>Cascade algorithm set to <span className={styles.highlight}>{algoName}</span>.</>
-    );
+    resetMessages();
   }, [resetFlag]);
 
   return(
@@ -106,9 +110,14 @@ export const Algo = ({ algo, resetFlag, newCascade, onAlgoChange }: Props) => {
         ))}
       </ButtonGroup>
       
-      <div className={styles.messageBox}>
-        {messages}
-        <div ref={messageAnchor}></div>
+      <div className={styles.messageBoxWrapper}>
+        <div className={styles.messageBoxHeader}>
+          <Clear onClear={resetMessages}></Clear>
+        </div>
+        <div className={styles.messageBox}>
+          {messages}
+          <div ref={messageAnchor}></div>
+        </div>
       </div>
 
     </Container>
