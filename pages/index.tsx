@@ -3,15 +3,20 @@ import { Container, Row, Col } from 'react-bootstrap';
 import { useState } from 'react';
 import { Game, Algo } from '../src';
 import { Algorithm, Cascade } from '../src/Game/components/type';
+import { ChartData, Chart } from '../src/Chart';
 
 const Home: NextPage = () => {
   const [algo, setAlgo] = useState<Algorithm>(Algorithm.DFS);
-  const [newCascade, setNewCascade] = useState<Cascade | null>(null);
   const [resetFlag, setResetFlag] = useState<Boolean>(false);
+  const [newCascade, setNewCascade] = useState<Cascade | null>(null);
+  // const [cascadeData, setCascadeData] = useState<ChartData>([]);
 
   const algoChange = (newAlgo: Algorithm) => setAlgo(newAlgo);
-  const handleCascade = (cascade: Cascade) => setNewCascade(cascade);
   const handleReset = (reset: Boolean) => setResetFlag(reset);
+
+  const handleCascade = (cascade: Cascade) => {
+    setNewCascade(cascade);
+  }
 
   return (
     <Container fluid style={{padding: 0}}>
@@ -25,7 +30,9 @@ const Home: NextPage = () => {
       </Row>
       <Row>
         <Col>
+          <Chart data={[]}>
 
+          </Chart>
         </Col>
       </Row>
       

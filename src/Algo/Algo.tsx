@@ -60,8 +60,8 @@ export const Algo = ({ algo, resetFlag, newCascade, onAlgoChange }: Props) => {
     newCascade.times.forEach((time) => {
       if(time == 0) {
         addToMessages(
-          <>A cascade occurred using <span className={styles.highlight}>{algoName}</span>, 
-          but its execution time was immeasurable in the browser.</>
+          <>A cascade executed using <span className={styles.highlight}>{algoName}</span>, 
+          but its execution time was too quick to measure in the browser.</>
         );
       }
       else {
