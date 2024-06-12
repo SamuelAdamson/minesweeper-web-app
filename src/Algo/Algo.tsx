@@ -5,7 +5,6 @@ import styles from './Algo.module.css';
 
 type Props = {
   algo: Algorithm;
-  resetFlag: Boolean;
   newCascade: Cascade | null;
   onAlgoChange: Function;
 };
@@ -19,7 +18,7 @@ const algoNames: {[key in Algorithm]: string} = {
   [Algorithm.BFS]: 'bfs',
 };
 
-export const Algo = ({ algo, resetFlag, newCascade, onAlgoChange }: Props) => {
+export const Algo = ({ algo, newCascade, onAlgoChange }: Props) => {
   const [messages, setMessages] = useState<JSX.Element[]>([]);
   const [messageIndex, setMessageIndex] = useState<number>(0);
   const messageAnchor = useRef<HTMLDivElement>(null);
@@ -85,11 +84,6 @@ export const Algo = ({ algo, resetFlag, newCascade, onAlgoChange }: Props) => {
 
   /* Scroll to bottom when new message is added */
   useEffect(() => scrollToBottom(), [messages]);
-
-  /* Reset */
-  useEffect(() => {
-    resetMessages();
-  }, [resetFlag]);
 
   return(
     <Container fluid className={styles.algo}>

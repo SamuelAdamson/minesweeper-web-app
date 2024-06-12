@@ -2,12 +2,15 @@
 .clearButton:focus {
   padding: 0.25rem;
   width: 100%;
-  border: none;
+  border-radius: 0px;
+  border-color: rgba(0,0,0,0.5);
+  border-width: 0 0 2px 0;
   color: rgba(0,0,0,0.5);
   background-color: transparent;
   transition: all ease 0.3s;
 }
 .clearButton:hover {
   background-color: rgb(0,0,0);
+  border-color: rgba(0,0,0,0.5);
   color: rgb(255,255,255);
 }

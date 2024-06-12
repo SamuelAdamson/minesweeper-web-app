@@ -39,7 +39,7 @@
   background-color: rgba(0,0,0,0.1);
 }
 .messageBoxHeader {
-  padding: 0.3rem 0.5rem;
+  padding: 0.3rem 0.5rem 0 0.5rem;
 }
 .messageBox {
   padding: 0.3rem 0.5rem;

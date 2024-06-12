@@ -10,9 +10,10 @@ const Home: NextPage = () => {
   // const [cascadeData, setCascadeData] = useState<ChartData>([]);
 
   const algoChange = (newAlgo: Algorithm) => setAlgo(newAlgo);
-  const handleReset = (reset: Boolean) => setResetFlag(reset);
 
   const handleCascade = (cascade: Cascade) => {
+    /* TODO update chart data */
+
     setNewCascade(cascade);
   }
 
@@ -20,10 +21,10 @@ const Home: NextPage = () => {
     <Container fluid style={{padding: 0}}>
       <Row>
         <Col md={12} lg={9}>
-          <Game algo={algo} onCascade={handleCascade} onReset={handleReset} />
+          <Game algo={algo} onCascade={handleCascade} />
         </Col>
         <Col md={12} lg={3} style={{display: 'flex', alignItems: 'center'}}>
-          <Algo algo={algo} resetFlag={resetFlag} newCascade={newCascade} onAlgoChange={algoChange} />
+          <Algo algo={algo} newCascade={newCascade} onAlgoChange={algoChange} />
         </Col>
       </Row>
       <Row>
