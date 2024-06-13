@@ -8,26 +8,28 @@
   background-color: rgba(0,0,0,0.1);
 }
 .chartHeader {
-  display: flex;
-  justify-content: space-between;
-  padding: 0.5rem;
+  width: 100%;
+  padding: 0.5rem 0;
   padding-bottom: 0;
   margin-bottom: 1rem;
+  max-width: 280px;
 }
 .chartContainer {
   position: relative;
   display: block;
 }
+.chartSeparator {
+  padding: 0.5rem 0;
+}
+.chartSeparator.top {
+  border-bottom: 2px solid rgba(0,0,0,0.5);
+  margin-bottom: 1rem;
+}
 .chartPlaceholder {
-  height: 350px;
+  height: 200px;
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.clearWrapper {
-  width: 100%;
-  max-width: 280px;
 }
 
 @media (max-width: 992px) {
@@ -35,7 +37,7 @@
     margin: 1rem 0;
   }
 
-  .clearWrapper {
+  .chartHeader {
     max-width: none;
   }
 }
