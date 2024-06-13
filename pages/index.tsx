@@ -1,13 +1,11 @@
 import type { NextPage } from 'next';
 import { Container, Row, Col } from 'react-bootstrap';
 import { useState } from 'react';
-import { Game, Algo, Algorithm, Cascade, ChartData, Chart } from '../src';
+import { Game, Algo, Algorithm, Cascade, Chart } from '../src';
 
 const Home: NextPage = () => {
   const [algo, setAlgo] = useState<Algorithm>(Algorithm.DFS);
-  const [resetFlag, setResetFlag] = useState<Boolean>(false);
   const [newCascade, setNewCascade] = useState<Cascade | null>(null);
-  // const [cascadeData, setCascadeData] = useState<ChartData>([]);
 
   const algoChange = (newAlgo: Algorithm) => setAlgo(newAlgo);
 
@@ -29,7 +27,7 @@ const Home: NextPage = () => {
       </Row>
       <Row>
         <Col>
-          <Chart data={[]}>
+          <Chart newCascade={newCascade}>
 
           </Chart>
         </Col>
