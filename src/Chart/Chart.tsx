@@ -17,17 +17,68 @@ type Props = {
 };
 
 // placeholder for no chart data
-const barEmptyTextBFS: string = 'No available BFS cascade data.';
-const barEmptyTextDFS: string = 'No available DFS cascade data.';
+const emptyTextDFS: string = 'No available DFS cascade data.';
+const emptyTextBFS: string = 'No available BFS cascade data.';
 
 // chart options
-const barChartOptions: ApexCharts.ApexOptions = {
-
+const chartOptions = (title: string, color: string): ApexCharts.ApexOptions => {
+  return {
+    chart: {
+      type: 'area',
+      height: 200,
+      width: '100%',
+      toolbar: {
+        show: false,
+      },
+    },
+    colors: [color],
+    stroke: {
+      curve: 'straight',
+      width: 2,
+    },
+    dataLabels: {
+      enabled: false,
+    },
+    grid: {
+      show: false,
+    },
+    xaxis: {
+      labels: {
+        show: false,
+      },
+    },
+    yaxis: {
+      labels: {
+        show: false,
+      },
+    },
+    markers: {
+      size: 6,
+      shape: 'square',
+      hover: {
+        size: 10,
+      },
+    },
+    title: {
+      text: title,
+      style: {
+        fontSize: '16px',
+        fontFamily: 'Poppins',
+        fontWeight: 'normal',
+        color: 'rgba(0,0,0,0.7)',
+      },
+    },
+    tooltip: {
+      x: {
+        show: false,
+      }
+    }
+  };
 };
 
 export const Chart = ({ newCascade, } : Props) => {
- const [dataDFS, setDataDFS] = useState<ApexNonAxisChartSeries>([]);
- const [dataBFS, setDataBFS] = useState<ApexNonAxisChartSeries>([]);
+ const [dataDFS, setDataDFS] = useState<ApexAxisChartSeries>([]);
+ const [dataBFS, setDataBFS] = useState<ApexAxisChartSeries>([]);
 
   const resetChart = () => {
     setDataDFS([]);
@@ -35,7 +86,8 @@ export const Chart = ({ newCascade, } : Props) => {
   }
   
   useEffect(() => {
-    
+    setDataDFS([ { name: 'DFS', data: [0.4] } ]);
+    setDataBFS([ { name: 'BFS', data: [1.0, 0.8, 1.0] } ]);
   }, [newCascade]);
 
   return (
@@ -48,13 +100,13 @@ export const Chart = ({ newCascade, } : Props) => {
           {
             dataDFS.length == 0 ?
               <div className={styles.chartPlaceholder}>
-                <p>{barEmptyTextDFS}</p>
+                <p>{emptyTextDFS}</p>
               </div>
             :
               <ApexChart
-                options={barChartOptions}
+                options={chartOptions('DFS Cascade Runtimes', '#274E13')}
                 series={dataDFS}
-                type="bar"
+                type="area"
                 height={200}
                 width={'100%'}
               />
@@ -64,13 +116,13 @@ export const Chart = ({ newCascade, } : Props) => {
           {
             dataBFS.length == 0 ?
               <div className={styles.chartPlaceholder}>
-                <p>{barEmptyTextBFS}</p>
+                <p>{emptyTextBFS}</p>
               </div>
             :
               <ApexChart
-                options={barChartOptions}
+                options={chartOptions('DFS Cascade Runtimes', '#3B719F')}
                 series={dataBFS}
-                type="bar"
+                type="area"
                 height={200}
                 width={'100%'}
               />
