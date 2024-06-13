@@ -14,55 +14,100 @@ type Props = {
   newCascade: Cascade | null;
 };
 
+type ChartType = 'bar' | 'radial';
+
+type RadialChartData = ApexNonAxisChartSeries;
+
+type BarChartData = {
+  [Algorithm.DFS]: ApexNonAxisChartSeries;
+  [Algorithm.BFS]: ApexNonAxisChartSeries;
+}
+
 // placeholder for no chart data
-const emptyText: string = 'No available cascade data.';
+const radialEmptyText: string = 'No available cascade data.';
+const barEmptyTextBFS: string = 'No available BFS cascade data.';
+const barEmptyTextDFS: string = 'No available DFS cascade data.';
 
 // chart options
-const chartOptions: ApexCharts.ApexOptions = {
+const radialChartOptions: ApexCharts.ApexOptions = {
   chart: {
-    type: 'area',
+    type: 'radialBar',
     height: 350,
     width: '100%',
+    toolbar: {
+      show: false,
+    },
   },
-  stroke: {
-    curve: 'smooth',
-  }
+  dataLabels: {
+    enabled: false
+  },
+  labels: [
+    'DFS',
+    'BFS'
+  ],
+  legend: {
+    show: true,
+    position: 'top',
+    horizontalAlign: 'left',
+    fontSize: '16px',
+    fontFamily: 'Poppins'
+  },
+  plotOptions: {
+    radialBar: {
+      offsetY: 0,
+      startAngle: 0,
+      endAngle: 270,
+      hollow: {
+        margin: 5,
+        size: '30%',
+        background: 'transparent',
+        image: undefined,
+      },
+      barLabels: {
+        enabled: true,
+        useSeriesColors: true,
+        margin: 12,
+        fontSize: '16px',
+        fontFamily: 'Poppins',
+      },
+    }
+  },
+};
+
+const barChartOptions: ApexCharts.ApexOptions = {
+
 };
 
 export const Chart = ({ newCascade, } : Props) => {
-  const [data, setData] = useState<ApexAxisChartSeries>([]);
-  
-  const resetChart = () =>
-    setData([]);
+  const [chartType, setChartType] = useState<ChartType>('bar');
+  const [barChartData, setBarChartData] = useState<BarChartData>({ [Algorithm.DFS]: [], [Algorithm.BFS]: [], });
+  const [radialChartData, setRadialChartData] = useState<RadialChartData>([]);
+
+  const resetChart = () => {
+    setBarChartData({ [Algorithm.DFS]: [], [Algorithm.BFS]: [], });
+    setRadialChartData([]);
+  }
   
   useEffect(() => {
-    // setData([]);
-    /* DEBUG */
-    setData([
-      { name: 'DFS', data: [0.1, 0.2, 1.0] },
-      { name: 'BFS', data: [0.3, 2.0, 0.2] },
-    ])
+    /* TODO */
   }, [newCascade]);
 
   return (
     <Container fluid className={styles.chart}>
-      <div className={styles.clearWrapper}>
-        <Clear onClear={resetChart}/>
+      <div className={styles.chartHeader}>
+        <div className={styles.clearWrapper}><Clear onClear={resetChart}/></div>
+        <div>
+
+        </div>
       </div>
       <div className={styles.chartContainer}>
         {
-          data.length == 0 ?
-            <div className={styles.chartPlaceholder}>
-              <p>{emptyText}</p>
+          chartType == 'bar' ?
+            <div>
+
             </div>
           :
-            <ApexChart
-              options={chartOptions}
-              series={data}
-              type="area"
-              height={350}
-              width={'100%'}
-            />
+            <div></div>
         }
       </div>
     </Container>
