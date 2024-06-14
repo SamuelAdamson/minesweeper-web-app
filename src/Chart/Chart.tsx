@@ -17,77 +17,78 @@ type Props = {
 };
 
 // placeholder for no chart data
-const emptyTextDFS: string = 'No available DFS cascade data.';
-const emptyTextBFS: string = 'No available BFS cascade data.';
+const emptyText: string = 'No available cascade data. Play minesweeper and cascade data will populate in a diagram here.';
 
 // chart options
-const chartOptions = (title: string, color: string): ApexCharts.ApexOptions => {
-  return {
-    chart: {
-      type: 'area',
-      height: 200,
-      width: '100%',
-      toolbar: {
-        show: false,
-      },
-    },
-    colors: [color],
-    stroke: {
-      curve: 'straight',
-      width: 2,
-    },
-    dataLabels: {
-      enabled: false,
-    },
-    grid: {
+const chartOptions: ApexCharts.ApexOptions = {
+  chart: {
+    height: 360,
+    width: '100%',
+    type: 'treemap',
+    toolbar: {
       show: false,
     },
-    xaxis: {
-      labels: {
-        show: false,
-      },
+  },
+  legend: {
+    show: true,
+    position: 'top',
+    horizontalAlign: 'right',
+    fontSize: '16px',
+    fontFamily: 'Poppins',
+    fontWeight: 'normal',
+  },
+  stroke: {
+    width: 4,
+    colors: ['#E9E9E9'],
+  },
+  xaxis: {
+    labels: {
+      show: false,
     },
-    yaxis: {
-      labels: {
-        show: false,
-      },
+    axisBorder: {
+      show: false,
     },
-    markers: {
-      size: 6,
-      shape: 'square',
-      hover: {
-        size: 10,
-      },
+    axisTicks: {
+      show: false,
     },
-    title: {
-      text: title,
-      style: {
-        fontSize: '16px',
-        fontFamily: 'Poppins',
-        fontWeight: 'normal',
-        color: 'rgba(0,0,0,0.7)',
-      },
+  },
+  yaxis: {
+    labels: {
+      show: false,
     },
-    tooltip: {
-      x: {
-        show: false,
-      }
-    }
-  };
+    axisBorder: {
+      show: false,
+    },
+    axisTicks: {
+      show: false,
+    },
+  },
 };
 
+
+
 export const Chart = ({ newCascade, } : Props) => {
- const [dataDFS, setDataDFS] = useState<ApexAxisChartSeries>([]);
- const [dataBFS, setDataBFS] = useState<ApexAxisChartSeries>([]);
+ const [data, setData] = useState<ApexAxisChartSeries>([]);
 
   const resetChart = () => {
-    setDataDFS([]);
-    setDataBFS([]);
+    setData([]);
   }
   
   useEffect(() => {
-    setDataDFS([ { name: 'DFS', data: [0.4] } ]);
-    setDataBFS([ { name: 'BFS', data: [1.0, 0.8, 1.0] } ]);
+    setData([
+      {
+        name: 'DFS',
+        data: [
+          { x: 'DFS (0.2 ms)', y: 0.2 },
+        ]
+      },
+      {
+        name: 'BFS',
+        data: [
+          { x: 'BFS', y: 0.3 },
+        ]
+      },
+    ])
   }, [newCascade]);
 
   return (
@@ -96,38 +97,20 @@ export const Chart = ({ newCascade, } : Props) => {
         <Clear onClear={resetChart} />
       </div>
       <div className={styles.chartContainer}>
-        <div className={cx(styles.chartSeparator, styles.top)}>
-          {
-            dataDFS.length == 0 ?
-              <div className={styles.chartPlaceholder}>
-                <p>{emptyTextDFS}</p>
-              </div>
-            :
-              <ApexChart
-                options={chartOptions('DFS Cascade Runtimes', '#274E13')}
-                series={dataDFS}
-                type="area"
-                height={200}
-                width={'100%'}
-              />
-          }
-        </div>
-        <div className={styles.chartSeparator}>
-          {
-            dataBFS.length == 0 ?
-              <div className={styles.chartPlaceholder}>
-                <p>{emptyTextBFS}</p>
-              </div>
-            :
-              <ApexChart
-                options={chartOptions('DFS Cascade Runtimes', '#3B719F')}
-                series={dataBFS}
-                type="area"
-                height={200}
-                width={'100%'}
-              />
-          }
-        </div>
+        {
+          data.length == 0 ?
+            <div className={styles.chartPlaceholder}>
+              <p>{emptyText}</p>
+            </div>
+          :
+            <ApexChart
+              options={chartOptions}
+              series={data}
+              type="treemap"
+              height={360}
+              width={'100%'}
+            />
+        }
       </div>
     </Container>
   );

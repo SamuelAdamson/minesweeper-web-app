@@ -5,7 +5,7 @@
   margin: 2.5rem 0;
   border-radius: 5px;
   border: solid 2px rgba(0,0,0,0.5);
-  background-color: rgba(0,0,0,0.1);
+  background-color: rgb(233,233,233);
 }
 .chartHeader {
   width: 100%;
@@ -17,19 +17,14 @@
 .chartContainer {
   position: relative;
   display: block;
-}
-.chartSeparator {
-  padding: 0.5rem 0;
-}
-.chartSeparator.top {
-  border-bottom: 2px solid rgba(0,0,0,0.5);
-  margin-bottom: 1rem;
+  padding: 0 1rem;
 }
 .chartPlaceholder {
-  height: 233px;
+  height: 375px;
   display: flex;
   justify-content: center;
   align-items: center;
+  text-align: center;
   color: rgba(0,0,0,0.7);
 }
 

@@ -36,7 +36,7 @@
   margin: 2rem 0 1rem 0;
   border-radius: 5px;
   border: solid 2px rgba(0,0,0,0.5);
-  background-color: rgba(0,0,0,0.1);
+  background-color: rgb(233,233,233);
 }
 .messageBoxHeader {
   padding: 0.5rem;
