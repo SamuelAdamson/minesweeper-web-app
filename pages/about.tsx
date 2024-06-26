@@ -41,7 +41,7 @@ const About: NextPage = () => {
           (I play minesweeper far too much. As a result, I discovered that these shortcut clicks dramatically improve smoothness of the game.)
         </p>
       </AboutSection>
-      <AboutSection heading="the algorithm">
+      <AboutSection heading="the cascades">
         <p>
           If the player uncovers a cell which is not directly adjacent to any mines, all
           nearby cells will also be automatically uncovered. This is referred to as a <strong>cascade</strong>. 
@@ -224,9 +224,7 @@ const About: NextPage = () => {
       <AboutSection heading="the developer">
         <p>
           My name is Samuel Adamson. I am a recent Computer Science graduate with a 
-          focus in cloud infrastructure engineering. In my
-          freetime, I enjoy competitive programming and building mediocre projects like this one. 
-          Feel free to check out my <a href="https://samueladamson.github.io/">portfolio</a>.
+          focus in cloud infrastructure engineering. <a href="https://samueladamson.github.io/">My portfolio</a>.
         </p>
       </AboutSection>
     </>
