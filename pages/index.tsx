@@ -27,9 +27,7 @@ const Home: NextPage = () => {
       </Row>
       <Row>
         <Col>
-          <Chart newCascade={newCascade}>
-
-          </Chart>
+          <Chart newCascade={newCascade} algo={algo} ></Chart>
         </Col>
       </Row>
       

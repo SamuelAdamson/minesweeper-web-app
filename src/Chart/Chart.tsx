@@ -6,7 +6,6 @@ import { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 const ApexChart = dynamic(() => import('react-apexcharts'), { ssr: false });
 import { Container } from 'react-bootstrap';
-import cx from 'classnames';
 
 import { Algorithm, Cascade, Clear } from '../index';
 import styles from './Chart.module.css';
@@ -14,6 +13,7 @@ import styles from './Chart.module.css';
 
 type Props = {
   newCascade: Cascade | null;
+  algo: Algorithm,
 };
 
 // placeholder for no chart data
@@ -67,28 +67,68 @@ const chartOptions: ApexCharts.ApexOptions = {
 
 
 
-export const Chart = ({ newCascade, } : Props) => {
- const [data, setData] = useState<ApexAxisChartSeries>([]);
+export const Chart = ({ newCascade, algo, } : Props) => {
+ const [data, setData] = useState<{ name: string, data: { x: string, y: number, }[] }[]>([]);
 
   const resetChart = () => {
     setData([]);
   }
-  
+
+  /**
+   * [
+    * {
+          name: 'DFS',
+          data: [
+            { x: 'DFS (0.2 ms)', y: 0.2 },
+          ]
+        },
+        {
+          name: 'BFS',
+          data: [
+            { x: 'BFS', y: 0.3 },
+          ]
+        },
+      ]
+   */
+
   useEffect(() => {
-    setData([
-      {
-        name: 'DFS',
-        data: [
-          { x: 'DFS (0.2 ms)', y: 0.2 },
-        ]
-      },
-      {
-        name: 'BFS',
-        data: [
-          { x: 'BFS', y: 0.3 },
-        ]
-      },
-    ])
+    if(!newCascade) return;
+
+    const algoName = algo == Algorithm.DFS ? 'DFS' : 'BFS';
+    const newSeriesData = newCascade.times.map(time => {
+      return {
+        x: `${algoName} (${time.toFixed(2)})`,
+        y: Math.round((time + Number.EPSILON) * 100) / 100,
+      }
+    })
+
+    setData((prevData) => {
+      let currAlgoExists = false;
+
+      let newData = prevData.map(series => {
+        if(series.name == algoName) {
+          currAlgoExists = true;
+
+          return {
+            name: algoName,
+            data: [
+              ...series.data,
+              ...newSeriesData,
+            ],
+          }
+        }
+
+        return series;
+      });
+
+      if(currAlgoExists)
+        return newData;
+
+      return [...newData, {
+        name: algoName,
+        data: newSeriesData,
+      }];
+    });
   }, [newCascade]);
 
   return (
