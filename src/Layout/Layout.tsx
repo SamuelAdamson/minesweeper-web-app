@@ -40,11 +40,6 @@ export const Layout = ({ children }: Props) => {
                 </Nav.Link>
               </Nav.Item>
               <Nav.Item as="li">
-                <Nav.Link className={styles.navLink} href="/performance">
-                  performance
-                </Nav.Link>
-              </Nav.Item>
-              <Nav.Item as="li">
                 <Nav.Link className={styles.navLink} href="/about">
                   about
                 </Nav.Link>

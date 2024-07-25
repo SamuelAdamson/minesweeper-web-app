@@ -111,12 +111,3 @@ class Queue {
   size(): Number { return (this.head - this.q.length) };
 }
 ```
-
-
-## Comparison
-
-So, which search is the most optimal for minesweeper? It turns out that the performance of both algorithms in this situation are fairly similar. At first glance, the qualitative time complexity of both algorithms seem identical. When analyzing the algorithms, both approaches yield a __linear time complexity__ as each cell which will be uncovered must only be visited once. However, there is more to the story here.
-
-TODO -- Emperical Analysis Summary
-
-
