@@ -1,10 +1,6 @@
 # Minesweeper - Web Based Implementation
-### (Link Soon)
 
-This repository includes the source code for a react-based implementation of the classic puzzle game, _minesweeper_, alongside a summary of performance comparison between depth-first search (DFS) and breadth-first search (BFS) in randomized simulated games.
-
-For full performance comparison see __(Link Soon)__
-
+This repository includes the source code for a react-based implementation of the classic puzzle game, _minesweeper_, with a focus on the implementation of algorithms used during the _cascade_ functionality. On the gameplay screen, there is a chart displaying measurements of different cascades in real time. The measurements are captured in the browser as the user plays the game.
 
 ## The Game
 
