@@ -203,24 +203,6 @@ const About: NextPage = () => {
         />
       </AboutSection>
 
-      <AboutSection heading="comparison">
-        <p>
-          So, which search is the most optimal for minesweeper? It
-          turns out that the performance of both algorithms in this situation
-          are fairly similar. At first glance, the qualitative time complexity of both
-          algorithms seem identical. When analyzing the algorithms, both approaches yield a{' '}
-          <strong>linear time complexity</strong> as each cell which will be
-          uncovered must only be visited once. However, there is more to the
-          story here.
-        </p>
-        <p>
-          To better understand the performance of <strong>BFS</strong> and{' '}
-          <strong>DFS</strong> in the context of minesweeper, I conducted
-          empirical analysis on the two implementations. See the findings of the
-          analysis <a href="/performance">here</a> .
-        </p>
-      </AboutSection>
-
       <AboutSection heading="the developer">
         <p>
           My name is Samuel Adamson. I am a recent Computer Science graduate with a 
