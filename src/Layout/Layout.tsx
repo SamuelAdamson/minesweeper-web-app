@@ -9,8 +9,6 @@ import {
 import {
   GitHub as GitHubIcon,
   LinkedIn as LinkedInIcon,
-  Youtube as YoutubeIcon,
-  Instagram as InstagramIcon,
   Outlook as OutlookIcon,
 } from '../../img';
 
@@ -85,31 +83,6 @@ export const Layout = ({ children }: Props) => {
                 height={40}
                 width={40}
                 alt="gh"
-              />
-            </a>
-            <a
-              href="https://www.youtube.com/@giibb"
-              className={styles.footLink}
-            >
-              <Image
-                className={styles.grow}
-                src={YoutubeIcon}
-                height={40}
-                width={40}
-                alt="yt"
-              />
-            </a>
-
-            <a
-              href="https://www.instagram.com/giibb4"
-              className={styles.footLink}
-            >
-              <Image
-                className={styles.grow}
-                src={InstagramIcon}
-                height={40}
-                width={40}
-                alt="ig"
               />
             </a>
             <a href="mailto:sadamson@uccs.edu" className={styles.footLink}>

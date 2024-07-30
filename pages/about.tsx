@@ -206,7 +206,7 @@ const About: NextPage = () => {
       <AboutSection heading="the developer">
         <p>
           My name is Samuel Adamson. I am a recent Computer Science graduate with a 
-          focus in cloud infrastructure engineering. <a href="https://samueladamson.github.io/">My portfolio</a>.
+          focus in cloud infrastructure engineering.
         </p>
       </AboutSection>
     </>
